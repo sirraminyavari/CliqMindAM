@@ -32,7 +32,7 @@ paths:
         description: "add transaction object"
         required: true
         schema:
-          $ref: "#/definitions/Transaction"
+          $ref: "#/definitions/AddTransactionRequest"
       responses:
         "200":
           description: "successful transaction added"
@@ -41,10 +41,10 @@ paths:
         "400":
           description: "Invalid request format "
         "401":
-          description: "Invalid credential"
+          description: "Authorization error"
   
   /transaction/rollback:
-    post:
+    patch:
       tags:
       - "transaction"
       summary: "Rollback Transaction"
@@ -58,17 +58,712 @@ paths:
         description: "rollback transaction object"
         required: true
         schema:
-          $ref: "#/definitions/RollbackTransaction"
+          $ref: "#/definitions/RollbackTransactionRequest"
       responses:
         "200":
-          description: "successful transaction added"
+          description: "successful transaction rollbacked"
           schema:
             $ref: "#/definitions/ResponseMessage"
         "400":
           description: "Invalid request format "
         "401":
-          description: "Invalid credential"
+          description: "Authorization error"
   
+  /transaction/get:
+    get:
+      tags:
+      - "transaction"
+      summary: "Get Transactions"
+      description: "This can only be done by the unknown user."
+      operationId: "getTransactions"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "get transaction objects"
+        required: true
+        schema:
+          $ref: "#/definitions/GetTransactionsRequest"
+      responses:
+        "200":
+          description: "successful transactions returned"
+          schema:
+            $ref: "#/definitions/Transactions"
+        "400":
+          description: "Invalid request format "
+        "401":
+          description: "Authorization error"
+  
+  /credit/balance/get:
+    get:
+      tags:
+      - "credit"
+      summary: "Get Credit Balance"
+      description: "This can only be done by the unknown user."
+      operationId: "getCreditBalance"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "get credit balance"
+        required: true
+        schema:
+          $ref: "#/definitions/GetCreditBalanceRequest"
+      responses:
+        "200":
+          description: "successful credet balance returned"
+          schema:
+            $ref: "#/definitions/GetCreditBalanceResponse"
+        "400":
+          description: "Invalid request format "
+        "401":
+          description: "Authorization error"
+
+  /credit/transfer:
+    patch:
+      tags:
+      - "credit"
+      summary: "Transfer Credit"
+      description: "This can only be done by the unknown user."
+      operationId: "transferBalance"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "transfer credit"
+        required: true
+        schema:
+          $ref: "#/definitions/TransferCreditRequest"
+      responses:
+        "200":
+          description: "successful credit transfered"
+          schema:
+            $ref: "#/definitions/Transaction"
+        "400":
+          description: "Invalid request format "
+        "401":
+          description: "Authorization error"
+
+  /feature/add:
+    post:
+      tags:
+      - "feature"
+      summary: "Add Feature"
+      description: "This can only be done by the unknown user."
+      operationId: "addFeature"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "add feature"
+        required: true
+        schema:
+          $ref: "#/definitions/AddFeatureRequest"
+      responses:
+        "200":
+          description: "successful feature added"
+          schema:
+            $ref: "#/definitions/Feature"
+        "400":
+          description: "Invalid request format "
+        "401":
+          description: "Authorization error"
+
+  /feature/edit:
+    put:
+      tags:
+      - "feature"
+      summary: "Edit Feature"
+      description: "This can only be done by the unknown user."
+      operationId: "editFeature"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "edit feature"
+        required: true
+        schema:
+          $ref: "#/definitions/EditFeatureRequest"
+      responses:
+        "200":
+          description: "successful feature edition"
+          schema:
+            $ref: "#/definitions/ResponseMessage"
+        "400":
+          description: "Invalid request format "
+        "401":
+          description: "Authorization error"
+  
+  /feature/activate:
+    patch:
+      tags:
+      - "feature"
+      summary: "Activate Feature"
+      description: "This can only be done by the unknown user."
+      operationId: "activateFeature"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "activate feature"
+        required: true
+        schema:
+          $ref: "#/definitions/ActivateFeatureRequest"
+      responses:
+        "200":
+          description: "successful feature activated"
+          schema:
+            $ref: "#/definitions/ResponseMessage"
+        "400":
+          description: "Invalid request format "
+        "401":
+          description: "Authorization error"
+  
+  /feature/deactivate:
+    patch:
+      tags:
+      - "feature"
+      summary: "Deactivate Feature"
+      description: "This can only be done by the unknown user."
+      operationId: "deactivateFeature"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "deactivate feature"
+        required: true
+        schema:
+          $ref: "#/definitions/DeactivateFeatureRequest"
+      responses:
+        "200":
+          description: "successful feature deactivated"
+          schema:
+            $ref: "#/definitions/ResponseMessage"
+        "400":
+          description: "Invalid request format "
+        "401":
+          description: "Authorization error"
+
+  /feature/get:
+    get:
+      tags:
+      - "feature"
+      summary: "Get Features"
+      description: "This can only be done by the unknown user."
+      operationId: "getFeatures"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "get features"
+        required: true
+        schema:
+          $ref: "#/definitions/GetFeaturesRequest"
+      responses:
+        "200":
+          description: "successful features returned"
+          schema:
+            $ref: "#/definitions/GetFeaturesResponse"
+        "400":
+          description: "Invalid request format "
+        "401":
+          description: "Authorization error"
+          
+  /feature/active/get:
+    get:
+      tags:
+      - "feature"
+      summary: "Get Active Features"
+      description: "This can only be done by the unknown user."
+      operationId: "getActiveFeatures"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "get active features"
+        required: true
+        schema:
+          $ref: "#/definitions/GetActiveFeaturesRequest"
+      responses:
+        "200":
+          description: "successful active features returned"
+          schema:
+            $ref: "#/definitions/GetActiveFeaturesResponse"
+        "400":
+          description: "Invalid request format "
+        "401":
+          description: "Authorization error"
+
+  /plan/add:
+    post:
+      tags:
+      - "plan"
+      summary: "Add Plan"
+      description: "This can only be done by the unknown user."
+      operationId: "addPlan"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "add plan"
+        required: true
+        schema:
+          $ref: "#/definitions/AddPlanRequest"
+      responses:
+        "200":
+          description: "successful plan added"
+          schema:
+            $ref: "#/definitions/Plan"
+        "400":
+          description: "Invalid request format "
+        "401":
+          description: "Authorization error"
+
+  /plan/edit:
+    put:
+      tags:
+      - "plan"
+      summary: "Edit Plan"
+      description: "This can only be done by the unknown user."
+      operationId: "editPlan"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "edit plan"
+        required: true
+        schema:
+          $ref: "#/definitions/EditPlanRequest"
+      responses:
+        "200":
+          description: "successful plan edition"
+          schema:
+            $ref: "#/definitions/ResponseMessage"
+        "400":
+          description: "Invalid request format "
+        "401":
+          description: "Authorization error"
+
+  /plan/activate:
+    patch:
+      tags:
+      - "plan"
+      summary: "Activate Plan"
+      description: "This can only be done by the unknown user."
+      operationId: "activatePlan"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "activate plan"
+        required: true
+        schema:
+          $ref: "#/definitions/ActivatePlanRequest"
+      responses:
+        "200":
+          description: "successful plan activated"
+          schema:
+            $ref: "#/definitions/ResponseMessage"
+        "400":
+          description: "Invalid request format "
+        "401":
+          description: "Authorization error"
+          
+  /plan/deactivate:
+    patch:
+      tags:
+      - "plan"
+      summary: "Deactivate Plan"
+      description: "This can only be done by the unknown user."
+      operationId: "deactivatePlan"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "deactivate plan"
+        required: true
+        schema:
+          $ref: "#/definitions/DeactivatePlanRequest"
+      responses:
+        "200":
+          description: "successful plan deactivated"
+          schema:
+            $ref: "#/definitions/ResponseMessage"
+        "400":
+          description: "Invalid request format "
+        "401":
+          description: "Authorization error"
+
+  /plan/features/set:
+    put:
+      tags:
+      - "plan"
+      summary: "Set Plan Features"
+      description: "This can only be done by the unknown user."
+      operationId: "setPlanFeatures"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "set plan features"
+        required: true
+        schema:
+          $ref: "#/definitions/SetPlanFeaturesRequest"
+      responses:
+        "200":
+          description: "successful plan features set"
+          schema:
+            $ref: "#/definitions/ResponseMessage"
+        "400":
+          description: "Invalid request format "
+        "401":
+          description: "Authorization error"
+
+  /plan/price/set:
+    put:
+      tags:
+      - "plan"
+      summary: "Set Plan Price"
+      description: "This can only be done by the unknown user."
+      operationId: "setPlanPrice"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "set plan price"
+        required: true
+        schema:
+          $ref: "#/definitions/SetPlanPriceRequest"
+      responses:
+        "200":
+          description: "successful plan price set"
+          schema:
+            $ref: "#/definitions/ResponseMessage"
+        "400":
+          description: "Invalid request format "
+        "401":
+          description: "Authorization error"
+
+  /plan/get:
+    get:
+      tags:
+      - "plan"
+      summary: "Get Plans"
+      description: "This can only be done by the unknown user."
+      operationId: "getPlans"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "get plans"
+        required: true
+        schema:
+          $ref: "#/definitions/GetPlansRequest"
+      responses:
+        "200":
+          description: "successful plans returned"
+          schema:
+            $ref: "#/definitions/GetPlansResponse"
+        "400":
+          description: "Invalid request format "
+        "401":
+          description: "Authorization error"
+
+  /plan/price/calculate:
+    get:
+      tags:
+      - "plan"
+      summary: "Calculate Plan Price"
+      description: "This can only be done by the unknown user."
+      operationId: "calculatePlanPrice"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "calculate plan price"
+        required: true
+        schema:
+          $ref: "#/definitions/CalculatePlanPriceRequest"
+      responses:
+        "200":
+          description: "successful plan price calculated"
+          schema:
+            $ref: "#/definitions/CalculatePlanPriceResponse"
+        "400":
+          description: "Invalid request format "
+        "401":
+          description: "Authorization error"
+
+  /plan/price/renewal/calculate:
+    get:
+      tags:
+      - "plan"
+      summary: "Calculate Plan Renewal Price"
+      description: "This can only be done by the unknown user."
+      operationId: "calculatePlanRenewalPrice"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "calculate plan renewal price"
+        required: true
+        schema:
+          $ref: "#/definitions/CalculatePlanRenewalPriceRequest"
+      responses:
+        "200":
+          description: "successful plan renewal price calculated"
+          schema:
+            $ref: "#/definitions/CalculatePlanRenewalPriceResponse"
+        "400":
+          description: "Invalid request format "
+        "401":
+          description: "Authorization error"
+  
+  /plan/price/upgrade/calculate:
+    get:
+      tags:
+      - "plan"
+      summary: "Calculate Plan Upgrade Price"
+      description: "This can only be done by the unknown user."
+      operationId: "calculatePlanUpgradePrice"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "calculate plan upgrade price"
+        required: true
+        schema:
+          $ref: "#/definitions/CalculatePlanUpgradeRequest"
+      responses:
+        "200":
+          description: "successful plan upgrade price calculated"
+          schema:
+            $ref: "#/definitions/Transaction"
+        "400":
+          description: "Invalid request format "
+        "401":
+          description: "Authorization error"
+          
+  /plan/buy:
+    patch:
+      tags:
+      - "plan"
+      summary: "Buy Plan"
+      description: "This can only be done by the unknown user."
+      operationId: "buyPlan"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "buy plan"
+        required: true
+        schema:
+          $ref: "#/definitions/BuyPlanRequest"
+      responses:
+        "200":
+          description: "successful plan bought"
+          schema:
+            $ref: "#/definitions/Transaction"
+        "400":
+          description: "Invalid request format "
+        "401":
+          description: "Authorization error"
+
+  /plan/renew:
+    patch:
+      tags:
+      - "plan"
+      summary: "Renew Plans"
+      description: "This can only be done by the unknown user."
+      operationId: "renewPlans"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "renew plans"
+        required: true
+        schema:
+          $ref: "#/definitions/RenewPlansRequest"
+      responses:
+        "200":
+          description: "successful plans renewed"
+          schema:
+            $ref: "#/definitions/Transaction"
+        "400":
+          description: "Invalid request format "
+        "401":
+          description: "Authorization error"
+
+  /plan/upgrade:
+    patch:
+      tags:
+      - "plan"
+      summary: "Upgrade Plans"
+      description: "This can only be done by the unknown user."
+      operationId: "upgradePlan"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "upgrade plan"
+        required: true
+        schema:
+          $ref: "#/definitions/UpradePlanRequest"
+      responses:
+        "200":
+          description: "successful plan upgraded"
+          schema:
+            $ref: "#/definitions/Transaction"
+        "400":
+          description: "Invalid request format "
+        "401":
+          description: "Authorization error"
+  
+  /plan/history/activation:
+    get:
+      tags:
+      - "plan"
+      summary: "Get Plan Activation History"
+      description: "This can only be done by the unknown user."
+      operationId: "getPlanActivationHistory"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "get plan activation history"
+        required: true
+        schema:
+          $ref: "#/definitions/GetPlanActivationHistoryRequest"
+      responses:
+        "200":
+          description: "successful plan activation history returned"
+          schema:
+            $ref: "#/definitions/GetPlanActivationHistoryResponse"
+        "400":
+          description: "Invalid request format "
+        "401":
+          description: "Authorization error"
+          
+  /coupon/generate:
+    get:
+      tags:
+      - "coupon"
+      summary: "Generate Coupon Code"
+      description: "This can only be done by the unknown user."
+      operationId: "generateCouponCode"
+      produces:
+      - "application/json"
+      responses:
+        "200":
+          description: "successful coupon code returned"
+          schema:
+            $ref: "#/definitions/GenerateCouponCodeResponse"
+        "400":
+          description: "Invalid request format "
+        "401":
+          description: "Authorization error"
+  
+  /coupon/add:
+    put:
+      tags:
+      - "coupon"
+      summary: "Add Coupon"
+      description: "This can only be done by the unknown user."
+      operationId: "addCoupon"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "add coupon"
+        required: true
+        schema:
+          $ref: "#/definitions/UpsertCouponRequest"
+      responses:
+        "200":
+          description: "successful coupon added"
+          schema:
+            $ref: "#/definitions/ResponseMessage"
+        "400":
+          description: "Invalid request format "
+        "401":
+          description: "Authorization error"
+
+  /coupon/edit:
+    put:
+      tags:
+      - "coupon"
+      summary: "Edit Coupon"
+      description: "This can only be done by the unknown user."
+      operationId: "editCoupon"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "edit coupon"
+        required: true
+        schema:
+          $ref: "#/definitions/UpsertCouponRequest"
+      responses:
+        "200":
+          description: "successful coupon edition"
+          schema:
+            $ref: "#/definitions/ResponseMessage"
+        "400":
+          description: "Invalid request format "
+        "401":
+          description: "Authorization error"
+
+  /coupon/get:
+    get:
+      tags:
+      - "coupon"
+      summary: "Get Coupons"
+      description: "This can only be done by the unknown user."
+      operationId: "getCoupons"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "get coupons"
+        required: true
+        schema:
+          $ref: "#/definitions/GetCouponsRequest"
+      responses:
+        "200":
+          description: "successful coupons returned"
+          schema:
+            $ref: "#/definitions/GetCouponsResponse"
+        "400":
+          description: "Invalid request format "
+        "401":
+          description: "Authorization error"
+          
 securityDefinitions:
   petstore_auth:
     type: "oauth2"
@@ -81,33 +776,126 @@ securityDefinitions:
     type: "apiKey"
     name: "api_key"
     in: "header"
+    
 definitions:
-  Transaction:
+  AddTransactionRequest:
     type: "object"
+    required:
+      - user_id
+      - is_deposit
+      - amount
+      - currency
+      - transaction_code
     properties:
       id:
-        type: "string"
+        type: "integer"
+        format: "int64"
       user_id:
         type: "string"
+        format: "uuid"
       is_deposit:
         type: "boolean"
       amount:
         type: "number"
+        format: "double"
       currency:
         type: "string"
+        pattern: "[A-Z][A-Z][A-Z]"
       transaction_code:
         type: "string"
       type:
         type: "string"
-  RollbackTransaction:
+        
+  Transaction:
     type: "object"
     properties:
       id:
+        type: "integer"
+        format: "int64"
+      user_id:
+        type: "string"
+        format: "uuid"
+      is_deposit:
+        type: "boolean"
+      amount:
         type: "number"
+        format: "double"
+      currency:
+        type: "string"
+        pattern: "[A-Z][A-Z][A-Z]"
+      transaction_code:
+        type: "string"
+      type:
+        type: "string"
+ 
+  Transactions:
+    type: "object"
+    properties:
+      total_count:
+        type: "integer"
+        format: "int32"
+      transactions:
+        type: "array"
+        items:
+          $ref: '#/definitions/Transaction'
+        
+  GetTransactionsRequest:
+    type: "object"
+    properties:
+      ids:
+        type: "array"
+        items:
+          type: "integer"
+          format: "int64"
+      user_id:
+        type: "string"
+        format: "uuid"
+      currency:
+        type: "string"
+        pattern: "[A-Z][A-Z][A-Z]"
+      is_deposit:
+        type: "boolean"
+      rollbacked:
+        type: "boolean"
+      from_date:
+        type: "string"
+        format: "date-time"
+      to_date:
+        type: "string"
+        format: "date-time"
+      from_amount:
+        type: "number"
+        format: "double"
+      to_amount:
+        type: "number"
+        format: "double"
+      count:
+        type: "integer"
+        format: "int32"
+        minimum: 1
+        maximum: 200
+        default: 50
+      count_from:
+        type: "integer"
+        format: "int32"
+        minimum: 1
+        
+  RollbackTransactionRequest:
+    type: "object"
+    required:
+      - id
+      - done_by_user_id
+      - description
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
       done_by_user_id:
         type: "string"
+        format: "uuid"
       description:
         type: "string"
+        
   ResponseMessage:
     type: "object"
     properties:
@@ -116,7 +904,667 @@ definitions:
       message:
         type: "string"
 
+  GetCreditBalanceRequest:
+    type: "object"
+    required:
+      - user_id
+    properties:
+      user_id:
+        type: "string"
+        format: "uuid"
+      currency:
+        type: "string"
+        pattern: "[A-Z][A-Z][A-Z]"
+  
+  GetCreditBalanceResponse:
+    type: "array"
+    items:
+      type: "number"
+      format: "double"
+ 
+  TransferCreditRequest:
+    type: "object"
+    required:
+      - from_user_id
+      - to_user_id
+      - currency
+      - amount
+    properties:
+      from_user_id:
+        type: "string"
+        format: "uuid"
+      to_user_id:
+        type: "string"
+        format: "uuid"
+      currency:
+        type: "string"
+        pattern: "[A-Z][A-Z][A-Z]"
+      amount:
+        type: "number"
+        format: "double"
+
+  Feature:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+        format: "int32"
+      name:
+        type: "string"
+      description:
+        type: "string"
+  
+  AddFeatureRequest:
+    type: "object"
+    required:
+      - name
+    properties:
+      name:
+        type: "string"
+      description:
+        type: "string"
+ 
+  EditFeatureRequest:
+    type: "object"
+    required:
+      - id
+      - name
+    properties:
+      id:
+        type: "integer"
+        format: "int32"
+      name:
+        type: "string"
+      description:
+        type: "string"
+
+  ActivateFeatureRequest:
+    type: "object"
+    required:
+      - id
+    properties:
+      id:
+        type: "integer"
+        format: "int32"
+  
+  DeactivateFeatureRequest:
+    type: "object"
+    required:
+      - id
+    properties:
+      id:
+        type: "integer"
+        format: "int32"
+  
+  GetFeaturesRequest:
+    type: "object"
+    properties:
+      ids:
+        type: "array"
+        items:
+          type: "integer"
+          format: "int32"
+      active:
+        type: "boolean"
+  
+  GetFeaturesResponse:
+    type: "object"
+    properties:
+      total_count:
+        type: "integer"
+        format: "int32"
+      features:
+        type: "array"
+        items:
+          $ref: '#/definitions/Feature'
+  
+  Plan:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+        format: "int32"
+      name:
+        type: "string"
+      description:
+        type: "string"
+      user_based:
+        type: "boolean"
+      enable_amount:
+        type: "boolean"
+      maximum_amount:
+        type: "integer"
+        format: "int32"
+      duration_in_months:
+        type: "integer"
+        format: "int32"
+
+  AddPlanRequest:
+    type: "object"
+    required:
+      - name
+      - user_based
+      - enable_amount
+    properties:
+      name:
+        type: "string"
+      description:
+        type: "string"
+      user_based:
+        type: "boolean"
+      enable_amount:
+        type: "boolean"
+      maximum_amount:
+        type: "integer"
+        format: "int32"
+      duration_in_months:
+        type: "integer"
+        format: "int32"
+
+  EditPlanRequest:
+    type: "object"
+    required:
+      - id
+      - name
+      - user_based
+      - enable_amount
+    properties:
+      id:
+        type: "integer"
+        format: "int32"
+      name:
+        type: "string"
+      description:
+        type: "string"
+      user_based:
+        type: "boolean"
+      enable_amount:
+        type: "boolean"
+      maximum_amount:
+        type: "integer"
+        format: "int32"
+      duration_in_months:
+        type: "integer"
+        format: "int32"
+      features:
+        type: "object"
+        $ref: '#/definitions/PlanFeatures'
+      price:
+        type: "object"
+        $ref: '#/definitions/PlanPrices'
+
+  PlanFeatures:
+    type: "array"
+    items:
+      $ref: '#/definitions/PlanFeature'
+  
+  PlanPrices:
+    type: "array"
+    items:
+      type: "number"
+      format: "double"
         
+  PlanFeature:
+    type: "object"
+    properties:
+      feature_id:
+        type: "integer"
+        format: "int32"
+      amount:
+        type: "number"
+        format: "double"
+
+  ActivatePlanRequest:
+    type: "object"
+    required:
+      - id
+    properties:
+      id:
+        type: "integer"
+        format: "int32"
+  
+  DeactivatePlanRequest:
+    type: "object"
+    required:
+      - id
+    properties:
+      id:
+        type: "integer"
+        format: "int32"
+  
+  SetPlanFeaturesRequest:
+    type: "object"
+    required:
+      - id
+      - features
+    properties:
+      id:
+        type: "integer"
+        format: "int32"
+      features:
+        type: "object"
+        $ref: '#/definitions/PlanFeatures'
+
+  SetPlanPriceRequest:
+    type: "object"
+    required:
+      - id
+      - prices
+    properties:
+      id:
+        type: "integer"
+        format: "int32"
+      prices:
+        type: "object"
+        $ref: '#/definitions/PlanPrices'
+
+  GetPlansRequest:
+    type: "object"
+    properties:
+      ids:
+        type: "array"
+        items:
+          type: "integer"
+          format: "int32"
+      active:
+        type: "boolean"
+  
+  GetPlansResponse:
+    type: "object"
+    properties:
+      total_count:
+        type: "integer"
+        format: "int32"
+      plans:
+        type: "array"
+        items:
+          $ref: '#/definitions/Plan'
+  
+  GenerateCouponCodeResponse:
+    type: "object"
+    properties:
+      code:
+        type: "string"
+        minLength: 10
+        maxLength: 10
+        pattern: "^[a-zA-Z0-9]*$"
+  
+  Coupon:
+    type: "object"
+    properties:
+      code:
+        type: "string"
+      percentage_based:
+        type: "boolean"
+      amount:
+        type: "number"
+        format: "double"
+      maximum_amount:
+        type: "number"
+        format: "double"
+      currency:
+        type: "string"
+        pattern: "[A-Z][A-Z][A-Z]"
+      expiration_date:
+        type: "string"
+        format: "date-time"
+      except_plans:
+        type: "array"
+        items:
+          type: "integer"
+          format: "int32"
+      target_users:
+        type: "array"
+        items:
+          type: "string"
+          format: "uuid"
+  
+  UpsertCouponRequest:
+    type: "object"
+    required:
+      - code
+      - percentage_based
+      - amount
+      - currency
+    properties:
+      code:
+        type: "string"
+      percentage_based:
+        type: "boolean"
+      amount:
+        type: "number"
+        format: "double"
+      maximum_amount:
+        type: "number"
+        format: "double"
+      currency:
+        type: "string"
+        pattern: "[A-Z][A-Z][A-Z]"
+      expiration_date:
+        type: "string"
+        format: "date-time"
+      allow_concurrent_coupons:
+        type: "boolean"
+      allow_secondary_price:
+        type: "boolean"
+      maximum_usage_limit:
+        type: "integer"
+        format: "int32"
+      maximum_usage_limit_per_user:
+        type: "integer"
+        format: "int32"
+      limit_to_plans:
+        type: "array"
+        items:
+          type: "integer"
+          format: "int32"
+      except_plans:
+        type: "array"
+        items:
+          type: "integer"
+          format: "int32"
+      target_users:
+        type: "array"
+        items:
+          type: "string"
+          format: "uuid"  
+  
+  GetCouponsRequest:
+    type: "object"
+    properties:
+      code:
+        type: "string"
+      currency:
+        type: "string"
+        pattern: "[A-Z][A-Z][A-Z]"
+      percentage_based:
+        type: "boolean"
+      from_amount:
+        type: "number"
+        format: "double"
+      to_amount:
+        type: "number"
+        format: "double"
+      limited_to_plan:
+        type: "integer"
+        format: "int32"
+      excep_plan:
+        type: "integer"
+        format: "int32"
+      target_user:
+        type: "string"
+        format: "uuid"
+      from_date:
+        type: "string"
+        format: "date-time"
+      to_date:
+        type: "string"
+        format: "date-time"
+      count:
+        type: "integer"
+        format: "int32"
+        minimum: 1
+        maximum: 200
+        default: 50
+      count_from:
+        type: "integer"
+        format: "int32"
+        minimum: 1
+  
+  GetCouponsResponse:
+    type: "object"
+    properties:
+      total_count:
+        type: "integer"
+        format: "int32"
+      coupons:
+        type: "array"
+        items:
+          $ref: '#/definitions/Coupon'
+
+  CalculatePlanPriceRequest:
+    type: "object"
+    required:
+      - owner_id
+      - plan_id
+      - currency
+    properties:
+      owner_id:
+        type: "string"
+        format: "uuid"
+      plan_id:
+        type: "integer"
+        format: "int32"
+      amount:
+        type: "integer"
+        format: "int32"
+      use_secondary_price:
+        type: "boolean"
+      currency:
+        type: "string"
+        pattern: "[A-Z][A-Z][A-Z]"
+      coupons:
+        type: "array"
+        items:
+          type: "string"
+  
+  CalculatePlanPriceResponse:
+    type: "object"
+    properties:
+      price:
+        type: "number"
+        format: "double"
+
+  CalculatePlanRenewalPriceRequest:
+    type: "object"
+    required:
+      - owner_id
+      - plans
+      - currency
+    properties:
+      owner_id:
+        type: "string"
+        format: "uuid"
+      plans:
+        type: "object"
+        $ref: '#/definitions/PlanRenewalPrice'
+      currency:
+        type: "string"
+        pattern: "[A-Z][A-Z][A-Z]"
+      coupons:
+        type: "array"
+        items:
+          type: "string"
+  
+  PlanRenewalPrice:
+    type: "object"
+    properties:
+      amount:
+        type: "integer"
+        format: "int32"
+      use_secondary_price:
+        type: "boolean"
+  
+  CalculatePlanRenewalPriceResponse:
+    type: "object"
+    properties:
+      price:
+        type: "number"
+        format: "double"
+
+  CalculatePlanUpgradeRequest:
+    type: "object"
+    required:
+      - owner_id
+      - from_plan_id
+      - to_plan_id
+      - currency
+    properties:
+      owner_id:
+        type: "string"
+        format: "uuid"
+      from_plan_id:
+        type: "integer"
+        format: "int32"
+      to_plan_id:
+        type: "integer"
+        format: "int32"
+      amount:
+        type: "integer"
+        format: "int32"
+      use_secondary_price:
+        type: "boolean"
+      currency:
+        type: "string"
+        pattern: "[A-Z][A-Z][A-Z]"
+      coupons:
+        type: "array"
+        items:
+          type: "string"
+
+  BuyPlanRequest:
+    type: "object"
+    required:
+      - plan_id
+      - owner_id
+      - currency
+    properties:
+      plan_id:
+        type: "integer"
+        format: "int32"
+      owner_id:
+        type: "string"
+        format: "uuid"
+      amount:
+        type: "integer"
+        format: "int32"
+      use_secondary_price:
+        type: "boolean"
+      currency:
+        type: "string"
+        pattern: "[A-Z][A-Z][A-Z]"
+      coupons:
+        type: "array"
+        items:
+          type: "string"
+
+  RenewPlansRequest:
+    type: "object"
+    required:
+      - owner_id
+      - plans
+      - currency
+    properties:
+      owner_id:
+        type: "string"
+        format: "uuid"
+      plans:
+        type: "array"
+        items:
+          $ref: '#/definitions/PlanRenewalPrice'
+      currency:
+        type: "string"
+        pattern: "[A-Z][A-Z][A-Z]"
+      coupons:
+        type: "array"
+        items:
+          type: "string"
+          
+  UpradePlanRequest:
+    type: "object"
+    required:
+      - from_plan_id
+      - to_plan_id
+      - currency
+    properties:
+      from_plan_id:
+        type: "integer"
+        format: "int32"
+      to_plan_id:
+        type: "integer"
+        format: "int32"
+      owner_id:
+        type: "string"
+        format: "uuid"
+      amount:
+        type: "integer"
+        format: "int32"
+      use_secondary_price:
+        type: "boolean"
+      currency:
+        type: "string"
+        pattern: "[A-Z][A-Z][A-Z]"
+      coupon_code:
+        type: "string"
+
+  GetPlanActivationHistoryRequest:
+    type: "object"
+    required:
+      - owner_id
+      - count
+    properties:
+      owner_id:
+        type: "string"
+        format: "uuid"
+      plan_ids:
+        type: "array"
+        items:
+          type: "integer"
+          format: "int32"
+      expired:
+        type: "boolean"
+      active:
+        type: "boolean"
+      count:
+        type: "integer"
+        format: "int32"
+        minimum: 1
+      count_from:
+        type: "integer"
+        format: "int32"
+        minimum: 1
+  
+  GetPlanActivationHistoryResponse:
+    type: "object"
+    properties:
+      total_count:
+        type: "integer"
+        format: "int32"
+      items:
+        type: "array"
+        items:
+          $ref: '#/definitions/PlanActivationItem'
+  
+  PlanActivationItem:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+        format: "int32"
+      active:
+        type: "boolean"
+      datetime:
+        type: "string"
+        format: "date-time"
+
+  GetActiveFeaturesRequest:
+    type: "object"
+    properties:
+      owner_id:
+        type: "string"
+        format: "uuid"
+  
+  GetActiveFeaturesResponse:
+    type: "object"
+    properties:
+      total_count:
+        type: "integer"
+        format: "int32"
+      features:
+        type: "array"
+        items:
+          $ref: '#/definitions/Feature'
+  
 externalDocs:
   description: "Find out more about Swagger"
   url: "http://swagger.io"
