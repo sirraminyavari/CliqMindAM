@@ -44,7 +44,7 @@ paths:
           description: "Authorization error"
   
   /transaction/rollback:
-    patch:
+    post:
       tags:
       - "transaction"
       summary: "Rollback Transaction"
@@ -122,7 +122,7 @@ paths:
           description: "Authorization error"
 
   /credit/transfer:
-    patch:
+    post:
       tags:
       - "credit"
       summary: "Transfer Credit"
@@ -174,7 +174,7 @@ paths:
           description: "Authorization error"
 
   /feature/edit:
-    put:
+    post:
       tags:
       - "feature"
       summary: "Edit Feature"
@@ -200,7 +200,7 @@ paths:
           description: "Authorization error"
   
   /feature/activate:
-    patch:
+    post:
       tags:
       - "feature"
       summary: "Activate Feature"
@@ -226,7 +226,7 @@ paths:
           description: "Authorization error"
   
   /feature/deactivate:
-    patch:
+    post:
       tags:
       - "feature"
       summary: "Deactivate Feature"
@@ -330,7 +330,7 @@ paths:
           description: "Authorization error"
 
   /plan/edit:
-    put:
+    post:
       tags:
       - "plan"
       summary: "Edit Plan"
@@ -356,7 +356,7 @@ paths:
           description: "Authorization error"
 
   /plan/activate:
-    patch:
+    post:
       tags:
       - "plan"
       summary: "Activate Plan"
@@ -382,7 +382,7 @@ paths:
           description: "Authorization error"
           
   /plan/deactivate:
-    patch:
+    post:
       tags:
       - "plan"
       summary: "Deactivate Plan"
@@ -408,7 +408,7 @@ paths:
           description: "Authorization error"
 
   /plan/features/set:
-    put:
+    post:
       tags:
       - "plan"
       summary: "Set Plan Features"
@@ -434,7 +434,7 @@ paths:
           description: "Authorization error"
 
   /plan/price/set:
-    put:
+    post:
       tags:
       - "plan"
       summary: "Set Plan Price"
@@ -564,7 +564,7 @@ paths:
           description: "Authorization error"
           
   /plan/buy:
-    patch:
+    post:
       tags:
       - "plan"
       summary: "Buy Plan"
@@ -590,7 +590,7 @@ paths:
           description: "Authorization error"
 
   /plan/renew:
-    patch:
+    post:
       tags:
       - "plan"
       summary: "Renew Plans"
@@ -616,7 +616,7 @@ paths:
           description: "Authorization error"
 
   /plan/upgrade:
-    patch:
+    post:
       tags:
       - "plan"
       summary: "Upgrade Plans"
@@ -687,7 +687,7 @@ paths:
           description: "Authorization error"
   
   /coupon/add:
-    put:
+    post:
       tags:
       - "coupon"
       summary: "Add Coupon"
@@ -713,7 +713,7 @@ paths:
           description: "Authorization error"
 
   /coupon/edit:
-    put:
+    post:
       tags:
       - "coupon"
       summary: "Edit Coupon"
@@ -859,10 +859,10 @@ definitions:
         type: "boolean"
       from_date:
         type: "string"
-        format: "date-time"
+        format: "date"
       to_date:
         type: "string"
-        format: "date-time"
+        format: "date"
       from_amount:
         type: "number"
         format: "double"
@@ -917,8 +917,8 @@ definitions:
         pattern: "[A-Z][A-Z][A-Z]"
   
   GetCreditBalanceResponse:
-    type: "array"
-    items:
+    type: object
+    additionalProperties:
       type: "number"
       format: "double"
  
@@ -1088,15 +1088,11 @@ definitions:
         format: "int32"
       features:
         type: "object"
-        $ref: '#/definitions/PlanFeatures'
+        $ref: '#/definitions/PlanFeature'
       price:
         type: "object"
         $ref: '#/definitions/PlanPrices'
 
-  PlanFeatures:
-    type: "array"
-    items:
-      $ref: '#/definitions/PlanFeature'
   
   PlanPrices:
     type: "array"
@@ -1143,7 +1139,7 @@ definitions:
         format: "int32"
       features:
         type: "object"
-        $ref: '#/definitions/PlanFeatures'
+        $ref: '#/definitions/PlanFeature'
 
   SetPlanPriceRequest:
     type: "object"
@@ -1288,7 +1284,7 @@ definitions:
       limited_to_plan:
         type: "integer"
         format: "int32"
-      excep_plan:
+      except_plan:
         type: "integer"
         format: "int32"
       target_user:
@@ -1296,10 +1292,10 @@ definitions:
         format: "uuid"
       from_date:
         type: "string"
-        format: "date-time"
+        format: "date"
       to_date:
         type: "string"
-        format: "date-time"
+        format: "date"
       count:
         type: "integer"
         format: "int32"
@@ -1378,12 +1374,14 @@ definitions:
   
   PlanRenewalPrice:
     type: "object"
-    properties:
-      amount:
-        type: "integer"
-        format: "int32"
-      use_secondary_price:
-        type: "boolean"
+    additionalProperties:
+      type: object
+      properties:
+        amount:
+          type: "integer"
+          format: "int32"
+        use_secondary_price:
+          type: "boolean"
   
   CalculatePlanRenewalPriceResponse:
     type: "object"
@@ -1459,9 +1457,7 @@ definitions:
         type: "string"
         format: "uuid"
       plans:
-        type: "array"
-        items:
-          $ref: '#/definitions/PlanRenewalPrice'
+        $ref: '#/definitions/PlanRenewalPrice'
       currency:
         type: "string"
         pattern: "[A-Z][A-Z][A-Z]"
@@ -1494,8 +1490,10 @@ definitions:
       currency:
         type: "string"
         pattern: "[A-Z][A-Z][A-Z]"
-      coupon_code:
-        type: "string"
+      coupons:
+        type: "array"
+        items:
+          $ref: '#/definitions/Coupon'
 
   GetPlanActivationHistoryRequest:
     type: "object"
