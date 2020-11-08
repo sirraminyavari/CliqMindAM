@@ -3,30 +3,28 @@ package ir.cliqmind.am.model;
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModelProperty;
-import java.math.BigDecimal;
 import org.springframework.validation.annotation.Validated;
-import javax.validation.Valid;
 
 /**
- * RollbackTransaction
+ * Feature
  */
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2020-11-07T10:04:52.693Z")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2020-11-08T17:36:36.325Z")
 
 
 
 
-public class RollbackTransaction   {
+public class Feature   {
   @JsonProperty("id")
-  private BigDecimal id = null;
+  private Integer id = null;
 
-  @JsonProperty("done_by_user_id")
-  private String doneByUserId = null;
+  @JsonProperty("name")
+  private String name = null;
 
   @JsonProperty("description")
   private String description = null;
 
-  public RollbackTransaction id(BigDecimal id) {
+  public Feature id(Integer id) {
     this.id = id;
     return this;
   }
@@ -37,37 +35,36 @@ public class RollbackTransaction   {
   **/
   @ApiModelProperty(value = "")
 
-  @Valid
 
-  public BigDecimal getId() {
+  public Integer getId() {
     return id;
   }
 
-  public void setId(BigDecimal id) {
+  public void setId(Integer id) {
     this.id = id;
   }
 
-  public RollbackTransaction doneByUserId(String doneByUserId) {
-    this.doneByUserId = doneByUserId;
+  public Feature name(String name) {
+    this.name = name;
     return this;
   }
 
   /**
-   * Get doneByUserId
-   * @return doneByUserId
+   * Get name
+   * @return name
   **/
   @ApiModelProperty(value = "")
 
 
-  public String getDoneByUserId() {
-    return doneByUserId;
+  public String getName() {
+    return name;
   }
 
-  public void setDoneByUserId(String doneByUserId) {
-    this.doneByUserId = doneByUserId;
+  public void setName(String name) {
+    this.name = name;
   }
 
-  public RollbackTransaction description(String description) {
+  public Feature description(String description) {
     this.description = description;
     return this;
   }
@@ -96,24 +93,24 @@ public class RollbackTransaction   {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    RollbackTransaction rollbackTransaction = (RollbackTransaction) o;
-    return Objects.equals(this.id, rollbackTransaction.id) &&
-        Objects.equals(this.doneByUserId, rollbackTransaction.doneByUserId) &&
-        Objects.equals(this.description, rollbackTransaction.description);
+    Feature feature = (Feature) o;
+    return Objects.equals(this.id, feature.id) &&
+        Objects.equals(this.name, feature.name) &&
+        Objects.equals(this.description, feature.description);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, doneByUserId, description);
+    return Objects.hash(id, name, description);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class RollbackTransaction {\n");
+    sb.append("class Feature {\n");
     
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
-    sb.append("    doneByUserId: ").append(toIndentedString(doneByUserId)).append("\n");
+    sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    description: ").append(toIndentedString(description)).append("\n");
     sb.append("}");
     return sb.toString();

@@ -5,9 +5,12 @@
  */
 package ir.cliqmind.am.api;
 
+import ir.cliqmind.am.model.AddTransactionRequest;
+import ir.cliqmind.am.model.GetTransactionsRequest;
 import ir.cliqmind.am.model.ResponseMessage;
-import ir.cliqmind.am.model.RollbackTransaction;
+import ir.cliqmind.am.model.RollbackTransactionRequest;
 import ir.cliqmind.am.model.Transaction;
+import ir.cliqmind.am.model.Transactions;
 import io.swagger.annotations.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.validation.Valid;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2020-11-07T10:04:52.693Z")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2020-11-08T17:36:36.325Z")
 
 @Api(value = "transaction", description = "the transaction API")
 @RequestMapping(value = "/api/v1")
@@ -26,21 +29,32 @@ public interface TransactionApi {
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "successful transaction added", response = Transaction.class),
         @ApiResponse(code = 400, message = "Invalid request format "),
-        @ApiResponse(code = 401, message = "Invalid credential") })
+        @ApiResponse(code = 401, message = "Authorization error") })
     @RequestMapping(value = "/transaction/add",
         produces = { "application/json" }, 
         method = RequestMethod.POST)
-    ResponseEntity<Transaction> addTransaction(@ApiParam(value = "add transaction object" ,required=true )  @Valid @RequestBody Transaction body);
+    ResponseEntity<Transaction> addTransaction(@ApiParam(value = "add transaction object" ,required=true )  @Valid @RequestBody AddTransactionRequest body);
+
+
+    @ApiOperation(value = "Get Transactions", nickname = "getTransactions", notes = "This can only be done by the unknown user.", response = Transactions.class, tags={ "transaction", })
+    @ApiResponses(value = { 
+        @ApiResponse(code = 200, message = "successful transactions returned", response = Transactions.class),
+        @ApiResponse(code = 400, message = "Invalid request format "),
+        @ApiResponse(code = 401, message = "Authorization error") })
+    @RequestMapping(value = "/transaction/get",
+        produces = { "application/json" }, 
+        method = RequestMethod.GET)
+    ResponseEntity<Transactions> getTransactions(@ApiParam(value = "get transaction objects" ,required=true )  @Valid @RequestBody GetTransactionsRequest body);
 
 
     @ApiOperation(value = "Rollback Transaction", nickname = "rollbackTransaction", notes = "This can only be done by the unknown user.", response = ResponseMessage.class, tags={ "transaction", })
     @ApiResponses(value = { 
-        @ApiResponse(code = 200, message = "successful transaction added", response = ResponseMessage.class),
+        @ApiResponse(code = 200, message = "successful transaction rollbacked", response = ResponseMessage.class),
         @ApiResponse(code = 400, message = "Invalid request format "),
-        @ApiResponse(code = 401, message = "Invalid credential") })
+        @ApiResponse(code = 401, message = "Authorization error") })
     @RequestMapping(value = "/transaction/rollback",
         produces = { "application/json" }, 
         method = RequestMethod.POST)
-    ResponseEntity<ResponseMessage> rollbackTransaction(@ApiParam(value = "rollback transaction object" ,required=true )  @Valid @RequestBody RollbackTransaction body);
+    ResponseEntity<ResponseMessage> rollbackTransaction(@ApiParam(value = "rollback transaction object" ,required=true )  @Valid @RequestBody RollbackTransactionRequest body);
 
 }

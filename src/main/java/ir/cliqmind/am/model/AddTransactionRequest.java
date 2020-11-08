@@ -9,7 +9,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.*;
 
 /**
- * Transaction
+ * AddTransactionRequest
  */
 @Validated
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2020-11-08T17:36:36.325Z")
@@ -17,7 +17,7 @@ import javax.validation.constraints.*;
 
 
 
-public class Transaction   {
+public class AddTransactionRequest   {
   @JsonProperty("id")
   private Long id = null;
 
@@ -39,7 +39,7 @@ public class Transaction   {
   @JsonProperty("type")
   private String type = null;
 
-  public Transaction id(Long id) {
+  public AddTransactionRequest id(Long id) {
     this.id = id;
     return this;
   }
@@ -59,7 +59,7 @@ public class Transaction   {
     this.id = id;
   }
 
-  public Transaction userId(UUID userId) {
+  public AddTransactionRequest userId(UUID userId) {
     this.userId = userId;
     return this;
   }
@@ -68,7 +68,8 @@ public class Transaction   {
    * Get userId
    * @return userId
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(required = true, value = "")
+  @NotNull
 
   @Valid
 
@@ -80,7 +81,7 @@ public class Transaction   {
     this.userId = userId;
   }
 
-  public Transaction isDeposit(Boolean isDeposit) {
+  public AddTransactionRequest isDeposit(Boolean isDeposit) {
     this.isDeposit = isDeposit;
     return this;
   }
@@ -89,7 +90,8 @@ public class Transaction   {
    * Get isDeposit
    * @return isDeposit
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(required = true, value = "")
+  @NotNull
 
 
   public Boolean isIsDeposit() {
@@ -100,7 +102,7 @@ public class Transaction   {
     this.isDeposit = isDeposit;
   }
 
-  public Transaction amount(Double amount) {
+  public AddTransactionRequest amount(Double amount) {
     this.amount = amount;
     return this;
   }
@@ -109,7 +111,8 @@ public class Transaction   {
    * Get amount
    * @return amount
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(required = true, value = "")
+  @NotNull
 
 
   public Double getAmount() {
@@ -120,7 +123,7 @@ public class Transaction   {
     this.amount = amount;
   }
 
-  public Transaction currency(String currency) {
+  public AddTransactionRequest currency(String currency) {
     this.currency = currency;
     return this;
   }
@@ -129,7 +132,8 @@ public class Transaction   {
    * Get currency
    * @return currency
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(required = true, value = "")
+  @NotNull
 
 @Pattern(regexp="[A-Z][A-Z][A-Z]") 
   public String getCurrency() {
@@ -140,7 +144,7 @@ public class Transaction   {
     this.currency = currency;
   }
 
-  public Transaction transactionCode(String transactionCode) {
+  public AddTransactionRequest transactionCode(String transactionCode) {
     this.transactionCode = transactionCode;
     return this;
   }
@@ -149,7 +153,8 @@ public class Transaction   {
    * Get transactionCode
    * @return transactionCode
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(required = true, value = "")
+  @NotNull
 
 
   public String getTransactionCode() {
@@ -160,7 +165,7 @@ public class Transaction   {
     this.transactionCode = transactionCode;
   }
 
-  public Transaction type(String type) {
+  public AddTransactionRequest type(String type) {
     this.type = type;
     return this;
   }
@@ -189,14 +194,14 @@ public class Transaction   {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    Transaction transaction = (Transaction) o;
-    return Objects.equals(this.id, transaction.id) &&
-        Objects.equals(this.userId, transaction.userId) &&
-        Objects.equals(this.isDeposit, transaction.isDeposit) &&
-        Objects.equals(this.amount, transaction.amount) &&
-        Objects.equals(this.currency, transaction.currency) &&
-        Objects.equals(this.transactionCode, transaction.transactionCode) &&
-        Objects.equals(this.type, transaction.type);
+    AddTransactionRequest addTransactionRequest = (AddTransactionRequest) o;
+    return Objects.equals(this.id, addTransactionRequest.id) &&
+        Objects.equals(this.userId, addTransactionRequest.userId) &&
+        Objects.equals(this.isDeposit, addTransactionRequest.isDeposit) &&
+        Objects.equals(this.amount, addTransactionRequest.amount) &&
+        Objects.equals(this.currency, addTransactionRequest.currency) &&
+        Objects.equals(this.transactionCode, addTransactionRequest.transactionCode) &&
+        Objects.equals(this.type, addTransactionRequest.type);
   }
 
   @Override
@@ -207,7 +212,7 @@ public class Transaction   {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class Transaction {\n");
+    sb.append("class AddTransactionRequest {\n");
     
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    userId: ").append(toIndentedString(userId)).append("\n");

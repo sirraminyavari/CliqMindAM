@@ -6,7 +6,7 @@ import io.swagger.annotations.ApiModelProperty;
 import org.springframework.validation.annotation.Validated;
 
 /**
- * ResponseMessage
+ * PlanFeature
  */
 @Validated
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2020-11-08T17:36:36.325Z")
@@ -14,51 +14,51 @@ import org.springframework.validation.annotation.Validated;
 
 
 
-public class ResponseMessage   {
-  @JsonProperty("result")
-  private String result = null;
+public class PlanFeature   {
+  @JsonProperty("feature_id")
+  private Integer featureId = null;
 
-  @JsonProperty("message")
-  private String message = null;
+  @JsonProperty("amount")
+  private Double amount = null;
 
-  public ResponseMessage result(String result) {
-    this.result = result;
+  public PlanFeature featureId(Integer featureId) {
+    this.featureId = featureId;
     return this;
   }
 
   /**
-   * Get result
-   * @return result
+   * Get featureId
+   * @return featureId
   **/
   @ApiModelProperty(value = "")
 
 
-  public String getResult() {
-    return result;
+  public Integer getFeatureId() {
+    return featureId;
   }
 
-  public void setResult(String result) {
-    this.result = result;
+  public void setFeatureId(Integer featureId) {
+    this.featureId = featureId;
   }
 
-  public ResponseMessage message(String message) {
-    this.message = message;
+  public PlanFeature amount(Double amount) {
+    this.amount = amount;
     return this;
   }
 
   /**
-   * Get message
-   * @return message
+   * Get amount
+   * @return amount
   **/
   @ApiModelProperty(value = "")
 
 
-  public String getMessage() {
-    return message;
+  public Double getAmount() {
+    return amount;
   }
 
-  public void setMessage(String message) {
-    this.message = message;
+  public void setAmount(Double amount) {
+    this.amount = amount;
   }
 
 
@@ -70,23 +70,23 @@ public class ResponseMessage   {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    ResponseMessage responseMessage = (ResponseMessage) o;
-    return Objects.equals(this.result, responseMessage.result) &&
-        Objects.equals(this.message, responseMessage.message);
+    PlanFeature planFeature = (PlanFeature) o;
+    return Objects.equals(this.featureId, planFeature.featureId) &&
+        Objects.equals(this.amount, planFeature.amount);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(result, message);
+    return Objects.hash(featureId, amount);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class ResponseMessage {\n");
+    sb.append("class PlanFeature {\n");
     
-    sb.append("    result: ").append(toIndentedString(result)).append("\n");
-    sb.append("    message: ").append(toIndentedString(message)).append("\n");
+    sb.append("    featureId: ").append(toIndentedString(featureId)).append("\n");
+    sb.append("    amount: ").append(toIndentedString(amount)).append("\n");
     sb.append("}");
     return sb.toString();
   }

@@ -2,7 +2,7 @@ package ir.cliqmind.am.api;
 
 import javax.xml.bind.annotation.XmlTransient;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2020-11-07T10:04:52.693Z")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2020-11-08T17:36:36.325Z")
 
 @javax.xml.bind.annotation.XmlRootElement
 public class ApiResponseMessage {
