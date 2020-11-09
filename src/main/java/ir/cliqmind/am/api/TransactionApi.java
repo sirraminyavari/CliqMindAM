@@ -5,12 +5,12 @@
  */
 package ir.cliqmind.am.api;
 
-import ir.cliqmind.am.model.AddTransactionRequest;
-import ir.cliqmind.am.model.GetTransactionsRequest;
-import ir.cliqmind.am.model.ResponseMessage;
-import ir.cliqmind.am.model.RollbackTransactionRequest;
-import ir.cliqmind.am.model.Transaction;
-import ir.cliqmind.am.model.Transactions;
+import ir.cliqmind.am.dto.AddTransactionRequest;
+import ir.cliqmind.am.dto.GetTransactionsRequest;
+import ir.cliqmind.am.dto.ResponseMessage;
+import ir.cliqmind.am.dto.RollbackTransactionRequest;
+import ir.cliqmind.am.dto.Transaction;
+import ir.cliqmind.am.dto.Transactions;
 import io.swagger.annotations.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;

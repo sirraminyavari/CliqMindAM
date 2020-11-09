@@ -5,10 +5,10 @@
  */
 package ir.cliqmind.am.api;
 
-import ir.cliqmind.am.model.GetCreditBalanceRequest;
-import ir.cliqmind.am.model.GetCreditBalanceResponse;
-import ir.cliqmind.am.model.Transaction;
-import ir.cliqmind.am.model.TransferCreditRequest;
+import ir.cliqmind.am.dto.GetCreditBalanceRequest;
+import ir.cliqmind.am.dto.GetCreditBalanceResponse;
+import ir.cliqmind.am.dto.Transaction;
+import ir.cliqmind.am.dto.TransferCreditRequest;
 import io.swagger.annotations.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;

@@ -5,16 +5,16 @@
  */
 package ir.cliqmind.am.api;
 
-import ir.cliqmind.am.model.ActivateFeatureRequest;
-import ir.cliqmind.am.model.AddFeatureRequest;
-import ir.cliqmind.am.model.DeactivateFeatureRequest;
-import ir.cliqmind.am.model.EditFeatureRequest;
-import ir.cliqmind.am.model.Feature;
-import ir.cliqmind.am.model.GetActiveFeaturesRequest;
-import ir.cliqmind.am.model.GetActiveFeaturesResponse;
-import ir.cliqmind.am.model.GetFeaturesRequest;
-import ir.cliqmind.am.model.GetFeaturesResponse;
-import ir.cliqmind.am.model.ResponseMessage;
+import ir.cliqmind.am.dto.ActivateFeatureRequest;
+import ir.cliqmind.am.dto.AddFeatureRequest;
+import ir.cliqmind.am.dto.DeactivateFeatureRequest;
+import ir.cliqmind.am.dto.EditFeatureRequest;
+import ir.cliqmind.am.dto.Feature;
+import ir.cliqmind.am.dto.GetActiveFeaturesRequest;
+import ir.cliqmind.am.dto.GetActiveFeaturesResponse;
+import ir.cliqmind.am.dto.GetFeaturesRequest;
+import ir.cliqmind.am.dto.GetFeaturesResponse;
+import ir.cliqmind.am.dto.ResponseMessage;
 import io.swagger.annotations.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;

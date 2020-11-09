@@ -1,9 +1,9 @@
 package ir.cliqmind.am.api;
 
-import ir.cliqmind.am.model.GetCreditBalanceRequest;
-import ir.cliqmind.am.model.GetCreditBalanceResponse;
-import ir.cliqmind.am.model.Transaction;
-import ir.cliqmind.am.model.TransferCreditRequest;
+import ir.cliqmind.am.dto.GetCreditBalanceRequest;
+import ir.cliqmind.am.dto.GetCreditBalanceResponse;
+import ir.cliqmind.am.dto.Transaction;
+import ir.cliqmind.am.dto.TransferCreditRequest;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.annotations.*;
 import org.slf4j.Logger;

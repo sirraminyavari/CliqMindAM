@@ -5,11 +5,11 @@
  */
 package ir.cliqmind.am.api;
 
-import ir.cliqmind.am.model.GenerateCouponCodeResponse;
-import ir.cliqmind.am.model.GetCouponsRequest;
-import ir.cliqmind.am.model.GetCouponsResponse;
-import ir.cliqmind.am.model.ResponseMessage;
-import ir.cliqmind.am.model.UpsertCouponRequest;
+import ir.cliqmind.am.dto.GenerateCouponCodeResponse;
+import ir.cliqmind.am.dto.GetCouponsRequest;
+import ir.cliqmind.am.dto.GetCouponsResponse;
+import ir.cliqmind.am.dto.ResponseMessage;
+import ir.cliqmind.am.dto.UpsertCouponRequest;
 import io.swagger.annotations.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;

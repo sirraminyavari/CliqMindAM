@@ -1,10 +1,10 @@
 package ir.cliqmind.am.api;
 
-import ir.cliqmind.am.model.GenerateCouponCodeResponse;
-import ir.cliqmind.am.model.GetCouponsRequest;
-import ir.cliqmind.am.model.GetCouponsResponse;
-import ir.cliqmind.am.model.ResponseMessage;
-import ir.cliqmind.am.model.UpsertCouponRequest;
+import ir.cliqmind.am.dto.GenerateCouponCodeResponse;
+import ir.cliqmind.am.dto.GetCouponsRequest;
+import ir.cliqmind.am.dto.GetCouponsResponse;
+import ir.cliqmind.am.dto.ResponseMessage;
+import ir.cliqmind.am.dto.UpsertCouponRequest;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.annotations.*;
 import org.slf4j.Logger;
