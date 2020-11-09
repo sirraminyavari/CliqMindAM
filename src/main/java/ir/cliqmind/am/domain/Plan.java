@@ -1,19 +1,25 @@
 package ir.cliqmind.am.domain;
 
+import org.hibernate.annotations.ColumnDefault;
+
 import javax.persistence.*;
 import java.util.*;
 
 @Entity(name = "Plan")
-@Table(name = "plan")
+@Table(name = "plans", indexes = {
+        @Index(columnList = "name", name = "plans_name_idx")
+})
 public class Plan {
 
     @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @Column(name = "id")
     private Integer id;
 
     @Column(name = "name", nullable = false, unique = true)
     private String name;
 
-    @Column(name = "description", nullable = false)
+    @Column(name = "description", length = 1000)
     private String description;
 
     @Column(name = "user_based", nullable = false)
@@ -22,19 +28,18 @@ public class Plan {
     @Column(name = "enable_amount", nullable = false)
     private Boolean enableAmount;
 
-    @Column(name = "maximum_amount", nullable = false)
+    @Column(name = "maximum_amount")
     private Integer maximumAmount;
 
-    @Column(name = "duration_in_months", nullable = false)
+    @Column(name = "duration_in_months")
     private Integer durationInMonths;
-
-    private PlanActivation planActivation;
 
     @OneToMany(mappedBy = "feature")
     private Set<PlanFeature> planFeatures = new HashSet<>();
 
-    @ElementCollection(fetch=FetchType.EAGER)
-    private List<Double> prices;
+    @Column(name = "active")
+    @ColumnDefault("true")
+    private Boolean active;
 
     public Plan(){
 
@@ -94,14 +99,6 @@ public class Plan {
 
     public void setDurationInMonths(Integer durationInMonths) {
         this.durationInMonths = durationInMonths;
-    }
-
-    public PlanActivation getPlanActivation() {
-        return planActivation;
-    }
-
-    public void setPlanActivation(PlanActivation planActivation) {
-        this.planActivation = planActivation;
     }
 
     public Set<PlanFeature> getPlanFeatures() {

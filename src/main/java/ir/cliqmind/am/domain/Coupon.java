@@ -1,10 +1,10 @@
 package ir.cliqmind.am.domain;
 
-import org.hibernate.annotations.ColumnDefault;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
+import org.hibernate.annotations.*;
 
 import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 import java.sql.Date;
@@ -12,7 +12,7 @@ import java.sql.Timestamp;
 import java.util.*;
 
 @Entity(name = "Coupon")
-@Table(name = "coupon")
+@Table(name = "coupons")
 public class Coupon implements Serializable {
 
   @Id
@@ -24,93 +24,38 @@ public class Coupon implements Serializable {
   @Column(name = "amount", nullable = false)
   private Double amount;
 
-  @Column(name = "maximum_amount", nullable = false)
+  @Column(name = "maximum_amount")
   private Double maximumAmount;
 
-  @Column(name = "currency")
-  @ColumnDefault("'IRR'")
+  @Column(name = "currency", length = 10, nullable = false)
   private String currency;
 
-  @Column(name = "expiration_date", nullable = false)
-  private Timestamp expirationDate;
+  @Column(name = "expiration_date")
+  private Date expirationDate;
 
-  @ManyToMany(fetch=FetchType.EAGER)
-  @JoinTable(name = "plan_coupons",
-          joinColumns = @JoinColumn(name = "coupon_id"),
-          inverseJoinColumns = @JoinColumn(name = "plan_id")
-  )
-  @Fetch(value = FetchMode.SUBSELECT)
-  private List<Plan> exceptPlans;
+  @Column(name = "time", nullable = false)
+  private Timestamp time;
+
+  @Column(name = "allow_concurrent_coupons", nullable = false)
+  private Boolean allowConcurrentCoupons;
+
+  @Column(name = "allow_secondary_price", nullable = false)
+  private Boolean allowSecondaryPrice;
+
+  @Column(name = "maximum_usage_limit")
+  private Integer maximumUsageLimit;
+
+  @Column(name = "maximum_usage_limit_per_user")
+  private Integer maximumUsageLimitPerUser;
 
   @ElementCollection(fetch=FetchType.EAGER)
+  @CollectionTable(name = "coupon_target_users", joinColumns = @JoinColumn(name = "code"))
+  @Column(name = "target_id", nullable = false)
   private List<UUID> targetUsers;
 
   public Coupon(){
 
   }
 
-  public String getCode() {
-    return code;
-  }
-
-  public void setCode(String code) {
-    this.code = code;
-  }
-
-  public Boolean getPercentageBased() {
-    return percentageBased;
-  }
-
-  public void setPercentageBased(Boolean percentageBased) {
-    this.percentageBased = percentageBased;
-  }
-
-  public Double getAmount() {
-    return amount;
-  }
-
-  public void setAmount(Double amount) {
-    this.amount = amount;
-  }
-
-  public Double getMaximumAmount() {
-    return maximumAmount;
-  }
-
-  public void setMaximumAmount(Double maximumAmount) {
-    this.maximumAmount = maximumAmount;
-  }
-
-  public String getCurrency() {
-    return currency;
-  }
-
-  public void setCurrency(String currency) {
-    this.currency = currency;
-  }
-
-  public Timestamp getExpirationDate() {
-    return expirationDate;
-  }
-
-  public void setExpirationDate(Timestamp expirationDate) {
-    this.expirationDate = expirationDate;
-  }
-
-  public List<Plan> getExceptPlans() {
-    return exceptPlans;
-  }
-
-  public void setExceptPlans(List<Plan> exceptPlans) {
-    this.exceptPlans = exceptPlans;
-  }
-
-  public List<UUID> getTargetUsers() {
-    return targetUsers;
-  }
-
-  public void setTargetUsers(List<UUID> targetUsers) {
-    this.targetUsers = targetUsers;
-  }
 }
 

@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity(name = "PlanFeature")
-@Table(name = "plan_feature")
+@Table(name = "plan_features")
 public class PlanFeature implements Serializable {
 
     @EmbeddedId
@@ -18,8 +18,11 @@ public class PlanFeature implements Serializable {
     @MapsId("featureId")
     private Feature feature;
 
-    @Column(name = "amount", nullable = false)
-    private Double amount;
+    @Column(name = "amount")
+    private Integer amount;
+
+    @Column(name = "maximum_amount")
+    private Integer maximumAmount;
 
     public PlanFeature(){}
 
@@ -47,11 +50,11 @@ public class PlanFeature implements Serializable {
         this.feature = feature;
     }
 
-    public Double getAmount() {
+    public Integer getAmount() {
         return amount;
     }
 
-    public void setAmount(Double amount) {
+    public void setAmount(Integer amount) {
         this.amount = amount;
     }
 }
