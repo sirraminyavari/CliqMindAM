@@ -8,16 +8,8 @@ import java.sql.Date;
 @Table(name = "plan_price")
 public class PlanPrice implements Serializable {
 
-    @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
-    private Long id;
-
-    @ManyToOne
-    @MapsId("planId")
-    private Plan plan;
-
-    @Column(name = "currency", length = 10, nullable = false)
-    private String currency;
+    @EmbeddedId
+    private PlanPriceId id = new PlanPriceId();
 
     @Column(name = "price", nullable = false)
     private Double price;

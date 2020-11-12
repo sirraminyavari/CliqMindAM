@@ -8,7 +8,7 @@ import java.util.UUID;
 
 @Entity(name = "PlanActivationHistory")
 @Table(name = "plan_activation_history", indexes = {
-        @Index(columnList = "owner_id", name = "plan_activation_history_owner_id")
+        @Index(columnList = "owner_id,plan_id", name = "plan_activation_history_owner_id")
 })
 public class PlanActivationHistory implements Serializable {
 
