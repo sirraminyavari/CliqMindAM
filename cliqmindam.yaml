@@ -785,7 +785,7 @@ definitions:
       - is_deposit
       - amount
       - currency
-      - transaction_code
+      - code
     properties:
       id:
         type: "integer"
@@ -801,7 +801,7 @@ definitions:
       currency:
         type: "string"
         pattern: "[A-Z][A-Z][A-Z]"
-      transaction_code:
+      code:
         type: "string"
       type:
         type: "string"
@@ -823,7 +823,7 @@ definitions:
       currency:
         type: "string"
         pattern: "[A-Z][A-Z][A-Z]"
-      transaction_code:
+      code:
         type: "string"
       type:
         type: "string"

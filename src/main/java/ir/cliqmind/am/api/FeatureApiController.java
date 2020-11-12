@@ -23,7 +23,7 @@ import javax.validation.Valid;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2020-11-08T17:36:36.325Z")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2020-11-12T12:24:22.951Z")
 
 @Controller
 public class FeatureApiController implements FeatureApi {
@@ -58,7 +58,7 @@ public class FeatureApiController implements FeatureApi {
         String accept = request.getHeader("Accept");
         if (accept != null && accept.contains("application/json")) {
             try {
-                return new ResponseEntity<Feature>(objectMapper.readValue("{  \"name\" : \"name\",  \"description\" : \"description\",  \"id\" : 0}", Feature.class), HttpStatus.NOT_IMPLEMENTED);
+                return new ResponseEntity<Feature>(objectMapper.readValue("{  \"amount\" : 6,  \"name\" : \"name\",  \"description\" : \"description\",  \"active\" : true,  \"id\" : 0}", Feature.class), HttpStatus.NOT_IMPLEMENTED);
             } catch (IOException e) {
                 log.error("Couldn't serialize response for content type application/json", e);
                 return new ResponseEntity<Feature>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -100,7 +100,7 @@ public class FeatureApiController implements FeatureApi {
         String accept = request.getHeader("Accept");
         if (accept != null && accept.contains("application/json")) {
             try {
-                return new ResponseEntity<GetActiveFeaturesResponse>(objectMapper.readValue("{  \"features\" : [ {    \"name\" : \"name\",    \"description\" : \"description\",    \"id\" : 0  }, {    \"name\" : \"name\",    \"description\" : \"description\",    \"id\" : 0  } ],  \"total_count\" : 0}", GetActiveFeaturesResponse.class), HttpStatus.NOT_IMPLEMENTED);
+                return new ResponseEntity<GetActiveFeaturesResponse>(objectMapper.readValue("{  \"features\" : [ {    \"amount\" : 6,    \"name\" : \"name\",    \"description\" : \"description\",    \"active\" : true,    \"id\" : 0  }, {    \"amount\" : 6,    \"name\" : \"name\",    \"description\" : \"description\",    \"active\" : true,    \"id\" : 0  } ],  \"total_count\" : 0}", GetActiveFeaturesResponse.class), HttpStatus.NOT_IMPLEMENTED);
             } catch (IOException e) {
                 log.error("Couldn't serialize response for content type application/json", e);
                 return new ResponseEntity<GetActiveFeaturesResponse>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -114,7 +114,7 @@ public class FeatureApiController implements FeatureApi {
         String accept = request.getHeader("Accept");
         if (accept != null && accept.contains("application/json")) {
             try {
-                return new ResponseEntity<GetFeaturesResponse>(objectMapper.readValue("{  \"features\" : [ {    \"name\" : \"name\",    \"description\" : \"description\",    \"id\" : 0  }, {    \"name\" : \"name\",    \"description\" : \"description\",    \"id\" : 0  } ],  \"total_count\" : 0}", GetFeaturesResponse.class), HttpStatus.NOT_IMPLEMENTED);
+                return new ResponseEntity<GetFeaturesResponse>(objectMapper.readValue("{  \"features\" : [ {    \"amount\" : 6,    \"name\" : \"name\",    \"description\" : \"description\",    \"active\" : true,    \"id\" : 0  }, {    \"amount\" : 6,    \"name\" : \"name\",    \"description\" : \"description\",    \"active\" : true,    \"id\" : 0  } ],  \"total_count\" : 0}", GetFeaturesResponse.class), HttpStatus.NOT_IMPLEMENTED);
             } catch (IOException e) {
                 log.error("Couldn't serialize response for content type application/json", e);
                 return new ResponseEntity<GetFeaturesResponse>(HttpStatus.INTERNAL_SERVER_ERROR);

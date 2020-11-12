@@ -3,13 +3,17 @@ package ir.cliqmind.am.dto;
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModelProperty;
+
+import java.util.ArrayList;
+import java.util.List;
 import org.springframework.validation.annotation.Validated;
+import javax.validation.Valid;
 
 /**
  * Plan
  */
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2020-11-08T17:36:36.325Z")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2020-11-12T12:24:22.951Z")
 
 
 
@@ -35,6 +39,17 @@ public class Plan   {
 
   @JsonProperty("duration_in_months")
   private Integer durationInMonths = null;
+
+  @JsonProperty("active")
+  private Boolean active = null;
+
+  @JsonProperty("features")
+  @Valid
+  private List<Feature> features = null;
+
+  @JsonProperty("price")
+  @Valid
+  private List<PlanPriceItem> price = null;
 
   public Plan id(Integer id) {
     this.id = id;
@@ -176,6 +191,84 @@ public class Plan   {
     this.durationInMonths = durationInMonths;
   }
 
+  public Plan active(Boolean active) {
+    this.active = active;
+    return this;
+  }
+
+  /**
+   * Get active
+   * @return active
+  **/
+  @ApiModelProperty(value = "")
+
+
+  public Boolean isActive() {
+    return active;
+  }
+
+  public void setActive(Boolean active) {
+    this.active = active;
+  }
+
+  public Plan features(List<Feature> features) {
+    this.features = features;
+    return this;
+  }
+
+  public Plan addFeaturesItem(Feature featuresItem) {
+    if (this.features == null) {
+      this.features = new ArrayList<Feature>();
+    }
+    this.features.add(featuresItem);
+    return this;
+  }
+
+  /**
+   * Get features
+   * @return features
+  **/
+  @ApiModelProperty(value = "")
+
+  @Valid
+
+  public List<Feature> getFeatures() {
+    return features;
+  }
+
+  public void setFeatures(List<Feature> features) {
+    this.features = features;
+  }
+
+  public Plan price(List<PlanPriceItem> price) {
+    this.price = price;
+    return this;
+  }
+
+  public Plan addPriceItem(PlanPriceItem priceItem) {
+    if (this.price == null) {
+      this.price = new ArrayList<PlanPriceItem>();
+    }
+    this.price.add(priceItem);
+    return this;
+  }
+
+  /**
+   * Get price
+   * @return price
+  **/
+  @ApiModelProperty(value = "")
+
+  @Valid
+
+  public List<PlanPriceItem> getPrice() {
+    return price;
+  }
+
+  public void setPrice(List<PlanPriceItem> price) {
+    this.price = price;
+  }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -192,12 +285,15 @@ public class Plan   {
         Objects.equals(this.userBased, plan.userBased) &&
         Objects.equals(this.enableAmount, plan.enableAmount) &&
         Objects.equals(this.maximumAmount, plan.maximumAmount) &&
-        Objects.equals(this.durationInMonths, plan.durationInMonths);
+        Objects.equals(this.durationInMonths, plan.durationInMonths) &&
+        Objects.equals(this.active, plan.active) &&
+        Objects.equals(this.features, plan.features) &&
+        Objects.equals(this.price, plan.price);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, name, description, userBased, enableAmount, maximumAmount, durationInMonths);
+    return Objects.hash(id, name, description, userBased, enableAmount, maximumAmount, durationInMonths, active, features, price);
   }
 
   @Override
@@ -212,6 +308,9 @@ public class Plan   {
     sb.append("    enableAmount: ").append(toIndentedString(enableAmount)).append("\n");
     sb.append("    maximumAmount: ").append(toIndentedString(maximumAmount)).append("\n");
     sb.append("    durationInMonths: ").append(toIndentedString(durationInMonths)).append("\n");
+    sb.append("    active: ").append(toIndentedString(active)).append("\n");
+    sb.append("    features: ").append(toIndentedString(features)).append("\n");
+    sb.append("    price: ").append(toIndentedString(price)).append("\n");
     sb.append("}");
     return sb.toString();
   }

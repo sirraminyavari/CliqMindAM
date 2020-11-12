@@ -3,6 +3,9 @@ package ir.cliqmind.am.dto;
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModelProperty;
+
+import java.util.UUID;
+import org.threeten.bp.LocalDate;
 import org.threeten.bp.OffsetDateTime;
 import org.springframework.validation.annotation.Validated;
 import javax.validation.Valid;
@@ -11,7 +14,7 @@ import javax.validation.Valid;
  * PlanActivationItem
  */
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2020-11-08T17:36:36.325Z")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2020-11-12T12:24:22.951Z")
 
 
 
@@ -20,11 +23,38 @@ public class PlanActivationItem   {
   @JsonProperty("id")
   private Integer id = null;
 
-  @JsonProperty("active")
-  private Boolean active = null;
+  @JsonProperty("owner_id")
+  private UUID ownerId = null;
 
-  @JsonProperty("datetime")
-  private OffsetDateTime datetime = null;
+  @JsonProperty("plan")
+  private Plan plan = null;
+
+  @JsonProperty("upgraded_from_plan")
+  private Plan upgradedFromPlan = null;
+
+  @JsonProperty("transaction")
+  private Transaction transaction = null;
+
+  @JsonProperty("amount")
+  private Integer amount = null;
+
+  @JsonProperty("time")
+  private OffsetDateTime time = null;
+
+  @JsonProperty("start_date")
+  private LocalDate startDate = null;
+
+  @JsonProperty("expiration_date")
+  private LocalDate expirationDate = null;
+
+  @JsonProperty("activated_by_user_id")
+  private UUID activatedByUserId = null;
+
+  @JsonProperty("is_expired")
+  private Boolean isExpired = null;
+
+  @JsonProperty("is_active")
+  private Boolean isActive = null;
 
   public PlanActivationItem id(Integer id) {
     this.id = id;
@@ -46,45 +76,232 @@ public class PlanActivationItem   {
     this.id = id;
   }
 
-  public PlanActivationItem active(Boolean active) {
-    this.active = active;
+  public PlanActivationItem ownerId(UUID ownerId) {
+    this.ownerId = ownerId;
     return this;
   }
 
   /**
-   * Get active
-   * @return active
-  **/
-  @ApiModelProperty(value = "")
-
-
-  public Boolean isActive() {
-    return active;
-  }
-
-  public void setActive(Boolean active) {
-    this.active = active;
-  }
-
-  public PlanActivationItem datetime(OffsetDateTime datetime) {
-    this.datetime = datetime;
-    return this;
-  }
-
-  /**
-   * Get datetime
-   * @return datetime
+   * Get ownerId
+   * @return ownerId
   **/
   @ApiModelProperty(value = "")
 
   @Valid
 
-  public OffsetDateTime getDatetime() {
-    return datetime;
+  public UUID getOwnerId() {
+    return ownerId;
   }
 
-  public void setDatetime(OffsetDateTime datetime) {
-    this.datetime = datetime;
+  public void setOwnerId(UUID ownerId) {
+    this.ownerId = ownerId;
+  }
+
+  public PlanActivationItem plan(Plan plan) {
+    this.plan = plan;
+    return this;
+  }
+
+  /**
+   * Get plan
+   * @return plan
+  **/
+  @ApiModelProperty(value = "")
+
+  @Valid
+
+  public Plan getPlan() {
+    return plan;
+  }
+
+  public void setPlan(Plan plan) {
+    this.plan = plan;
+  }
+
+  public PlanActivationItem upgradedFromPlan(Plan upgradedFromPlan) {
+    this.upgradedFromPlan = upgradedFromPlan;
+    return this;
+  }
+
+  /**
+   * Get upgradedFromPlan
+   * @return upgradedFromPlan
+  **/
+  @ApiModelProperty(value = "")
+
+  @Valid
+
+  public Plan getUpgradedFromPlan() {
+    return upgradedFromPlan;
+  }
+
+  public void setUpgradedFromPlan(Plan upgradedFromPlan) {
+    this.upgradedFromPlan = upgradedFromPlan;
+  }
+
+  public PlanActivationItem transaction(Transaction transaction) {
+    this.transaction = transaction;
+    return this;
+  }
+
+  /**
+   * Get transaction
+   * @return transaction
+  **/
+  @ApiModelProperty(value = "")
+
+  @Valid
+
+  public Transaction getTransaction() {
+    return transaction;
+  }
+
+  public void setTransaction(Transaction transaction) {
+    this.transaction = transaction;
+  }
+
+  public PlanActivationItem amount(Integer amount) {
+    this.amount = amount;
+    return this;
+  }
+
+  /**
+   * Get amount
+   * @return amount
+  **/
+  @ApiModelProperty(value = "")
+
+
+  public Integer getAmount() {
+    return amount;
+  }
+
+  public void setAmount(Integer amount) {
+    this.amount = amount;
+  }
+
+  public PlanActivationItem time(OffsetDateTime time) {
+    this.time = time;
+    return this;
+  }
+
+  /**
+   * Get time
+   * @return time
+  **/
+  @ApiModelProperty(value = "")
+
+  @Valid
+
+  public OffsetDateTime getTime() {
+    return time;
+  }
+
+  public void setTime(OffsetDateTime time) {
+    this.time = time;
+  }
+
+  public PlanActivationItem startDate(LocalDate startDate) {
+    this.startDate = startDate;
+    return this;
+  }
+
+  /**
+   * Get startDate
+   * @return startDate
+  **/
+  @ApiModelProperty(value = "")
+
+  @Valid
+
+  public LocalDate getStartDate() {
+    return startDate;
+  }
+
+  public void setStartDate(LocalDate startDate) {
+    this.startDate = startDate;
+  }
+
+  public PlanActivationItem expirationDate(LocalDate expirationDate) {
+    this.expirationDate = expirationDate;
+    return this;
+  }
+
+  /**
+   * Get expirationDate
+   * @return expirationDate
+  **/
+  @ApiModelProperty(value = "")
+
+  @Valid
+
+  public LocalDate getExpirationDate() {
+    return expirationDate;
+  }
+
+  public void setExpirationDate(LocalDate expirationDate) {
+    this.expirationDate = expirationDate;
+  }
+
+  public PlanActivationItem activatedByUserId(UUID activatedByUserId) {
+    this.activatedByUserId = activatedByUserId;
+    return this;
+  }
+
+  /**
+   * Get activatedByUserId
+   * @return activatedByUserId
+  **/
+  @ApiModelProperty(value = "")
+
+  @Valid
+
+  public UUID getActivatedByUserId() {
+    return activatedByUserId;
+  }
+
+  public void setActivatedByUserId(UUID activatedByUserId) {
+    this.activatedByUserId = activatedByUserId;
+  }
+
+  public PlanActivationItem isExpired(Boolean isExpired) {
+    this.isExpired = isExpired;
+    return this;
+  }
+
+  /**
+   * Get isExpired
+   * @return isExpired
+  **/
+  @ApiModelProperty(value = "")
+
+
+  public Boolean isIsExpired() {
+    return isExpired;
+  }
+
+  public void setIsExpired(Boolean isExpired) {
+    this.isExpired = isExpired;
+  }
+
+  public PlanActivationItem isActive(Boolean isActive) {
+    this.isActive = isActive;
+    return this;
+  }
+
+  /**
+   * Get isActive
+   * @return isActive
+  **/
+  @ApiModelProperty(value = "")
+
+
+  public Boolean isIsActive() {
+    return isActive;
+  }
+
+  public void setIsActive(Boolean isActive) {
+    this.isActive = isActive;
   }
 
 
@@ -98,13 +315,22 @@ public class PlanActivationItem   {
     }
     PlanActivationItem planActivationItem = (PlanActivationItem) o;
     return Objects.equals(this.id, planActivationItem.id) &&
-        Objects.equals(this.active, planActivationItem.active) &&
-        Objects.equals(this.datetime, planActivationItem.datetime);
+        Objects.equals(this.ownerId, planActivationItem.ownerId) &&
+        Objects.equals(this.plan, planActivationItem.plan) &&
+        Objects.equals(this.upgradedFromPlan, planActivationItem.upgradedFromPlan) &&
+        Objects.equals(this.transaction, planActivationItem.transaction) &&
+        Objects.equals(this.amount, planActivationItem.amount) &&
+        Objects.equals(this.time, planActivationItem.time) &&
+        Objects.equals(this.startDate, planActivationItem.startDate) &&
+        Objects.equals(this.expirationDate, planActivationItem.expirationDate) &&
+        Objects.equals(this.activatedByUserId, planActivationItem.activatedByUserId) &&
+        Objects.equals(this.isExpired, planActivationItem.isExpired) &&
+        Objects.equals(this.isActive, planActivationItem.isActive);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, active, datetime);
+    return Objects.hash(id, ownerId, plan, upgradedFromPlan, transaction, amount, time, startDate, expirationDate, activatedByUserId, isExpired, isActive);
   }
 
   @Override
@@ -113,8 +339,17 @@ public class PlanActivationItem   {
     sb.append("class PlanActivationItem {\n");
     
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
-    sb.append("    active: ").append(toIndentedString(active)).append("\n");
-    sb.append("    datetime: ").append(toIndentedString(datetime)).append("\n");
+    sb.append("    ownerId: ").append(toIndentedString(ownerId)).append("\n");
+    sb.append("    plan: ").append(toIndentedString(plan)).append("\n");
+    sb.append("    upgradedFromPlan: ").append(toIndentedString(upgradedFromPlan)).append("\n");
+    sb.append("    transaction: ").append(toIndentedString(transaction)).append("\n");
+    sb.append("    amount: ").append(toIndentedString(amount)).append("\n");
+    sb.append("    time: ").append(toIndentedString(time)).append("\n");
+    sb.append("    startDate: ").append(toIndentedString(startDate)).append("\n");
+    sb.append("    expirationDate: ").append(toIndentedString(expirationDate)).append("\n");
+    sb.append("    activatedByUserId: ").append(toIndentedString(activatedByUserId)).append("\n");
+    sb.append("    isExpired: ").append(toIndentedString(isExpired)).append("\n");
+    sb.append("    isActive: ").append(toIndentedString(isActive)).append("\n");
     sb.append("}");
     return sb.toString();
   }

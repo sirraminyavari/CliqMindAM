@@ -19,7 +19,7 @@ import javax.validation.Valid;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2020-11-08T17:36:36.325Z")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2020-11-12T12:24:22.951Z")
 
 @Controller
 public class TransactionApiController implements TransactionApi {
@@ -40,7 +40,7 @@ public class TransactionApiController implements TransactionApi {
         String accept = request.getHeader("Accept");
         if (accept != null && accept.contains("application/json")) {
             try {
-                return new ResponseEntity<Transaction>(objectMapper.readValue("{  \"transaction_code\" : \"transaction_code\",  \"amount\" : 6.027456183070403,  \"user_id\" : \"046b6c7f-0b8a-43b9-b35d-6489e6daee91\",  \"currency\" : \"currency\",  \"id\" : 0,  \"type\" : \"type\",  \"is_deposit\" : true}", Transaction.class), HttpStatus.NOT_IMPLEMENTED);
+                return new ResponseEntity<Transaction>(objectMapper.readValue("{  \"rollback\" : {    \"done_by_user_id\" : \"046b6c7f-0b8a-43b9-b35d-6489e6daee91\",    \"description\" : \"description\",    \"time\" : \"2000-01-23T04:56:07.000+00:00\"  },  \"amount\" : 6.027456183070403,  \"code\" : \"code\",  \"user_id\" : \"046b6c7f-0b8a-43b9-b35d-6489e6daee91\",  \"currency\" : \"currency\",  \"id\" : 0,  \"type\" : \"type\",  \"is_deposit\" : true}", Transaction.class), HttpStatus.NOT_IMPLEMENTED);
             } catch (IOException e) {
                 log.error("Couldn't serialize response for content type application/json", e);
                 return new ResponseEntity<Transaction>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -54,7 +54,7 @@ public class TransactionApiController implements TransactionApi {
         String accept = request.getHeader("Accept");
         if (accept != null && accept.contains("application/json")) {
             try {
-                return new ResponseEntity<Transactions>(objectMapper.readValue("{  \"total_count\" : 0,  \"transactions\" : [ {    \"transaction_code\" : \"transaction_code\",    \"amount\" : 6.027456183070403,    \"user_id\" : \"046b6c7f-0b8a-43b9-b35d-6489e6daee91\",    \"currency\" : \"currency\",    \"id\" : 0,    \"type\" : \"type\",    \"is_deposit\" : true  }, {    \"transaction_code\" : \"transaction_code\",    \"amount\" : 6.027456183070403,    \"user_id\" : \"046b6c7f-0b8a-43b9-b35d-6489e6daee91\",    \"currency\" : \"currency\",    \"id\" : 0,    \"type\" : \"type\",    \"is_deposit\" : true  } ]}", Transactions.class), HttpStatus.NOT_IMPLEMENTED);
+                return new ResponseEntity<Transactions>(objectMapper.readValue("{  \"total_count\" : 0,  \"transactions\" : [ {    \"rollback\" : {      \"done_by_user_id\" : \"046b6c7f-0b8a-43b9-b35d-6489e6daee91\",      \"description\" : \"description\",      \"time\" : \"2000-01-23T04:56:07.000+00:00\"    },    \"amount\" : 6.027456183070403,    \"code\" : \"code\",    \"user_id\" : \"046b6c7f-0b8a-43b9-b35d-6489e6daee91\",    \"currency\" : \"currency\",    \"id\" : 0,    \"type\" : \"type\",    \"is_deposit\" : true  }, {    \"rollback\" : {      \"done_by_user_id\" : \"046b6c7f-0b8a-43b9-b35d-6489e6daee91\",      \"description\" : \"description\",      \"time\" : \"2000-01-23T04:56:07.000+00:00\"    },    \"amount\" : 6.027456183070403,    \"code\" : \"code\",    \"user_id\" : \"046b6c7f-0b8a-43b9-b35d-6489e6daee91\",    \"currency\" : \"currency\",    \"id\" : 0,    \"type\" : \"type\",    \"is_deposit\" : true  } ]}", Transactions.class), HttpStatus.NOT_IMPLEMENTED);
             } catch (IOException e) {
                 log.error("Couldn't serialize response for content type application/json", e);
                 return new ResponseEntity<Transactions>(HttpStatus.INTERNAL_SERVER_ERROR);

@@ -3,6 +3,7 @@ package ir.cliqmind.am.dto;
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModelProperty;
+
 import java.util.UUID;
 import org.springframework.validation.annotation.Validated;
 import javax.validation.Valid;
@@ -12,7 +13,7 @@ import javax.validation.constraints.*;
  * Transaction
  */
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2020-11-08T17:36:36.325Z")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2020-11-12T12:24:22.951Z")
 
 
 
@@ -33,11 +34,14 @@ public class Transaction   {
   @JsonProperty("currency")
   private String currency = null;
 
-  @JsonProperty("transaction_code")
-  private String transactionCode = null;
+  @JsonProperty("code")
+  private String code = null;
 
   @JsonProperty("type")
   private String type = null;
+
+  @JsonProperty("rollback")
+  private TransactionRollback rollback = null;
 
   public Transaction id(Long id) {
     this.id = id;
@@ -140,24 +144,24 @@ public class Transaction   {
     this.currency = currency;
   }
 
-  public Transaction transactionCode(String transactionCode) {
-    this.transactionCode = transactionCode;
+  public Transaction code(String code) {
+    this.code = code;
     return this;
   }
 
   /**
-   * Get transactionCode
-   * @return transactionCode
+   * Get code
+   * @return code
   **/
   @ApiModelProperty(value = "")
 
 
-  public String getTransactionCode() {
-    return transactionCode;
+  public String getCode() {
+    return code;
   }
 
-  public void setTransactionCode(String transactionCode) {
-    this.transactionCode = transactionCode;
+  public void setCode(String code) {
+    this.code = code;
   }
 
   public Transaction type(String type) {
@@ -180,6 +184,27 @@ public class Transaction   {
     this.type = type;
   }
 
+  public Transaction rollback(TransactionRollback rollback) {
+    this.rollback = rollback;
+    return this;
+  }
+
+  /**
+   * Get rollback
+   * @return rollback
+  **/
+  @ApiModelProperty(value = "")
+
+  @Valid
+
+  public TransactionRollback getRollback() {
+    return rollback;
+  }
+
+  public void setRollback(TransactionRollback rollback) {
+    this.rollback = rollback;
+  }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -195,13 +220,14 @@ public class Transaction   {
         Objects.equals(this.isDeposit, transaction.isDeposit) &&
         Objects.equals(this.amount, transaction.amount) &&
         Objects.equals(this.currency, transaction.currency) &&
-        Objects.equals(this.transactionCode, transaction.transactionCode) &&
-        Objects.equals(this.type, transaction.type);
+        Objects.equals(this.code, transaction.code) &&
+        Objects.equals(this.type, transaction.type) &&
+        Objects.equals(this.rollback, transaction.rollback);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, userId, isDeposit, amount, currency, transactionCode, type);
+    return Objects.hash(id, userId, isDeposit, amount, currency, code, type, rollback);
   }
 
   @Override
@@ -214,8 +240,9 @@ public class Transaction   {
     sb.append("    isDeposit: ").append(toIndentedString(isDeposit)).append("\n");
     sb.append("    amount: ").append(toIndentedString(amount)).append("\n");
     sb.append("    currency: ").append(toIndentedString(currency)).append("\n");
-    sb.append("    transactionCode: ").append(toIndentedString(transactionCode)).append("\n");
+    sb.append("    code: ").append(toIndentedString(code)).append("\n");
     sb.append("    type: ").append(toIndentedString(type)).append("\n");
+    sb.append("    rollback: ").append(toIndentedString(rollback)).append("\n");
     sb.append("}");
     return sb.toString();
   }

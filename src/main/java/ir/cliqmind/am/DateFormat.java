@@ -7,7 +7,7 @@ import java.text.FieldPosition;
 import java.util.Date;
 
 
-public class RFC3339DateFormat extends ISO8601DateFormat {
+public class DateFormat extends ISO8601DateFormat {
 
   private static final long serialVersionUID = 1L;
 

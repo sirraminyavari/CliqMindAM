@@ -12,7 +12,7 @@ import javax.validation.constraints.*;
  * AddTransactionRequest
  */
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2020-11-08T17:36:36.325Z")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2020-11-12T12:24:22.951Z")
 
 
 
@@ -33,8 +33,8 @@ public class AddTransactionRequest   {
   @JsonProperty("currency")
   private String currency = null;
 
-  @JsonProperty("transaction_code")
-  private String transactionCode = null;
+  @JsonProperty("code")
+  private String code = null;
 
   @JsonProperty("type")
   private String type = null;
@@ -144,25 +144,25 @@ public class AddTransactionRequest   {
     this.currency = currency;
   }
 
-  public AddTransactionRequest transactionCode(String transactionCode) {
-    this.transactionCode = transactionCode;
+  public AddTransactionRequest code(String code) {
+    this.code = code;
     return this;
   }
 
   /**
-   * Get transactionCode
-   * @return transactionCode
+   * Get code
+   * @return code
   **/
   @ApiModelProperty(required = true, value = "")
   @NotNull
 
 
-  public String getTransactionCode() {
-    return transactionCode;
+  public String getCode() {
+    return code;
   }
 
-  public void setTransactionCode(String transactionCode) {
-    this.transactionCode = transactionCode;
+  public void setCode(String code) {
+    this.code = code;
   }
 
   public AddTransactionRequest type(String type) {
@@ -200,13 +200,13 @@ public class AddTransactionRequest   {
         Objects.equals(this.isDeposit, addTransactionRequest.isDeposit) &&
         Objects.equals(this.amount, addTransactionRequest.amount) &&
         Objects.equals(this.currency, addTransactionRequest.currency) &&
-        Objects.equals(this.transactionCode, addTransactionRequest.transactionCode) &&
+        Objects.equals(this.code, addTransactionRequest.code) &&
         Objects.equals(this.type, addTransactionRequest.type);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, userId, isDeposit, amount, currency, transactionCode, type);
+    return Objects.hash(id, userId, isDeposit, amount, currency, code, type);
   }
 
   @Override
@@ -219,7 +219,7 @@ public class AddTransactionRequest   {
     sb.append("    isDeposit: ").append(toIndentedString(isDeposit)).append("\n");
     sb.append("    amount: ").append(toIndentedString(amount)).append("\n");
     sb.append("    currency: ").append(toIndentedString(currency)).append("\n");
-    sb.append("    transactionCode: ").append(toIndentedString(transactionCode)).append("\n");
+    sb.append("    code: ").append(toIndentedString(code)).append("\n");
     sb.append("    type: ").append(toIndentedString(type)).append("\n");
     sb.append("}");
     return sb.toString();
