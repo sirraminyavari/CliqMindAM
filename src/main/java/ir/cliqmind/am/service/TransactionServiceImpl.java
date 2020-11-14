@@ -1,12 +1,15 @@
 package ir.cliqmind.am.service;
 
 import ir.cliqmind.am.dao.TransactionRepo;
+import ir.cliqmind.am.mapper.ResponseMessageBuilder;
 import ir.cliqmind.am.mapper.TransactionBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.sql.Timestamp;
 
 @Service
 public class TransactionServiceImpl implements TransactionService {
@@ -18,9 +21,12 @@ public class TransactionServiceImpl implements TransactionService {
 
     private TransactionBuilder transactionBuilder;
 
+    private ResponseMessageBuilder responseMessageBuilder;
+
     @Autowired
     public TransactionServiceImpl(){
         transactionBuilder = new TransactionBuilder();
+        responseMessageBuilder = new ResponseMessageBuilder();
     }
 
     @Override
@@ -36,6 +42,7 @@ public class TransactionServiceImpl implements TransactionService {
 
     @Override
     public ir.cliqmind.am.dto.ResponseMessage rollbackTransaction(ir.cliqmind.am.dto.RollbackTransactionRequest body) {
-        return new ir.cliqmind.am.dto.ResponseMessage();
+        transactionRepo.rollback(body.getId(), body.getDoneByUserId(), body.getDescription(), new Timestamp(System.currentTimeMillis()));
+        return responseMessageBuilder.success();
     }
 }
