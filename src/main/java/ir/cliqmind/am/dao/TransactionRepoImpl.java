@@ -2,26 +2,33 @@ package ir.cliqmind.am.dao;
 
 import ir.cliqmind.am.dto.GetTransactionsRequest;
 import ir.cliqmind.am.domain.Transaction;
+import ir.cliqmind.am.dto.TransferCreditRequest;
+import ir.cliqmind.am.service.CreditServiceImpl;
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Repository
 public class TransactionRepoImpl implements TransactionsRepoCustom {
 
+    private static final Logger log = LoggerFactory.getLogger(TransactionRepoImpl.class);
+
     @PersistenceContext
     private EntityManager em;
+
+    private final String getCreditBalanceSql = "SELECT currency, sum(amount * pos) FROM (select * , (case is_deposit when true then 1 else -1 end) as pos FROM public.transactions) AS t2 where %s group by currency";
 
     @Override
     public List<Transaction> getTransactionsRequest(GetTransactionsRequest request) {
@@ -53,5 +60,29 @@ public class TransactionRepoImpl implements TransactionsRepoCustom {
         Optional.ofNullable(request.getCount()).ifPresent(p -> query.setMaxResults(p));
 
         return query.getResultList();
+    }
+
+    @Override
+    public Map<String, Double> getCreditBalance(UUID userId, String currency) {
+        List<String> where = new ArrayList<>();
+        where.add("(rollbacked=false or rollbacked is null)");
+        where.add(String.format("user_id='%s'", userId));
+        if(currency != null){
+            where.add(String.format("currency='%s'", currency));
+        }
+        String sql = String.format(getCreditBalanceSql,
+                where.stream().collect(Collectors.joining(" AND ")));
+        Query q = em.createNativeQuery(sql);
+        Map<String, Double> result = new HashMap<>();
+        q.getResultList().forEach(r -> {
+            Object[] a = (Object[])r;
+            result.put((String) a[0], (Double) a[1]);
+        });
+        return result;
+    }
+
+    @Override
+    public List<Transaction> transferBalance(TransferCreditRequest body) {
+        return null;
     }
 }

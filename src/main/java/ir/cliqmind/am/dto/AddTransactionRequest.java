@@ -22,9 +22,6 @@ public class AddTransactionRequest   {
   @JsonProperty("user_id")
   private UUID userId = null;
 
-  @JsonProperty("is_deposit")
-  private Boolean isDeposit = null;
-
   @JsonProperty("amount")
   private Double amount = null;
 
@@ -70,31 +67,6 @@ public class AddTransactionRequest   {
     this.userId = userId;
   }
 
-  public AddTransactionRequest isDeposit(Boolean isDeposit) {
-    this.isDeposit = isDeposit;
-    return this;
-  }
-
-  /**
-   * Get isDeposit
-   * @return isDeposit
-  **/
-  @ApiModelProperty(required = true, value = "")
-  @NotNull
-
-
-  public Boolean isIsDeposit() {
-    return isDeposit;
-  }
-
-  public void setIsDeposit(Boolean isDeposit) {
-    this.isDeposit = isDeposit;
-  }
-
-  public AddTransactionRequest amount(Double amount) {
-    this.amount = amount;
-    return this;
-  }
 
   /**
    * Get amount
@@ -186,7 +158,6 @@ public class AddTransactionRequest   {
     AddTransactionRequest addTransactionRequest = (AddTransactionRequest) o;
     return
         Objects.equals(this.userId, addTransactionRequest.userId) &&
-        Objects.equals(this.isDeposit, addTransactionRequest.isDeposit) &&
         Objects.equals(this.amount, addTransactionRequest.amount) &&
         Objects.equals(this.currency, addTransactionRequest.currency) &&
         Objects.equals(this.code, addTransactionRequest.code) &&
@@ -195,7 +166,7 @@ public class AddTransactionRequest   {
 
   @Override
   public int hashCode() {
-    return Objects.hash(userId, isDeposit, amount, currency, code, type);
+    return Objects.hash(userId, amount, currency, code, type);
   }
 
   @Override
@@ -204,7 +175,6 @@ public class AddTransactionRequest   {
     sb.append("class AddTransactionRequest {\n");
     
     sb.append("    userId: ").append(toIndentedString(userId)).append("\n");
-    sb.append("    isDeposit: ").append(toIndentedString(isDeposit)).append("\n");
     sb.append("    amount: ").append(toIndentedString(amount)).append("\n");
     sb.append("    currency: ").append(toIndentedString(currency)).append("\n");
     sb.append("    code: ").append(toIndentedString(code)).append("\n");

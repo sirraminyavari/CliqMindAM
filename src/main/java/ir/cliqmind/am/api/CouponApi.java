@@ -12,6 +12,7 @@ import ir.cliqmind.am.dto.ResponseMessage;
 import ir.cliqmind.am.dto.UpsertCouponRequest;
 import io.swagger.annotations.*;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -22,6 +23,7 @@ import javax.validation.Valid;
 
 @Api(value = "coupon", description = "the coupon API")
 @RequestMapping(value = "/api/v1")
+@CrossOrigin(origins = "*")
 public interface CouponApi {
 
     @ApiOperation(value = "Add Coupon", nickname = "addCoupon", notes = "This can only be done by the unknown user.", response = ResponseMessage.class, tags={ "coupon", })

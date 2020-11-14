@@ -28,15 +28,8 @@ public class TransactionApiController implements TransactionApi {
 
     private static final Logger log = LoggerFactory.getLogger(TransactionApiController.class);
 
-    private final HttpServletRequest request;
-
     @Autowired
     private TransactionService transactionService;
-
-    @org.springframework.beans.factory.annotation.Autowired
-    public TransactionApiController(ObjectMapper objectMapper, HttpServletRequest request) {
-        this.request = request;
-    }
 
     public ResponseEntity<Transaction> addTransaction(@ApiParam(value = "add transaction object" ,required=true )  @Valid @RequestBody AddTransactionRequest body) {
         return new ResponseEntity<Transaction>(transactionService.addTransaction(body), HttpStatus.OK);

@@ -5,12 +5,10 @@
  */
 package ir.cliqmind.am.api;
 
-import ir.cliqmind.am.dto.GetCreditBalanceRequest;
-import ir.cliqmind.am.dto.GetCreditBalanceResponse;
-import ir.cliqmind.am.dto.Transaction;
-import ir.cliqmind.am.dto.TransferCreditRequest;
+import ir.cliqmind.am.dto.*;
 import io.swagger.annotations.*;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -21,6 +19,7 @@ import javax.validation.Valid;
 
 @Api(value = "credit", description = "the credit API")
 @RequestMapping(value = "/api/v1")
+@CrossOrigin(origins = "*")
 public interface CreditApi {
 
     @ApiOperation(value = "Get Credit Balance", nickname = "getCreditBalance", notes = "This can only be done by the unknown user.", response = GetCreditBalanceResponse.class, tags={ "credit", })
@@ -42,6 +41,6 @@ public interface CreditApi {
     @RequestMapping(value = "/credit/transfer",
         produces = { "application/json" }, 
         method = RequestMethod.POST)
-    ResponseEntity<Transaction> transferBalance(@ApiParam(value = "transfer credit" ,required=true )  @Valid @RequestBody TransferCreditRequest body);
+    ResponseEntity<Transactions> transferBalance(@ApiParam(value = "transfer credit" ,required=true )  @Valid @RequestBody TransferCreditRequest body);
 
 }

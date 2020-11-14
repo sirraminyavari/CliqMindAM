@@ -28,6 +28,7 @@ import ir.cliqmind.am.dto.Transaction;
 import ir.cliqmind.am.dto.UpradePlanRequest;
 import io.swagger.annotations.*;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -38,6 +39,7 @@ import javax.validation.Valid;
 
 @Api(value = "plan", description = "the plan API")
 @RequestMapping(value = "/api/v1")
+@CrossOrigin(origins = "*")
 public interface PlanApi {
 
     @ApiOperation(value = "Activate Plan", nickname = "activatePlan", notes = "This can only be done by the unknown user.", response = ResponseMessage.class, tags={ "plan", })

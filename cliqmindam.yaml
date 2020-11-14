@@ -141,7 +141,7 @@ paths:
         "200":
           description: "successful credit transfered"
           schema:
-            $ref: "#/definitions/Transaction"
+            $ref: "#/definitions/Transactions"
         "400":
           description: "Invalid request format "
         "401":
@@ -782,7 +782,6 @@ definitions:
     type: "object"
     required:
       - user_id
-      - is_deposit
       - amount
       - currency
       - code
@@ -790,8 +789,6 @@ definitions:
       user_id:
         type: "string"
         format: "uuid"
-      is_deposit:
-        type: "boolean"
       amount:
         type: "number"
         format: "double"

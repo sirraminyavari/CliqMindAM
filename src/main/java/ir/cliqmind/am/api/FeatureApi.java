@@ -17,6 +17,7 @@ import ir.cliqmind.am.dto.GetFeaturesResponse;
 import ir.cliqmind.am.dto.ResponseMessage;
 import io.swagger.annotations.*;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -27,6 +28,7 @@ import javax.validation.Valid;
 
 @Api(value = "feature", description = "the feature API")
 @RequestMapping(value = "/api/v1")
+@CrossOrigin(origins = "*")
 public interface FeatureApi {
 
     @ApiOperation(value = "Activate Feature", nickname = "activateFeature", notes = "This can only be done by the unknown user.", response = ResponseMessage.class, tags={ "feature", })

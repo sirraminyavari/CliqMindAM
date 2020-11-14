@@ -15,7 +15,7 @@ public class TransactionBuilder {
     public ir.cliqmind.am.domain.Transaction addTransactionRequest(ir.cliqmind.am.dto.AddTransactionRequest input){
         ir.cliqmind.am.domain.Transaction result = new ir.cliqmind.am.domain.Transaction();
         result.setUserId(input.getUserId());
-        result.setDeposit(input.isIsDeposit());
+        result.setDeposit(true);
         result.setAmount(input.getAmount());
         result.setCurrency(input.getCurrency());
         result.setTransactionCode(input.getCode());
@@ -47,7 +47,7 @@ public class TransactionBuilder {
                         input.stream().map(t -> transaction(t)).collect(Collectors.toList()));
     }
 
-    private ir.cliqmind.am.dto.Transaction transaction(ir.cliqmind.am.domain.Transaction input) {
+    public ir.cliqmind.am.dto.Transaction transaction(ir.cliqmind.am.domain.Transaction input) {
         return new ir.cliqmind.am.dto.Transaction()
                 .id(input.getId())
                 .userId(input.getUserId())
