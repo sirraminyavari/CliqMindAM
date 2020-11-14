@@ -1,10 +1,14 @@
 package ir.cliqmind.am.mapper;
 
+import ir.cliqmind.am.dto.Transaction;
 import ir.cliqmind.am.dto.TransactionRollback;
+import ir.cliqmind.am.dto.Transactions;
 
 import java.sql.Timestamp;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class TransactionBuilder {
 
@@ -36,4 +40,25 @@ public class TransactionBuilder {
         return new Date(input.getTime());
     }
 
+    public Transactions getTransactions(List<ir.cliqmind.am.domain.Transaction> input) {
+        return new Transactions()
+                .totalCount(input == null ? 0 : input.size())
+                .transactions(input == null ? null :
+                        input.stream().map(t -> transaction(t)).collect(Collectors.toList()));
+    }
+
+    private ir.cliqmind.am.dto.Transaction transaction(ir.cliqmind.am.domain.Transaction input) {
+        return new ir.cliqmind.am.dto.Transaction()
+                .id(input.getId())
+                .userId(input.getUserId())
+                .isDeposit(input.getDeposit())
+                .amount(input.getAmount())
+                .currency(input.getCurrency())
+                .code(input.getTransactionCode())
+                .type(input.getType().name())
+                .rollback(new TransactionRollback()
+                    .time(input.getRollbackTime())
+                    .doneByUserId(input.getRollbackByUserId())
+                    .description(input.getRollbackDescription()));
+    }
 }

@@ -1,12 +1,9 @@
 package ir.cliqmind.am.dto;
 
-import java.util.Objects;
+import java.util.*;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModelProperty;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
-import org.threeten.bp.LocalDate;
 import org.springframework.validation.annotation.Validated;
 import javax.validation.Valid;
 import javax.validation.constraints.*;
@@ -38,10 +35,10 @@ public class GetTransactionsRequest   {
   private Boolean rollbacked = null;
 
   @JsonProperty("from_date")
-  private LocalDate fromDate = null;
+  private Date fromDate = null;
 
   @JsonProperty("to_date")
-  private LocalDate toDate = null;
+  private Date toDate = null;
 
   @JsonProperty("from_amount")
   private Double fromAmount = null;
@@ -164,7 +161,7 @@ public class GetTransactionsRequest   {
     this.rollbacked = rollbacked;
   }
 
-  public GetTransactionsRequest fromDate(LocalDate fromDate) {
+  public GetTransactionsRequest fromDate(Date fromDate) {
     this.fromDate = fromDate;
     return this;
   }
@@ -177,15 +174,15 @@ public class GetTransactionsRequest   {
 
   @Valid
 
-  public LocalDate getFromDate() {
+  public Date getFromDate() {
     return fromDate;
   }
 
-  public void setFromDate(LocalDate fromDate) {
+  public void setFromDate(Date fromDate) {
     this.fromDate = fromDate;
   }
 
-  public GetTransactionsRequest toDate(LocalDate toDate) {
+  public GetTransactionsRequest toDate(Date toDate) {
     this.toDate = toDate;
     return this;
   }
@@ -198,11 +195,11 @@ public class GetTransactionsRequest   {
 
   @Valid
 
-  public LocalDate getToDate() {
+  public Date getToDate() {
     return toDate;
   }
 
-  public void setToDate(LocalDate toDate) {
+  public void setToDate(Date toDate) {
     this.toDate = toDate;
   }
 

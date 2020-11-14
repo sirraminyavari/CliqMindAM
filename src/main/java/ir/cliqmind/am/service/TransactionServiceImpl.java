@@ -31,7 +31,7 @@ public class TransactionServiceImpl implements TransactionService {
 
     @Override
     public ir.cliqmind.am.dto.Transactions getTransactions(ir.cliqmind.am.dto.GetTransactionsRequest body) {
-        return new ir.cliqmind.am.dto.Transactions();
+        return transactionBuilder.getTransactions(transactionRepo.getTransactionsRequest(body));
     }
 
     @Override
