@@ -187,4 +187,6 @@ public class Transaction implements Serializable {
     public void setCoupons(List<Coupon> coupons) {
         this.coupons = coupons;
     }
+
+
 }

@@ -18,8 +18,6 @@ import javax.validation.constraints.*;
 
 
 public class AddTransactionRequest   {
-  @JsonProperty("id")
-  private Long id = null;
 
   @JsonProperty("user_id")
   private UUID userId = null;
@@ -39,25 +37,16 @@ public class AddTransactionRequest   {
   @JsonProperty("type")
   private String type = null;
 
-  public AddTransactionRequest id(Long id) {
-    this.id = id;
-    return this;
+  public AddTransactionRequest(){
+
   }
+
 
   /**
    * Get id
    * @return id
   **/
   @ApiModelProperty(value = "")
-
-
-  public Long getId() {
-    return id;
-  }
-
-  public void setId(Long id) {
-    this.id = id;
-  }
 
   public AddTransactionRequest userId(UUID userId) {
     this.userId = userId;
@@ -195,7 +184,7 @@ public class AddTransactionRequest   {
       return false;
     }
     AddTransactionRequest addTransactionRequest = (AddTransactionRequest) o;
-    return Objects.equals(this.id, addTransactionRequest.id) &&
+    return
         Objects.equals(this.userId, addTransactionRequest.userId) &&
         Objects.equals(this.isDeposit, addTransactionRequest.isDeposit) &&
         Objects.equals(this.amount, addTransactionRequest.amount) &&
@@ -206,7 +195,7 @@ public class AddTransactionRequest   {
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, userId, isDeposit, amount, currency, code, type);
+    return Objects.hash(userId, isDeposit, amount, currency, code, type);
   }
 
   @Override
@@ -214,7 +203,6 @@ public class AddTransactionRequest   {
     StringBuilder sb = new StringBuilder();
     sb.append("class AddTransactionRequest {\n");
     
-    sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    userId: ").append(toIndentedString(userId)).append("\n");
     sb.append("    isDeposit: ").append(toIndentedString(isDeposit)).append("\n");
     sb.append("    amount: ").append(toIndentedString(amount)).append("\n");

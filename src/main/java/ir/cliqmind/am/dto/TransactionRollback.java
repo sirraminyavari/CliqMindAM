@@ -1,5 +1,6 @@
 package ir.cliqmind.am.dto;
 
+import java.util.Date;
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModelProperty;
@@ -19,7 +20,7 @@ import javax.validation.Valid;
 
 public class TransactionRollback   {
   @JsonProperty("time")
-  private OffsetDateTime time = null;
+  private Date time = null;
 
   @JsonProperty("description")
   private String description = null;
@@ -27,7 +28,7 @@ public class TransactionRollback   {
   @JsonProperty("done_by_user_id")
   private UUID doneByUserId = null;
 
-  public TransactionRollback time(OffsetDateTime time) {
+  public TransactionRollback time(Date time) {
     this.time = time;
     return this;
   }
@@ -40,11 +41,11 @@ public class TransactionRollback   {
 
   @Valid
 
-  public OffsetDateTime getTime() {
+  public Date getTime() {
     return time;
   }
 
-  public void setTime(OffsetDateTime time) {
+  public void setTime(Date time) {
     this.time = time;
   }
 
