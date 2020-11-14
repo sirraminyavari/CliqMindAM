@@ -13,6 +13,7 @@ import ir.cliqmind.am.dto.Transaction;
 import ir.cliqmind.am.dto.Transactions;
 import io.swagger.annotations.*;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -23,6 +24,7 @@ import javax.validation.Valid;
 
 @Api(value = "transaction", description = "the transaction API")
 @RequestMapping(value = "/api/v1")
+@CrossOrigin(origins = "*")
 public interface TransactionApi {
 
     @ApiOperation(value = "Add Transaction", nickname = "addTransaction", notes = "This can only be done by the unknown user.", response = Transaction.class, tags={ "transaction", })

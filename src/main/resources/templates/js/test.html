@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<body>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(event) {
+        add_tranaaction();
+    });
+    var baseUrl = "http://192.168.1.103:8080/api/v1/";
+    //var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
+
+    var post_json = function (url, data, callback) {
+        var request = new XMLHttpRequest();
+        request.open('POST', url, true);
+        request.setRequestHeader("Content-Type", "application/json; charset=UTF-8");
+        request.onreadystatechange = function () {
+            if(request.readyState === XMLHttpRequest.DONE) {
+                var status = request.status;
+                if (status === 0 || (status >= 200 && status < 400)) {
+                    callback("success", request.responseText);
+                }
+            }
+        };
+        request.send(JSON.stringify(data));
+    };
+
+    var add_tranaaction = function () {
+        var data = {
+            "user_id": "6fa85f64-5717-4562-b3fc-2c963f66afa6",
+            "is_deposit": true,
+            "amount": 10000,
+            "currency": "IRR",
+            "code": "trxcode1",
+            "type": "bonus"
+        };
+        post_json(baseUrl+"transaction/add", data, function (response) {
+            console.log("response = "+response);
+        });
+    };
+</script>
+
+</body>
+</head>
