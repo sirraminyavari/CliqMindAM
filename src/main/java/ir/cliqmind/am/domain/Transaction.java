@@ -14,7 +14,8 @@ import java.util.UUID;
 
 @Entity(name = "Transaction")
 @Table(name = "transactions", indexes = {
-        @Index(columnList = "user_id", name = "transactions_user_id_idx")
+        @Index(columnList = "user_id", name = "transactions_user_id_idx"),
+        @Index(columnList = "code", name = "transactions_code_idx")
 })
 public class Transaction implements Serializable {
 
@@ -49,7 +50,7 @@ public class Transaction implements Serializable {
     @Column(name="currency", length = 10)
     private String currency;
 
-    @Column(name="code", nullable = false)
+    @Column(name="code", nullable = false, unique = true)
     private String transactionCode;
 
     @Column(name="type", nullable = false, length = 32)

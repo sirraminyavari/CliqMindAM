@@ -20,7 +20,10 @@ public interface TransactionRepo extends CrudRepository<Transaction, Long>, Tran
 
     @Transactional(readOnly = false)
     @Modifying
-    @Query(value = "UPDATE Transaction t SET t.rollbacked=true, t.rollbackTime=?4, t.rollbackByUserId=?2, t.rollbackDescription=?3 WHERE t.id = ?1")
-    void rollback(Long id, UUID doneByUserId, String description, Timestamp time);
+    @Query(value = "UPDATE Transaction t SET t.rollbacked=true, t.rollbackTime=:time, t.rollbackByUserId=:doneByUserId, t.rollbackDescription=:description WHERE t.transactionCode in (:codes)")
+    void rollback(List<String> codes, UUID doneByUserId, String description, Timestamp time);
+
+    @Query("SELECT t FROM Transaction t WHERE t.transactionCode=:code OR t.transactionCode=concat(:code, '_t')")
+    List<Transaction> findByCode(@Param("code") String code);
 
 }

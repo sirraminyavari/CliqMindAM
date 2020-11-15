@@ -1,6 +1,5 @@
 package ir.cliqmind.am.mapper;
 
-import ir.cliqmind.am.dto.Transaction;
 import ir.cliqmind.am.dto.TransactionRollback;
 import ir.cliqmind.am.dto.Transactions;
 import ir.cliqmind.am.dto.TransferCreditRequest;
@@ -78,7 +77,7 @@ public class TransactionBuilder {
         result.setType(ir.cliqmind.am.domain.Transaction.TransactionType.TRANSFER);
         result.setCurrency(currency);
         result.setAmount(amount);
-        result.setTransactionCode(code);
+        result.setTransactionCode(deposit ? code : code+"_t");
         result.setUserId(userId);
         result.setDeposit(deposit);
         return result;

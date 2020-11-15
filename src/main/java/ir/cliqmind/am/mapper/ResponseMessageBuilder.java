@@ -10,6 +10,10 @@ public class ResponseMessageBuilder {
     }
 
     public ResponseMessage failure(Exception ex) {
-        return new ResponseMessage().result("nok").message(ex.getMessage());
+        return failure(ex.getMessage());
+    }
+
+    public ResponseMessage failure(String msg) {
+        return new ResponseMessage().result("nok").message(msg);
     }
 }
