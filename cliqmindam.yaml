@@ -947,6 +947,8 @@ definitions:
       amount:
         type: "number"
         format: "double"
+      code:
+        type: "string"
 
   Feature:
     type: "object"

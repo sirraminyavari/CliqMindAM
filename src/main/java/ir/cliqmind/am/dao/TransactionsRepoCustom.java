@@ -13,6 +13,4 @@ public interface TransactionsRepoCustom {
     List<Transaction> getTransactionsRequest(GetTransactionsRequest query);
 
     Map<String, Double> getCreditBalance(UUID userId, String currency);
-
-    List<Transaction> transferBalance(TransferCreditRequest body);
 }

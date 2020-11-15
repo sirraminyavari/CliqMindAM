@@ -7,8 +7,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicInteger;
 
 @Service
 public class CreditServiceImpl implements CreditService{
@@ -38,12 +40,14 @@ public class CreditServiceImpl implements CreditService{
 
     @Override
     public ir.cliqmind.am.dto.Transactions transferBalance(ir.cliqmind.am.dto.TransferCreditRequest body) {
-        List<ir.cliqmind.am.domain.Transaction> transactions = transactionRepo.transferBalance(body);
+        List<ir.cliqmind.am.domain.Transaction> transactions = transactionBuilder.transferBalance(body);
         ir.cliqmind.am.dto.Transactions result = new ir.cliqmind.am.dto.Transactions();
-        if(transactions!=null){
-            transactions.forEach(t -> result.addTransactionsItem(transactionBuilder.transaction(t)));
-            result.totalCount(transactions.size());
-        }
+        AtomicInteger totalCount = new AtomicInteger();
+        transactionRepo.saveAll(transactions).forEach(t -> {
+            result.addTransactionsItem(transactionBuilder.transaction(t));
+            totalCount.incrementAndGet();
+        });
+        result.totalCount(totalCount.get());
         return result;
     }
 }

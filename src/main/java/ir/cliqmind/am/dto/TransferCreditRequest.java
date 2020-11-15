@@ -30,6 +30,22 @@ public class TransferCreditRequest   {
   @JsonProperty("amount")
   private Double amount = null;
 
+  @JsonProperty("code")
+  private String code = null;
+
+  public String getCode() {
+    return code;
+  }
+
+  public void setCode(String code) {
+    this.code = code;
+  }
+
+  public TransferCreditRequest code(String code) {
+    this.code = code;
+    return this;
+  }
+
   public TransferCreditRequest fromUserId(UUID fromUserId) {
     this.fromUserId = fromUserId;
     return this;

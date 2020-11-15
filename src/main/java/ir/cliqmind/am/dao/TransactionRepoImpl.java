@@ -3,11 +3,10 @@ package ir.cliqmind.am.dao;
 import ir.cliqmind.am.dto.GetTransactionsRequest;
 import ir.cliqmind.am.domain.Transaction;
 import ir.cliqmind.am.dto.TransferCreditRequest;
-import ir.cliqmind.am.service.CreditServiceImpl;
-import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -31,6 +30,7 @@ public class TransactionRepoImpl implements TransactionsRepoCustom {
     private final String getCreditBalanceSql = "SELECT currency, sum(amount * pos) FROM (select * , (case is_deposit when true then 1 else -1 end) as pos FROM public.transactions) AS t2 where %s group by currency";
 
     @Override
+    @Transactional(readOnly = true)
     public List<Transaction> getTransactionsRequest(GetTransactionsRequest request) {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Transaction> cq = cb.createQuery(Transaction.class);
@@ -63,6 +63,7 @@ public class TransactionRepoImpl implements TransactionsRepoCustom {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Map<String, Double> getCreditBalance(UUID userId, String currency) {
         List<String> where = new ArrayList<>();
         where.add("(rollbacked=false or rollbacked is null)");
@@ -81,8 +82,4 @@ public class TransactionRepoImpl implements TransactionsRepoCustom {
         return result;
     }
 
-    @Override
-    public List<Transaction> transferBalance(TransferCreditRequest body) {
-        return null;
-    }
 }
