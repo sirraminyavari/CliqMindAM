@@ -39,7 +39,7 @@ public class CreditServiceImpl implements CreditService{
     }
 
     @Override
-    public ir.cliqmind.am.dto.Transactions transferBalance(ir.cliqmind.am.dto.TransferCreditRequest body) {
+    public ir.cliqmind.am.dto.Transactions transfer(ir.cliqmind.am.dto.TransferCreditRequest body) {
         List<ir.cliqmind.am.domain.Transaction> transactions = transactionBuilder.transferBalance(body);
         ir.cliqmind.am.dto.Transactions result = new ir.cliqmind.am.dto.Transactions();
         AtomicInteger totalCount = new AtomicInteger();

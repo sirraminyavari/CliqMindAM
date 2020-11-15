@@ -1,7 +1,5 @@
 package ir.cliqmind.am.domain;
 
-import org.hibernate.annotations.ColumnDefault;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.HashSet;
@@ -27,7 +25,7 @@ public class Feature implements Serializable {
   @Column(name = "active", nullable = false)
   private Boolean active;
 
-  @OneToMany(mappedBy = "feature")
+  @OneToMany(mappedBy = "feature", fetch = FetchType.LAZY)
   private Set<PlanFeature> planFeatures = new HashSet<>();
 
 
@@ -57,6 +55,24 @@ public class Feature implements Serializable {
 
   public void setDescription(String description) {
     this.description = description;
+  }
+
+  public Boolean getActive() {
+    return active;
+  }
+
+  public void setActive(Boolean active) {
+    this.active = active;
+  }
+
+  @Transient
+  private Integer amount;
+
+  public Integer getAmount(){
+    if(planFeatures == null){
+      return 0;
+    }
+    return planFeatures.stream().map(pf -> pf.getAmount()).reduce((i1, i2) -> i1 + i2).orElse(0);
   }
 }
 

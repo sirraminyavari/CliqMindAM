@@ -2,13 +2,12 @@ package ir.cliqmind.am.dao;
 
 import ir.cliqmind.am.dto.GetTransactionsRequest;
 import ir.cliqmind.am.domain.Transaction;
-import ir.cliqmind.am.dto.TransferCreditRequest;
 
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-public interface TransactionsRepoCustom {
+public interface TransactionRepoCustom {
 
     List<Transaction> getTransactionsRequest(GetTransactionsRequest query);
 

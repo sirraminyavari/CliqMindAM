@@ -1,7 +1,6 @@
 package ir.cliqmind.am.mapper;
 
 import ir.cliqmind.am.dto.ResponseMessage;
-import org.springframework.http.ResponseEntity;
 
 public class ResponseMessageBuilder {
 

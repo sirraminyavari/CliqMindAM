@@ -4,10 +4,10 @@ import ir.cliqmind.am.dto.*;
 
 public interface TransactionService {
 
-    Transaction addTransaction(AddTransactionRequest body);
+    Transaction add(AddTransactionRequest body);
 
-    Transactions getTransactions(GetTransactionsRequest body);
+    Transactions get(GetTransactionsRequest body);
 
-    ResponseMessage rollbackTransaction(RollbackTransactionRequest body);
+    ResponseMessage rollback(RollbackTransactionRequest body);
 
 }

@@ -1,7 +1,6 @@
 package ir.cliqmind.am.api;
 
 import ir.cliqmind.am.dto.*;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.annotations.*;
 import ir.cliqmind.am.service.CreditService;
 import org.slf4j.Logger;
@@ -13,8 +12,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.validation.Valid;
-import javax.servlet.http.HttpServletRequest;
-import java.io.IOException;
 
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2020-11-12T12:24:22.951Z")
 
@@ -31,7 +28,7 @@ public class CreditApiController implements CreditApi {
     }
 
     public ResponseEntity<Transactions> transferBalance(@ApiParam(value = "transfer credit" ,required=true )  @Valid @RequestBody TransferCreditRequest body) {
-        return new ResponseEntity<Transactions>(creditService.transferBalance(body), HttpStatus.OK);
+        return new ResponseEntity<Transactions>(creditService.transfer(body), HttpStatus.OK);
     }
 
 }

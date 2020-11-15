@@ -1,8 +1,6 @@
 package ir.cliqmind.am.service;
 
 import ir.cliqmind.am.dao.TransactionRepo;
-import ir.cliqmind.am.dto.Transaction;
-import ir.cliqmind.am.error.DuplicateException;
 import ir.cliqmind.am.error.NotFoundException;
 import ir.cliqmind.am.mapper.ResponseMessageBuilder;
 import ir.cliqmind.am.mapper.TransactionBuilder;
@@ -35,7 +33,7 @@ public class TransactionServiceImpl implements TransactionService {
     }
 
     @Override
-    public ir.cliqmind.am.dto.Transaction addTransaction(ir.cliqmind.am.dto.AddTransactionRequest body) {
+    public ir.cliqmind.am.dto.Transaction add(ir.cliqmind.am.dto.AddTransactionRequest body) {
         /*List<ir.cliqmind.am.domain.Transaction> old = transactionRepo.findByCode(body.getCode());
         if(old!=null && old.size()>0){
             throw new DuplicateException("cannot process add transaction request due to duplicate transaction code");
@@ -45,12 +43,12 @@ public class TransactionServiceImpl implements TransactionService {
     }
 
     @Override
-    public ir.cliqmind.am.dto.Transactions getTransactions(ir.cliqmind.am.dto.GetTransactionsRequest body) {
+    public ir.cliqmind.am.dto.Transactions get(ir.cliqmind.am.dto.GetTransactionsRequest body) {
         return transactionBuilder.getTransactions(transactionRepo.getTransactionsRequest(body));
     }
 
     @Override
-    public ir.cliqmind.am.dto.ResponseMessage rollbackTransaction(ir.cliqmind.am.dto.RollbackTransactionRequest body) {
+    public ir.cliqmind.am.dto.ResponseMessage rollback(ir.cliqmind.am.dto.RollbackTransactionRequest body) {
         ir.cliqmind.am.domain.Transaction current = transactionRepo.findById(body.getId()).orElse(null);
         if(current==null){
             throw new NotFoundException("not valid transaction found to be rollbacked");

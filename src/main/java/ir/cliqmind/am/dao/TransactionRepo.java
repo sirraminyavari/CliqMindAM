@@ -16,13 +16,14 @@ import java.util.UUID;
 
 @RepositoryRestResource(collectionResourceRel = "res_trnx", path = "res_trnx")
 @CrossOrigin( methods = RequestMethod.GET, allowCredentials = "false", origins = "*")
-public interface TransactionRepo extends CrudRepository<Transaction, Long>, TransactionsRepoCustom{
+public interface TransactionRepo extends CrudRepository<Transaction, Long>, TransactionRepoCustom {
 
     @Transactional(readOnly = false)
     @Modifying
     @Query(value = "UPDATE Transaction t SET t.rollbacked=true, t.rollbackTime=:time, t.rollbackByUserId=:doneByUserId, t.rollbackDescription=:description WHERE t.transactionCode in (:codes)")
     void rollback(List<String> codes, UUID doneByUserId, String description, Timestamp time);
 
+    @Transactional
     @Query("SELECT t FROM Transaction t WHERE t.transactionCode=:code OR t.transactionCode=concat(:code, '_t')")
     List<Transaction> findByCode(@Param("code") String code);
 

@@ -6,6 +6,6 @@ public interface CreditService {
 
     GetCreditBalanceResponse getCreditBalance(GetCreditBalanceRequest body);
 
-    Transactions transferBalance(TransferCreditRequest body);
+    Transactions transfer(TransferCreditRequest body);
 
 }

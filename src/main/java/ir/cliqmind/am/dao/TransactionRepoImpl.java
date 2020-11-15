@@ -1,8 +1,6 @@
 package ir.cliqmind.am.dao;
 
-import ir.cliqmind.am.dto.GetTransactionsRequest;
 import ir.cliqmind.am.domain.Transaction;
-import ir.cliqmind.am.dto.TransferCreditRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
@@ -20,7 +18,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 @Repository
-public class TransactionRepoImpl implements TransactionsRepoCustom {
+public class TransactionRepoImpl implements TransactionRepoCustom {
 
     private static final Logger log = LoggerFactory.getLogger(TransactionRepoImpl.class);
 
@@ -31,7 +29,7 @@ public class TransactionRepoImpl implements TransactionsRepoCustom {
 
     @Override
     @Transactional(readOnly = true)
-    public List<Transaction> getTransactionsRequest(GetTransactionsRequest request) {
+    public List<Transaction> getTransactionsRequest(ir.cliqmind.am.dto.GetTransactionsRequest request) {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Transaction> cq = cb.createQuery(Transaction.class);
 
