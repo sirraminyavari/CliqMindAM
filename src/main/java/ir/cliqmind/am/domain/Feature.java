@@ -68,11 +68,12 @@ public class Feature implements Serializable {
   @Transient
   private Integer amount;
 
-  public Integer getAmount(){
-    if(planFeatures == null){
-      return 0;
-    }
-    return planFeatures.stream().map(pf -> pf.getAmount()).reduce((i1, i2) -> i1 + i2).orElse(0);
+  public Integer getAmount() {
+    return amount;
+  }
+
+  public void setAmount(Integer amount) {
+    this.amount = amount;
   }
 }
 

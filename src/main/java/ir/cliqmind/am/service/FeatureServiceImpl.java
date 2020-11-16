@@ -30,12 +30,16 @@ public class FeatureServiceImpl implements FeatureService {
 
     @Override
     public Feature add(AddFeatureRequest body) {
+        log.info("addFeature {}", body);
         ir.cliqmind.am.domain.Feature newEntity = featureRepo.save(featureBuilder.add(body, true));
-        return featureBuilder.feature(newEntity, 0);
+        Feature response = featureBuilder.feature(newEntity, 0);
+        log.debug("addFeature, result = {}", response);
+        return response;
     }
 
     @Override
     public ResponseMessage edit(EditFeatureRequest body) {
+        log.info("editFeature {}", body);
         ir.cliqmind.am.domain.Feature entity = findFeature(body.getId());
         if(entity == null){
             throw new NotFoundException("feature does not exist");
@@ -48,22 +52,30 @@ public class FeatureServiceImpl implements FeatureService {
 
     @Override
     public ResponseMessage activate(ActivateFeatureRequest body) {
+        log.info("activateFeature {}", body);
         return activate(body.getId(), true);
     }
 
     @Override
     public ResponseMessage deactivate(DeactivateFeatureRequest body) {
+        log.info("deactivateFeature {}", body);
         return activate(body.getId(), false);
     }
 
     @Override
     public GetFeaturesResponse get(GetFeaturesRequest body) {
-        return featureBuilder.get(featureRepo.find(body.getIds(), body.isActive()));
+        log.info("getFeature {}", body);
+        GetFeaturesResponse response = featureBuilder.get(featureRepo.find(body.getIds(), body.isActive()));
+        log.debug("GetFeaturesResponse, result = {}", response);
+        return response;
     }
 
     @Override
     public GetActiveFeaturesResponse getActive(GetActiveFeaturesRequest body) {
-        return null;
+        log.info("getActiveFeature {}", body);
+        GetActiveFeaturesResponse response = featureBuilder.getActive(featureRepo.getActive(body.getOwnerId()));
+        log.debug("getActiveFeature, result = {}", response);
+        return response;
     }
 
     private ResponseMessage activate(Integer id, boolean active){

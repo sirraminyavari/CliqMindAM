@@ -30,16 +30,19 @@ public class CreditServiceImpl implements CreditService{
 
     @Override
     public ir.cliqmind.am.dto.GetCreditBalanceResponse getCreditBalance(ir.cliqmind.am.dto.GetCreditBalanceRequest body) {
+        log.info("getCreditBalance {}", body);
         Map<String, Double> balance = transactionRepo.getCreditBalance(body.getUserId(), body.getCurrency());
         ir.cliqmind.am.dto.GetCreditBalanceResponse result = new ir.cliqmind.am.dto.GetCreditBalanceResponse();
         if(balance != null){
             result.putAll(balance);
         }
+        log.debug("getCreditBalance, result = {}", result);
         return result;
     }
 
     @Override
     public ir.cliqmind.am.dto.Transactions transfer(ir.cliqmind.am.dto.TransferCreditRequest body) {
+        log.info("transfer {}", body);
         List<ir.cliqmind.am.domain.Transaction> transactions = transactionBuilder.transferBalance(body);
         ir.cliqmind.am.dto.Transactions result = new ir.cliqmind.am.dto.Transactions();
         AtomicInteger totalCount = new AtomicInteger();
@@ -48,6 +51,7 @@ public class CreditServiceImpl implements CreditService{
             totalCount.incrementAndGet();
         });
         result.totalCount(totalCount.get());
+        log.debug("transferBalance, result = {}", result);
         return result;
     }
 }

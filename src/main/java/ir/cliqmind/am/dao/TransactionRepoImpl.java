@@ -14,6 +14,8 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
+import javax.persistence.metamodel.EntityType;
+import javax.persistence.metamodel.Metamodel;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -77,6 +79,7 @@ public class TransactionRepoImpl implements TransactionRepoCustom {
             Object[] a = (Object[])r;
             result.put((String) a[0], (Double) a[1]);
         });
+        log.debug("getCreditBalance , size = {}", result.size());
         return result;
     }
 

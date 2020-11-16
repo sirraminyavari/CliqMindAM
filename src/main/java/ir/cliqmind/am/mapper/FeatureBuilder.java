@@ -1,5 +1,8 @@
 package ir.cliqmind.am.mapper;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 public class FeatureBuilder {
 
     public ir.cliqmind.am.domain.Feature add(ir.cliqmind.am.dto.AddFeatureRequest input, boolean active){
@@ -24,5 +27,14 @@ public class FeatureBuilder {
         input.forEach(f -> result.addFeaturesItem(feature(f,0)));
         result.setTotalCount(result.getFeatures() == null ? 0 : result.getFeatures().size());
         return result;
+    }
+
+    public ir.cliqmind.am.dto.GetActiveFeaturesResponse getActive(List<ir.cliqmind.am.domain.Feature> input) {
+        if(input == null){
+            return null;
+        }
+        return new ir.cliqmind.am.dto.GetActiveFeaturesResponse()
+                .totalCount(input.size())
+                .features(input.stream().map(f -> feature(f, f.getAmount())).collect(Collectors.toList()));
     }
 }

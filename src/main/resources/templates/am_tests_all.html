@@ -1,0 +1,420 @@
+﻿<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+
+    <link rel="stylesheet" type="text/css" href="http://kmacademy.ir/CSS/Global.css" />
+    <link rel="stylesheet" type="text/css" href="http://kmacademy.ir/CSS/RTL.css" />
+    <link rel="stylesheet" type="text/css" href="http://kmacademy.ir/CSS/Themes/Red_d9534d.css" />
+    <link rel="stylesheet" type="text/css" href="http://kmacademy.ir/Fonts/font-awesome.css" />
+    <link rel="stylesheet" type="text/css" href="http://kmacademy.ir/Script/Foundation/foundation.css" />
+    <link rel="stylesheet" type="text/css" href="http://kmacademy.ir/CSS/foundation-fix.css" />
+
+    <script type="text/javascript" src="http://kmacademy.ir/Script/jQuery/jquery.js" charset="utf-8"></script>
+    <script type="text/javascript" src="http://kmacademy.ir/Script/jQuery/jquery.mb.browser.js" charset="utf-8"></script>
+    <script type="text/javascript" src="http://kmacademy.ir/Script/jQuery/jquery.mousewheel.js" charset="utf-8"></script>
+    <script type="text/javascript" src="http://kmacademy.ir/Script/Foundation/foundation.js" charset="utf-8"></script>
+    <script type="text/javascript" src="http://kmacademy.ir/Script/Foundation/what-input.js" charset="utf-8"></script>
+    <script type="text/javascript" src="http://kmacademy.ir/Script/TextEncoding.js"></script>
+    <script type="text/javascript" src="http://kmacademy.ir/Script/GlobalUtilities.js"></script>
+    <script type="text/javascript" src="http://kmacademy.ir/Script/json2.js"></script>
+    <script type="text/javascript" src="http://kmacademy.ir/Script/Lang/fa.js" charset="utf-8"></script>
+
+    <script type="text/javascript">
+        jQuery(document).ready(function () {
+            jQuery(document).foundation();
+        });
+    </script>
+</head>
+<body class="Direction TextAlign" style="font-family:IRANSans;">
+    <div id="container" class="small-12 medium-12 large-12" style="margin-top:1rem; padding:5rem;"></div>
+
+    <script type="text/javascript">
+        (function () {
+            var baseUrl = "http://localhost:9126/api/v1/";
+
+            var send_request = function (options, callback) {
+                jQuery.ajax({
+                    crossDomain: true,
+                    dataType: "text",
+                    method: (options.Method || "POST").toUpperCase(),
+                    url: options.URL,
+                    data: options.Data,
+                    error: function (jqXHR, status, error) {
+                        console.error({ url: options.URL, status: status, error: error });
+                    },
+                    success: function (result) {
+                        callback((GlobalUtilities.get_type(result) == "json" ? result : JSON.parse(result)) || {});
+                        console.log({ url: options.URL, response: result });
+                    }
+                });
+            };
+
+            var constants = {
+                user_id: ["2A1BAC7D-2593-4C44-9000-16A8F9137A55", "716A4C87-D5FB-41A6-8CBE-977581260DAF", "D92039C3-4738-4517-84E0-952CB66B8C17"],
+                currency: ["IRR", "USD", "AUD"],
+                transaction_type: ["deposit", "bonus"],
+                transaction_id: [],
+                feature_id: [],
+                plan_id: [],
+                coupons: []
+            };
+
+            var get_random = function (arr) {
+                if ((GlobalUtilities.get_type(arr) != "array") || !arr.length) return null;
+                return arr[GlobalUtilities.random(0, arr.length - 1)];
+            };
+
+            var add_to_array = function (arr, newValue) {
+                if ((GlobalUtilities.get_type(arr) != "array") || !arr.length || arr.some(i => i == newValue) ||
+                    ["null", "undefined"].some(x => GlobalUtilities.get_type(newValue) == x)) return;
+                arr.push(newValue);
+            };
+
+            var random_amount = function (min, max, addFloatValue) {
+                var val = GlobalUtilities.random(min, max);
+                return !addFloatValue ? val : val + (GlobalUtilities.random(0, 1000) / 1000);
+            };
+
+            var plan_features = function () {
+                var ftrs = [];
+
+                for (var i = 0; i < 3; i++) {
+                    var nf = { id: get_random(constants.feature_id), amount: GlobalUtilities.random(1, 10) };
+                    if (nf.id && !ftrs.some(f => f.id == nf.id)) ftrs.push(nf);
+                }
+
+                var ret = {};
+                ftrs.forEach(f => { ret[f.id] = f.amount; });
+                return ret;
+            };
+
+            var plan_price = function () {
+                var prc = [];
+
+                for (var i = 0; i < 3; i++) {
+                    var nf = {
+                        currency: get_random(constants.currency),
+                        price: random_amount(10, 20, true),
+                        secondary_price: { price: random_amount(5, 10), first_date: "2020-09-15", expiration_date: "2020-10-20" }
+                    };
+                    if (!prc.some(f => f.currency == nf.currency)) prc.push(nf);
+                }
+
+                return prc;
+            };
+
+            var plan_coupons = function () {
+                var cpn = [];
+
+                for (var i = 0; i < 2; i++) {
+                    var nf = get_random(constants.coupons);
+                    if (nf && !cpn.some(f => f == nf)) cpn.push(nf);
+                }
+
+                return cpn;
+            };
+
+            var plans_to_calculate = function () {
+                var plns = [];
+
+                for (var i = 0; i < 3; i++) {
+                    var pn = { id: get_random(constants.plan_id), amount: GlobalUtilities.random(1, 10), use_secondary_price: !!GlobalUtilities.random(0, 1) };
+                    if (pn.id && !plns.some(f => f.id == pn.id)) plns.push(pn);
+                }
+
+                var ret = {};
+                plns.forEach(f => { ret[f.id] = { amount: f.amount, use_secondary_price: f.use_secondary_price }; });
+                return ret;
+            };
+
+            var endPoints = {
+                transaction: [
+                    {
+                        name: "add", method: "post",
+                        params: function () {
+                            return {
+                                user_id: get_random(constants.user_id),
+                                is_deposit: true,
+                                amount: random_amount(5, 30, true),
+                                currency: get_random(constants.currency),
+                                transaction_code: GlobalUtilities.random_str(10),
+                                type: get_random(constants.transaction_type)
+                            };
+                        },
+                        done: function (d) { add_to_array(constants.transaction_id, d.id); }
+                    },
+                    {
+                        name: "rollback", method: "post", check: "id",
+                        params: function () { return { id: get_random(constants.transaction_id), done_by_user_id: get_random(constants.user_id), description: "rollback this transaction" }; }
+                    },
+                    {
+                        name: "get", method: "get", check: "user_id",
+                        params: function () { return { user_id: get_random(constants.user_id), currency: get_random(constants.currency) }; },
+                        done: function (d) { (d.transactions || []).forEach(f => add_to_array(constants.transaction_id, f.id)); }
+                    }
+                ],
+                credit: [
+                    {
+                        name: "balance/get", method: "get", check: "user_id",
+                        params: function () { return { user_id: get_random(constants.user_id), currency: get_random(constants.currency) }; }
+                    },
+                    {
+                        name: "transfer", method: "post", check: ["from_user_id", "to_user_id"],
+                        params: function () {
+                            return {
+                                from_user_id: get_random(constants.user_id),
+                                to_user_id: get_random(constants.user_id),
+                                currency: get_random(constants.currency),
+                                amount: GlobalUtilities.random(5, 20)
+                            };
+                        }
+                    }
+                ],
+                feature: [
+                    {
+                        name: "add", method: "post",
+                        params: function () { return { name: GlobalUtilities.random_str(10), description: "this is my description" }; },
+                        done: function (d) { add_to_array(constants.feature_id, d.id); }
+                    },
+                    {
+                        name: "edit", method: "post", check: "id",
+                        params: function () { return { id: get_random(constants.feature_id), name: GlobalUtilities.random_str(10), description: "this is my description" }; }
+                    },
+                    { name: "activate", method: "post", check: "id", params: function () { return { id: get_random(constants.feature_id) }; } },
+                    { name: "deactive", method: "post", check: "id", params: function () { return { id: get_random(constants.feature_id) }; } },
+                    {
+                        name: "get", method: "get", params: function () { return { active: !!GlobalUtilities.random(0, 1) }; },
+                        done: function (d) { (d.features || []).forEach(f => add_to_array(constants.feature_id, f.id)); }
+                    },
+                    {
+                        name: "active/get", method: "get", params: function () { return { owner_id: get_random(constants.user_id) } },
+                        done: function (d) { (d.features || []).forEach(f => add_to_array(constants.feature_id, f.id)); }
+                    }
+                ],
+                plan: [
+                    {
+                        name: "add", method: "post",
+                        params: function () {
+                            return {
+                                name: GlobalUtilities.random_str(10),
+                                description: "this is my description",
+                                user_based: !!GlobalUtilities.random(0, 1),
+                                enable_amount: !!GlobalUtilities.random(0, 1),
+                                maximum_amount: GlobalUtilities.random(0, 10),
+                                duration_in_months: GlobalUtilities.random(0, 12),
+                                features: plan_features(),
+                                price: JSON.stringify(plan_price())
+                            };
+                        },
+                        done: function (d) { add_to_array(constants.plan_id, d.id); }
+                    },
+                    {
+                        name: "edit", method: "post", check: "id",
+                        params: function () {
+                            return {
+                                id: get_random(constants.plan_id),
+                                name: GlobalUtilities.random_str(10),
+                                description: "this is my description",
+                                user_based: !!GlobalUtilities.random(0, 1),
+                                enable_amount: !!GlobalUtilities.random(0, 1),
+                                maximum_amount: GlobalUtilities.random(0, 10),
+                                duration_in_months: GlobalUtilities.random(0, 12),
+                                features: plan_features(),
+                                price: JSON.stringify(plan_price())
+                            };
+                        }
+                    },
+                    { name: "activate", method: "post", check: "id", params: function () { return { id: get_random(constants.plan_id) }; } },
+                    { name: "deactive", method: "post", check: "id", params: function () { return { id: get_random(constants.plan_id) }; } },
+                    {
+                        name: "features/set", method: "post", check: ["id", "features"],
+                        params: function () { return { id: get_random(constants.plan_id), features: !constants.feature_id.length ? null : plan_features() }; }
+                    },
+                    {
+                        name: "price/set", method: "post", check: ["id"],
+                        params: function () { return { id: get_random(constants.plan_id), price: JSON.stringify(plan_price()) }; }
+                    },
+                    {
+                        name: "get", method: "get", params: function () { return { active: !!GlobalUtilities.random(0, 1) }; },
+                        done: function (d) { (d.plans || []).forEach(f => add_to_array(constants.plan_id, f.id)); }
+                    },
+                    {
+                        name: "price/calculate", method: "get", check: "plan_id",
+                        params: function () {
+                            return {
+                                owner_id: get_random(constants.user_id),
+                                plan_id: get_random(constants.plan_id),
+                                amount: GlobalUtilities.random(2, 10),
+                                use_secondary_price: !!GlobalUtilities.random(0, 1),
+                                currency: get_random(constants.currency),
+                                coupons: JSON.stringify(plan_coupons())
+                            };
+                        }
+                    },
+                    {
+                        name: "price/renewal/calculate", method: "get", check: "plan_id",
+                        params: function () {
+                            return {
+                                owner_id: get_random(constants.user_id),
+                                plans: JSON.stringify(plans_to_calculate),
+                                currency: get_random(constants.currency),
+                                coupons: JSON.stringify(plan_coupons())
+                            };
+                        }
+                    },
+                    {
+                        name: "price/upgrade/calculate", method: "get", check: ["from_plan_id", "to_plan_id"],
+                        params: function () {
+                            return {
+                                owner_id: get_random(constants.user_id),
+                                from_plan_id: get_random(constants.plan_id),
+                                to_plan_id: get_random(constants.plan_id),
+                                amount: GlobalUtilities.random(2, 10),
+                                use_secondary_price: !!GlobalUtilities.random(0, 1),
+                                currency: get_random(constants.currency),
+                                coupons: JSON.stringify(plan_coupons())
+                            };
+                        }
+                    },
+                    {
+                        name: "buy", method: "post", check: "plan_id",
+                        params: function () {
+                            return {
+                                owner_id: get_random(constants.user_id),
+                                plan_id: get_random(constants.plan_id),
+                                amount: GlobalUtilities.random(2, 10),
+                                use_secondary_price: !!GlobalUtilities.random(0, 1),
+                                currency: get_random(constants.currency),
+                                coupons: JSON.stringify(plan_coupons())
+                            };
+                        }
+                    },
+                    {
+                        name: "renew", method: "post", check: "plan_id",
+                        params: function () {
+                            return {
+                                owner_id: get_random(constants.user_id),
+                                plans: JSON.stringify(plans_to_calculate),
+                                currency: get_random(constants.currency),
+                                coupons: JSON.stringify(plan_coupons())
+                            };
+                        }
+                    },
+                    {
+                        name: "upgrade", method: "post", check: ["from_plan_id", "to_plan_id"],
+                        params: function () {
+                            return {
+                                owner_id: get_random(constants.user_id),
+                                from_plan_id: get_random(constants.plan_id),
+                                to_plan_id: get_random(constants.plan_id),
+                                amount: GlobalUtilities.random(2, 10),
+                                use_secondary_price: !!GlobalUtilities.random(0, 1),
+                                currency: get_random(constants.currency),
+                                coupons: JSON.stringify(plan_coupons())
+                            };
+                        }
+                    },
+                    {
+                        name: "history/activation", method: "get", check: "plan_ids",
+                        params: function () {
+                            return {
+                                owner_id: get_random(constants.user_id),
+                                plan_ids: JSON.stringify([get_random(constants.plan_id)]),
+                                expired: !!GlobalUtilities.random(0, 1),
+                                active: !!GlobalUtilities.random(0, 1)
+                            };
+                        }
+                    }
+                ],
+                coupon: [
+                    { name: "generate", method: "get" },
+                    {
+                        name: "add", method: "post",
+                        params: function () {
+                            var cd = GlobalUtilities.random_str(10);
+                            add_to_array(constants.coupons, cd);
+
+                            return {
+                                code: cd,
+                                percentage_based: !!GlobalUtilities.random(0, 1),
+                                amount: random_amount(2, 5, true),
+                                maximum_amount: !!GlobalUtilities.random(0, 1) ? null : 3,
+                                currency: get_random(constants.currency),
+                                expiration_date: "2021-02-25T14:09:11.512Z",
+                                allow_concurrent_coupons: !!GlobalUtilities.random(0, 1),
+                                allow_secondary_price: !!GlobalUtilities.random(0, 1),
+                                maximum_usage_limit: GlobalUtilities.random(0, 3),
+                                maximum_usage_limit_per_user: GlobalUtilities.random(0, 3),
+                                limit_to_plans: JSON.stringify([get_random(constants.plan_id)]),
+                                except_plans: JSON.stringify([get_random(constants.plan_id)]),
+                                target_users: JSON.stringify([get_random(constants.user_id)])
+                            };
+                        }
+                    },
+                    {
+                        name: "edit", method: "post", check: "code",
+                        params: function () {
+                            return {
+                                code: get_random(constants.coupons),
+                                percentage_based: !!GlobalUtilities.random(0, 1),
+                                amount: random_amount(2, 5, true),
+                                maximum_amount: !!GlobalUtilities.random(0, 1) ? null : 3,
+                                currency: get_random(constants.currency),
+                                expiration_date: "2021-02-25T14:09:11.512Z",
+                                allow_concurrent_coupons: !!GlobalUtilities.random(0, 1),
+                                allow_secondary_price: !!GlobalUtilities.random(0, 1),
+                                maximum_usage_limit: GlobalUtilities.random(0, 3),
+                                maximum_usage_limit_per_user: GlobalUtilities.random(0, 3),
+                                limit_to_plans: JSON.stringify([get_random(constants.plan_id)]),
+                                except_plans: JSON.stringify([get_random(constants.plan_id)]),
+                                target_users: JSON.stringify([get_random(constants.user_id)])
+                            };
+                        }
+                    },
+                    {
+                        name: "get", method: "get",
+                        done: function (d) { (d.coupons || []).forEach(f => add_to_array(constants.coupons, f.code)); }
+                    }
+                ]
+            };
+            
+            var items = [];
+
+            for (var key in endPoints)
+                endPoints[key].forEach(p => items.push(GlobalUtilities.extend(p, { endpoint: key })));
+
+            var elems = GlobalUtilities.create_nested_elements([{
+                Type: "div", Class: "small-12 medium-12 large-12 row", Style: "margin:0;",
+                Childs: items.map(itm => {
+                    return {
+                        Type: "div", Class: "small-4 medium-4 large-4", Style: "padding:0.5rem;",
+                        Childs: [{
+                            Type: "div", Class: "rv-border-radius-quarter rv-air-button",
+                            Style: "display:flex; flex-flow:row; justify-content:center; align-items:center;" +
+                                "padding:0.5rem; height:100%; width:100%; text-transform:lowercase;",
+                            Properties: [{
+                                Name: "onclick",
+                                Value: function () {
+                                    var options = !itm.params ? {} : itm.params() || {};
+                                    var check = !itm.check ? [] : (GlobalUtilities.get_type(itm.check) == "array" ? itm.check : [itm.check]);
+
+                                    if (check.length && check.some(c => {
+                                        var ret = options[c];
+                                        if (!ret) console.error(c + " not provided!");
+                                        return !ret;
+                                    })) return;
+
+                                    send_request({ URL: baseUrl + itm.endpoint + "/" + itm.name, Data: options, Method: options.method }, options.done);
+                                }
+                            }],
+                            Childs: [{ Type: "text", TextValue: itm.endpoint + "/" + itm.name }]
+                        }]
+                    };
+                })
+            }], document.getElementById("container"));
+        })();
+    </script>
+</body>
+</html>

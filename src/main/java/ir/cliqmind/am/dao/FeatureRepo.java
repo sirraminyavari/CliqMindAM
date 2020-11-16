@@ -12,7 +12,7 @@ import java.util.List;
 
 @RepositoryRestResource(collectionResourceRel = "res_ftr", path = "res_ftr")
 @CrossOrigin( methods = RequestMethod.GET, allowCredentials = "false", origins = "*")
-public interface FeatureRepo extends CrudRepository<Feature, Integer> {
+public interface FeatureRepo extends CrudRepository<Feature, Integer>, FeatureRepoCustom {
 
     @Transactional(readOnly = false)
     @Query(value = "SELECT f FROM Feature f WHERE f.active=:active AND f.id in (:ids)")

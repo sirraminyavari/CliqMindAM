@@ -38,17 +38,24 @@ public class TransactionServiceImpl implements TransactionService {
         if(old!=null && old.size()>0){
             throw new DuplicateException("cannot process add transaction request due to duplicate transaction code");
         }*/
+        log.info("addTransaction {}", body);
         ir.cliqmind.am.domain.Transaction saved = transactionRepo.save(transactionBuilder.addTransactionRequest(body));
-        return transactionBuilder.addTransactionRequest(saved);
+        ir.cliqmind.am.dto.Transaction response = transactionBuilder.addTransactionRequest(saved);
+        log.info("addTransaction, result = {}", response);
+        return response;
     }
 
     @Override
     public ir.cliqmind.am.dto.Transactions get(ir.cliqmind.am.dto.GetTransactionsRequest body) {
-        return transactionBuilder.getTransactions(transactionRepo.getTransactionsRequest(body));
+        log.info("getTransactions {}", body);
+        ir.cliqmind.am.dto.Transactions response = transactionBuilder.getTransactions(transactionRepo.getTransactionsRequest(body));
+        log.debug("getTransactions, result = {}", response);
+        return response;
     }
 
     @Override
     public ir.cliqmind.am.dto.ResponseMessage rollback(ir.cliqmind.am.dto.RollbackTransactionRequest body) {
+        log.info("rollbackTransaction {}", body);
         ir.cliqmind.am.domain.Transaction current = transactionRepo.findById(body.getId()).orElse(null);
         if(current==null){
             throw new NotFoundException("not valid transaction found to be rollbacked");
