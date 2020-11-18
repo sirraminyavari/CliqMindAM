@@ -2,6 +2,8 @@ package ir.cliqmind.am.dto;
 
 import java.util.Date;
 import java.util.Objects;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.UUID;
@@ -16,7 +18,7 @@ import javax.validation.Valid;
 
 
 
-
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class TransactionRollback   {
   @JsonProperty("time")
   private Date time = null;

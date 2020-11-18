@@ -1,6 +1,8 @@
 package ir.cliqmind.am.dto;
 
 import java.util.Objects;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModelProperty;
 import org.springframework.validation.annotation.Validated;
@@ -13,7 +15,7 @@ import org.springframework.validation.annotation.Validated;
 
 
 
-
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Feature   {
   @JsonProperty("id")
   private Integer id = null;

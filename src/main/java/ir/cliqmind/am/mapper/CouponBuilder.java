@@ -1,7 +1,7 @@
 package ir.cliqmind.am.mapper;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Iterator;
 import java.util.stream.Collectors;
 
 public class CouponBuilder {
@@ -69,11 +69,16 @@ public class CouponBuilder {
                 .id(input.getId().getPlanId());
     }
 
-    public ir.cliqmind.am.dto.GetCouponsResponse coupon(List<ir.cliqmind.am.domain.Coupon> input) {
-        return new ir.cliqmind.am.dto.GetCouponsResponse()
-                .totalCount(input==null ? 0 : input.size())
-                .coupons(input == null ? null : input.stream().map(c -> coupon(c))
-                        .collect(Collectors.toList()));
+    public ir.cliqmind.am.dto.GetCouponsResponse coupon(Iterable<ir.cliqmind.am.domain.Coupon> input) {
+        ir.cliqmind.am.dto.GetCouponsResponse result = new ir.cliqmind.am.dto.GetCouponsResponse();
+        if(input != null){
+            Iterator<ir.cliqmind.am.domain.Coupon> it = input.iterator();
+            while(it.hasNext()){
+                result.addCouponsItem(coupon(it.next()));
+            }
+        }
+        result.totalCount(result.getCoupons()==null ? 0 : result.getCoupons().size());
+        return result;
     }
 
     public ir.cliqmind.am.dto.GenerateCouponCodeResponse generate(String code){

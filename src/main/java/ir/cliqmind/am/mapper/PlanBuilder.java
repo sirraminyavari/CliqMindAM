@@ -120,13 +120,11 @@ public class PlanBuilder {
         if(input==null){
             return result;
         }
-        int size = 0;
         Iterator<ir.cliqmind.am.domain.Plan> it = input.iterator();
         while (it.hasNext()){
-            ++size;
             result.addPlansItem(plan(it.next()));
         }
-        result.totalCount(size);
+        result.totalCount(result.getPlans()==null ? 0 : result.getPlans().size());
         return result;
     }
 

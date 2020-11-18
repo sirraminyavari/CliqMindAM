@@ -1320,7 +1320,7 @@ definitions:
         pattern: "[A-Z][A-Z][A-Z]"
       expiration_date:
         type: "string"
-        format: "date-time"
+        format: "date"
       allow_concurrent_coupons:
         type: "boolean"
       allow_secondary_price:

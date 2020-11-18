@@ -12,6 +12,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Map;
+
 @Service
 public class CouponServiceImpl implements CouponService{
 
@@ -51,7 +54,14 @@ public class CouponServiceImpl implements CouponService{
 
     @Override
     public GetCouponsResponse get(GetCouponsRequest body) {
-        return couponBuilder.coupon(couponRepo.get(body));
+        Map<String, List<ir.cliqmind.am.domain.PlanCoupon>> ids = couponRepo.getIds(body);
+        Iterable<ir.cliqmind.am.domain.Coupon> coupons = couponRepo.findAllById(ids == null ? null : ids.keySet());
+        if(coupons != null){
+            coupons.forEach(c -> {
+                c.setPlans(ids.get(c.getCode()));
+            });
+        }
+        return couponBuilder.coupon(coupons);
     }
 
 }

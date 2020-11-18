@@ -1,6 +1,8 @@
 package ir.cliqmind.am.dto;
 
 import java.util.Objects;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -18,7 +20,7 @@ import javax.validation.Valid;
 
 
 
-
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class PlanActivationItem   {
   @JsonProperty("id")
   private Integer id = null;

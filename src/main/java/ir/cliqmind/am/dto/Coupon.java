@@ -2,6 +2,7 @@ package ir.cliqmind.am.dto;
 
 import java.util.*;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -17,7 +18,7 @@ import javax.validation.constraints.*;
 
 
 
-
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Coupon   {
   @JsonProperty("code")
   private String code = null;
