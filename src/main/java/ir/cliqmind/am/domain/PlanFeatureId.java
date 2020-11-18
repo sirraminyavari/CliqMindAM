@@ -27,4 +27,12 @@ public class PlanFeatureId implements Serializable {
     public void setFeatureId(Integer featureId) {
         this.featureId = featureId;
     }
+
+    @Override
+    public String toString() {
+        return "PlanFeatureId{" +
+                "planId=" + planId +
+                ", featureId=" + featureId +
+                '}';
+    }
 }

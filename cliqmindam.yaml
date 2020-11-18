@@ -1216,7 +1216,7 @@ definitions:
       id:
         type: "integer"
         format: "int32"
-      prices:
+      price:
         type: "object"
         $ref: '#/definitions/PlanPrices'
 

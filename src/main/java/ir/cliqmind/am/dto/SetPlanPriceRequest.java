@@ -20,8 +20,8 @@ public class SetPlanPriceRequest   {
   @JsonProperty("id")
   private Integer id = null;
 
-  @JsonProperty("prices")
-  private PlanPrices prices = null;
+  @JsonProperty("price")
+  private PlanPrices price = null;
 
   public SetPlanPriceRequest id(Integer id) {
     this.id = id;
@@ -44,26 +44,26 @@ public class SetPlanPriceRequest   {
     this.id = id;
   }
 
-  public SetPlanPriceRequest prices(PlanPrices prices) {
-    this.prices = prices;
+  public SetPlanPriceRequest price(PlanPrices price) {
+    this.price = price;
     return this;
   }
 
   /**
-   * Get prices
-   * @return prices
+   * Get price
+   * @return price
   **/
   @ApiModelProperty(required = true, value = "")
   @NotNull
 
   @Valid
 
-  public PlanPrices getPrices() {
-    return prices;
+  public PlanPrices getPrice() {
+    return price;
   }
 
-  public void setPrices(PlanPrices prices) {
-    this.prices = prices;
+  public void setPrice(PlanPrices price) {
+    this.price = price;
   }
 
 
@@ -77,12 +77,12 @@ public class SetPlanPriceRequest   {
     }
     SetPlanPriceRequest setPlanPriceRequest = (SetPlanPriceRequest) o;
     return Objects.equals(this.id, setPlanPriceRequest.id) &&
-        Objects.equals(this.prices, setPlanPriceRequest.prices);
+        Objects.equals(this.price, setPlanPriceRequest.price);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, prices);
+    return Objects.hash(id, price);
   }
 
   @Override
@@ -91,7 +91,7 @@ public class SetPlanPriceRequest   {
     sb.append("class SetPlanPriceRequest {\n");
     
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
-    sb.append("    prices: ").append(toIndentedString(prices)).append("\n");
+    sb.append("    price: ").append(toIndentedString(price)).append("\n");
     sb.append("}");
     return sb.toString();
   }

@@ -6,4 +6,8 @@ public interface PlanRepoCustom {
 
     void edit(Plan plan);
 
+    void setFeatures(Plan plan);
+
+    void setPrice(Plan plan);
+
 }

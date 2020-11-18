@@ -131,4 +131,20 @@ public class Plan {
     public void setPlanPrice(Set<PlanPrice> planPrice) {
         this.planPrice = planPrice;
     }
+
+    @Override
+    public String toString() {
+        return "Plan{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", userBased=" + userBased +
+                ", enableAmount=" + enableAmount +
+                ", maximumAmount=" + maximumAmount +
+                ", durationInMonths=" + durationInMonths +
+                ", planFeatures=" + planFeatures +
+                ", planPrice=" + planPrice +
+                ", active=" + active +
+                '}';
+    }
 }

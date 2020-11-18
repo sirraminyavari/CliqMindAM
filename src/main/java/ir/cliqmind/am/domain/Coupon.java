@@ -57,5 +57,118 @@ public class Coupon implements Serializable {
 
   }
 
+  public String getCode() {
+    return code;
+  }
+
+  public void setCode(String code) {
+    this.code = code;
+  }
+
+  public Boolean getPercentageBased() {
+    return percentageBased;
+  }
+
+  public void setPercentageBased(Boolean percentageBased) {
+    this.percentageBased = percentageBased;
+  }
+
+  public Double getAmount() {
+    return amount;
+  }
+
+  public void setAmount(Double amount) {
+    this.amount = amount;
+  }
+
+  public Double getMaximumAmount() {
+    return maximumAmount;
+  }
+
+  public void setMaximumAmount(Double maximumAmount) {
+    this.maximumAmount = maximumAmount;
+  }
+
+  public String getCurrency() {
+    return currency;
+  }
+
+  public void setCurrency(String currency) {
+    this.currency = currency;
+  }
+
+  public Date getExpirationDate() {
+    return expirationDate;
+  }
+
+  public void setExpirationDate(Date expirationDate) {
+    this.expirationDate = expirationDate;
+  }
+
+  public Timestamp getTime() {
+    return time;
+  }
+
+  public void setTime(Timestamp time) {
+    this.time = time;
+  }
+
+  public Boolean getAllowConcurrentCoupons() {
+    return allowConcurrentCoupons;
+  }
+
+  public void setAllowConcurrentCoupons(Boolean allowConcurrentCoupons) {
+    this.allowConcurrentCoupons = allowConcurrentCoupons;
+  }
+
+  public Boolean getAllowSecondaryPrice() {
+    return allowSecondaryPrice;
+  }
+
+  public void setAllowSecondaryPrice(Boolean allowSecondaryPrice) {
+    this.allowSecondaryPrice = allowSecondaryPrice;
+  }
+
+  public Integer getMaximumUsageLimit() {
+    return maximumUsageLimit;
+  }
+
+  public void setMaximumUsageLimit(Integer maximumUsageLimit) {
+    this.maximumUsageLimit = maximumUsageLimit;
+  }
+
+  public Integer getMaximumUsageLimitPerUser() {
+    return maximumUsageLimitPerUser;
+  }
+
+  public void setMaximumUsageLimitPerUser(Integer maximumUsageLimitPerUser) {
+    this.maximumUsageLimitPerUser = maximumUsageLimitPerUser;
+  }
+
+  public List<UUID> getTargetUsers() {
+    return targetUsers;
+  }
+
+  public void setTargetUsers(List<UUID> targetUsers) {
+    this.targetUsers = targetUsers;
+  }
+
+  @Override
+  public String toString() {
+    return "Coupon{" +
+            "code='" + code + '\'' +
+            ", percentageBased=" + percentageBased +
+            ", amount=" + amount +
+            ", maximumAmount=" + maximumAmount +
+            ", currency='" + currency + '\'' +
+            ", expirationDate=" + expirationDate +
+            ", time=" + time +
+            ", allowConcurrentCoupons=" + allowConcurrentCoupons +
+            ", allowSecondaryPrice=" + allowSecondaryPrice +
+            ", maximumUsageLimit=" + maximumUsageLimit +
+            ", maximumUsageLimitPerUser=" + maximumUsageLimitPerUser +
+            ", targetUsers=" + targetUsers +
+            '}';
+  }
 }
 

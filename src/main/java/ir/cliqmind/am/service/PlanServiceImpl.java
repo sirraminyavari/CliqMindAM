@@ -31,11 +31,13 @@ public class PlanServiceImpl implements PlanService{
 
     @Override
     public ResponseMessage activate(ActivatePlanRequest body) {
+        log.info("activatePlan {}", body);
         return activate(body.getId(), true);
     }
 
     @Override
     public ResponseMessage deactivate(DeactivatePlanRequest body) {
+        log.info("deactivatePlan {}", body);
         return activate(body.getId(), false);
     }
 
@@ -69,51 +71,73 @@ public class PlanServiceImpl implements PlanService{
 
     @Override
     public Transaction buy(BuyPlanRequest body) {
+        log.info("buyPlan {}", body);
         return null;
     }
 
     @Override
     public CalculatePlanPriceResponse calculatePrice(CalculatePlanPriceRequest body) {
+        log.info("calculatePlanPrice {}", body);
         return null;
     }
 
     @Override
     public CalculatePlanRenewalPriceResponse calculateRenewalPrice(CalculatePlanRenewalPriceRequest body) {
+        log.info("calculatePlanRenewalPrice {}", body);
         return null;
     }
 
     @Override
     public Transaction calculateUpgradePrice(CalculatePlanUpgradeRequest body) {
+        log.info("calculatePlanUpgradePrice {}", body);
         return null;
     }
 
     @Override
     public GetPlanActivationHistoryResponse getActivationHistory(GetPlanActivationHistoryRequest body) {
+        log.info("getPlanActivationHistory {}", body);
         return null;
     }
 
     @Override
     public GetPlansResponse get(GetPlansRequest body) {
+        log.info("getPlan {}", body);
         return null;
     }
 
     @Override
     public Transaction renew(RenewPlansRequest body) {
+        log.info("renewPlan {}", body);
         return null;
     }
 
     @Override
     public ResponseMessage setFeatures(SetPlanFeaturesRequest body) {
-        return null;
+        log.info("setPlanFeatures {}", body);
+        ir.cliqmind.am.domain.Plan entity = findPlan(body.getId());
+        if(entity == null || entity.getId() == null){
+            throw new NotFoundException("plan does not exist");
+        }
+        entity.setPlanFeatures(planBuilder.planFeatures(body.getFeatures(), entity.getId()));
+        planRepo.setFeatures(entity);
+        return responseMessageBuilder.success();
     }
 
     @Override
     public ResponseMessage setPrice(SetPlanPriceRequest body) {
-        return null;
+        log.info("setPlanPrice {}", body);
+        ir.cliqmind.am.domain.Plan entity = findPlan(body.getId());
+        if(entity == null || entity.getId() == null){
+            throw new NotFoundException("plan does not exist");
+        }
+        entity.setPlanPrice(planBuilder.planPrices(body.getPrice(), entity.getId()));
+        planRepo.setPrice(entity);
+        return responseMessageBuilder.success();
     }
 
     @Override
     public Transaction upgrade(UpradePlanRequest body) {
+        log.info("upgradePlan {}", body);
         return null;
     }
 

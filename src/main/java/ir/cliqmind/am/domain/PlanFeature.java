@@ -65,4 +65,13 @@ public class PlanFeature implements Serializable {
     public void setMaximumAmount(Integer maximumAmount) {
         this.maximumAmount = maximumAmount;
     }
+
+    @Override
+    public String toString() {
+        return "PlanFeature{" +
+                "id=" + id +
+                ", amount=" + amount +
+                ", maximumAmount=" + maximumAmount +
+                '}';
+    }
 }

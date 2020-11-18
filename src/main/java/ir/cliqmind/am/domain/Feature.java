@@ -79,5 +79,17 @@ public class Feature implements Serializable {
   public void setAmount(Integer amount) {
     this.amount = amount;
   }
+
+  @Override
+  public String toString() {
+    return "Feature{" +
+            "id=" + id +
+            ", name='" + name + '\'' +
+            ", description='" + description + '\'' +
+            ", active=" + active +
+            ", planFeatures=" + planFeatures +
+            ", amount=" + amount +
+            '}';
+  }
 }
 

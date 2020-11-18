@@ -76,4 +76,15 @@ public class PlanPrice implements Serializable {
     public void setPlan(Plan plan) {
         this.plan = plan;
     }
+
+    @Override
+    public String toString() {
+        return "PlanPrice{" +
+                "id=" + id +
+                ", price=" + price +
+                ", secondaryPrice=" + secondaryPrice +
+                ", secondaryPriceFirstDate=" + secondaryPriceFirstDate +
+                ", secondaryPriceExpirationDate=" + secondaryPriceExpirationDate +
+                '}';
+    }
 }

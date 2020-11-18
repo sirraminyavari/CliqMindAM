@@ -30,4 +30,12 @@ public class PlanPriceId implements Serializable {
     public void setCurrency(String currency) {
         this.currency = currency;
     }
+
+    @Override
+    public String toString() {
+        return "PlanPriceId{" +
+                "planId=" + planId +
+                ", currency='" + currency + '\'' +
+                '}';
+    }
 }
