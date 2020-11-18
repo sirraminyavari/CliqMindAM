@@ -46,7 +46,7 @@ public class PlanServiceImpl implements PlanService{
         log.info("addPlan {}", body);
         ir.cliqmind.am.domain.Plan entity = planRepo.save(planBuilder.add(body));
         Plan response = planBuilder.plan(entity);
-        log.debug("addPlan, result = {}", response);
+        log.debug("addPlan result = {}", response);
         return response;
     }
 

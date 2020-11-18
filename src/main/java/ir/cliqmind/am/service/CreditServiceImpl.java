@@ -35,7 +35,7 @@ public class CreditServiceImpl implements CreditService{
         if(balance != null){
             result.putAll(balance);
         }
-        log.debug("getCreditBalance, result = {}", result);
+        log.debug("getCreditBalance result = {}", result);
         return result;
     }
 
@@ -50,7 +50,7 @@ public class CreditServiceImpl implements CreditService{
             totalCount.incrementAndGet();
         });
         result.totalCount(totalCount.get());
-        log.debug("transferBalance, result = {}", result);
+        log.debug("transferBalance result = {}", result);
         return result;
     }
 }

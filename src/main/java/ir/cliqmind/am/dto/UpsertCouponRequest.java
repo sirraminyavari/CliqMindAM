@@ -1,12 +1,9 @@
 package ir.cliqmind.am.dto;
 
-import java.util.Objects;
+import java.util.*;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModelProperty;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
-import org.threeten.bp.OffsetDateTime;
 import org.springframework.validation.annotation.Validated;
 import javax.validation.Valid;
 import javax.validation.constraints.*;
@@ -37,7 +34,7 @@ public class UpsertCouponRequest   {
   private String currency = null;
 
   @JsonProperty("expiration_date")
-  private OffsetDateTime expirationDate = null;
+  private Date expirationDate = null;
 
   @JsonProperty("allow_concurrent_coupons")
   private Boolean allowConcurrentCoupons = null;
@@ -167,7 +164,7 @@ public class UpsertCouponRequest   {
     this.currency = currency;
   }
 
-  public UpsertCouponRequest expirationDate(OffsetDateTime expirationDate) {
+  public UpsertCouponRequest expirationDate(Date expirationDate) {
     this.expirationDate = expirationDate;
     return this;
   }
@@ -180,11 +177,11 @@ public class UpsertCouponRequest   {
 
   @Valid
 
-  public OffsetDateTime getExpirationDate() {
+  public Date getExpirationDate() {
     return expirationDate;
   }
 
-  public void setExpirationDate(OffsetDateTime expirationDate) {
+  public void setExpirationDate(Date expirationDate) {
     this.expirationDate = expirationDate;
   }
 

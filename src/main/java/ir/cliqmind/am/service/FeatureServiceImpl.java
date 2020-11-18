@@ -33,7 +33,7 @@ public class FeatureServiceImpl implements FeatureService {
         log.info("addFeature {}", body);
         ir.cliqmind.am.domain.Feature newEntity = featureRepo.save(featureBuilder.add(body, true));
         Feature response = featureBuilder.feature(newEntity, 0);
-        log.debug("addFeature, result = {}", response);
+        log.debug("addFeature result = {}", response);
         return response;
     }
 
@@ -73,7 +73,7 @@ public class FeatureServiceImpl implements FeatureService {
             entities = featureRepo.find(body.getIds(), body.isActive());
         }
         GetFeaturesResponse response = featureBuilder.get(entities);
-        log.debug("GetFeaturesResponse, result = {}", response);
+        log.debug("GetFeaturesResponse result = {}", response);
         return response;
     }
 
@@ -81,7 +81,7 @@ public class FeatureServiceImpl implements FeatureService {
     public GetActiveFeaturesResponse getActive(GetActiveFeaturesRequest body) {
         log.info("getActiveFeature {}", body);
         GetActiveFeaturesResponse response = featureBuilder.getActive(featureRepo.getActive(body.getOwnerId()));
-        log.debug("getActiveFeature, result = {}", response);
+        log.debug("getActiveFeature result = {}", response);
         return response;
     }
 

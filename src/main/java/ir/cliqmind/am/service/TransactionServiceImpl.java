@@ -41,7 +41,7 @@ public class TransactionServiceImpl implements TransactionService {
         log.info("addTransaction {}", body);
         ir.cliqmind.am.domain.Transaction saved = transactionRepo.save(transactionBuilder.addTransactionRequest(body));
         ir.cliqmind.am.dto.Transaction response = transactionBuilder.addTransactionRequest(saved);
-        log.info("addTransaction, result = {}", response);
+        log.info("addTransaction result = {}", response);
         return response;
     }
 
@@ -49,7 +49,7 @@ public class TransactionServiceImpl implements TransactionService {
     public ir.cliqmind.am.dto.Transactions get(ir.cliqmind.am.dto.GetTransactionsRequest body) {
         log.info("getTransactions {}", body);
         ir.cliqmind.am.dto.Transactions response = transactionBuilder.getTransactions(transactionRepo.getTransactionsRequest(body));
-        log.debug("getTransactions, result = {}", response);
+        log.debug("getTransactions result = {}", response);
         return response;
     }
 
