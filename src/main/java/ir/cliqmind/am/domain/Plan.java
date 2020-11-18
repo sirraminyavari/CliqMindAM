@@ -34,8 +34,11 @@ public class Plan {
     @Column(name = "duration_in_months")
     private Integer durationInMonths;
 
-    @OneToMany(mappedBy = "feature")
+    @Transient
     private Set<PlanFeature> planFeatures = new HashSet<>();
+
+    @Transient
+    private Set<PlanPrice> planPrice = new HashSet<>();
 
     @Column(name = "active")
     @ColumnDefault("true")
@@ -43,6 +46,10 @@ public class Plan {
 
     public Plan(){
 
+    }
+
+    public Plan(Integer planId) {
+        this.id = planId;
     }
 
     public Integer getId() {
@@ -107,5 +114,21 @@ public class Plan {
 
     public void setPlanFeatures(Set<PlanFeature> planFeatures) {
         this.planFeatures = planFeatures;
+    }
+
+    public Boolean getActive() {
+        return active;
+    }
+
+    public void setActive(Boolean active) {
+        this.active = active;
+    }
+
+    public Set<PlanPrice> getPlanPrice() {
+        return planPrice;
+    }
+
+    public void setPlanPrice(Set<PlanPrice> planPrice) {
+        this.planPrice = planPrice;
     }
 }

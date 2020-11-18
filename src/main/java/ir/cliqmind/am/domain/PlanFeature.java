@@ -57,4 +57,12 @@ public class PlanFeature implements Serializable {
     public void setAmount(Integer amount) {
         this.amount = amount;
     }
+
+    public Integer getMaximumAmount() {
+        return maximumAmount;
+    }
+
+    public void setMaximumAmount(Integer maximumAmount) {
+        this.maximumAmount = maximumAmount;
+    }
 }

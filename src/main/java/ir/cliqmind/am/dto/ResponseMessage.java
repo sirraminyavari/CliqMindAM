@@ -1,8 +1,6 @@
 package ir.cliqmind.am.dto;
 
 import java.util.Objects;
-
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModelProperty;
 import org.springframework.validation.annotation.Validated;
@@ -11,11 +9,11 @@ import org.springframework.validation.annotation.Validated;
  * ResponseMessage
  */
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2020-11-12T12:24:22.951Z")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2020-11-17T18:53:52.082Z")
 
 
 
-@JsonInclude(JsonInclude.Include.NON_NULL)
+
 public class ResponseMessage   {
   @JsonProperty("result")
   private String result = null;

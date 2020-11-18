@@ -12,13 +12,12 @@ import javax.validation.constraints.*;
  * AddTransactionRequest
  */
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2020-11-12T12:24:22.951Z")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2020-11-17T18:53:52.082Z")
 
 
 
 
 public class AddTransactionRequest   {
-
   @JsonProperty("user_id")
   private UUID userId = null;
 
@@ -33,17 +32,6 @@ public class AddTransactionRequest   {
 
   @JsonProperty("type")
   private String type = null;
-
-  public AddTransactionRequest(){
-
-  }
-
-
-  /**
-   * Get id
-   * @return id
-  **/
-  @ApiModelProperty(value = "")
 
   public AddTransactionRequest userId(UUID userId) {
     this.userId = userId;
@@ -67,6 +55,10 @@ public class AddTransactionRequest   {
     this.userId = userId;
   }
 
+  public AddTransactionRequest amount(Double amount) {
+    this.amount = amount;
+    return this;
+  }
 
   /**
    * Get amount
@@ -156,8 +148,7 @@ public class AddTransactionRequest   {
       return false;
     }
     AddTransactionRequest addTransactionRequest = (AddTransactionRequest) o;
-    return
-        Objects.equals(this.userId, addTransactionRequest.userId) &&
+    return Objects.equals(this.userId, addTransactionRequest.userId) &&
         Objects.equals(this.amount, addTransactionRequest.amount) &&
         Objects.equals(this.currency, addTransactionRequest.currency) &&
         Objects.equals(this.code, addTransactionRequest.code) &&

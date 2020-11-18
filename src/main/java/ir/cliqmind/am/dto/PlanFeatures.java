@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import org.springframework.validation.annotation.Validated;
 
 /**
- * PlanPrices
+ * PlanFeatures
  */
 @Validated
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2020-11-17T18:53:52.082Z")
@@ -14,7 +14,7 @@ import org.springframework.validation.annotation.Validated;
 
 
 
-public class PlanPrices extends ArrayList<PlanPricesInner>  {
+public class PlanFeatures extends ArrayList<PlanFeaturesInner>  {
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -35,7 +35,7 @@ public class PlanPrices extends ArrayList<PlanPricesInner>  {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class PlanPrices {\n");
+    sb.append("class PlanFeatures {\n");
     sb.append("    ").append(toIndentedString(super.toString())).append("\n");
     sb.append("}");
     return sb.toString();

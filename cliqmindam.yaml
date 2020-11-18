@@ -1132,7 +1132,7 @@ definitions:
         format: "int32"
       features:
         type: "object"
-        $ref: '#/definitions/PlanFeature'
+        $ref: '#/definitions/PlanFeatures'
       price:
         type: "object"
         $ref: '#/definitions/PlanPrices'
@@ -1141,18 +1141,40 @@ definitions:
   PlanPrices:
     type: "array"
     items:
-      type: "number"
-      format: "double"
+      type: "object"
+      properties:
+        currency:
+          type: "string"
+        price:
+          type: "number"
+          format: "double"
+        secondary_price:
+          type: "object"
+          properties:
+            price:
+              type: "number"
+              format: "double"
+            first_date:
+              type: "string"
+              format: "date"
+            expiration_date:
+              type: "string"
+              format: "date"
         
-  PlanFeature:
-    type: "object"
-    properties:
-      feature_id:
-        type: "integer"
-        format: "int32"
-      amount:
-        type: "number"
-        format: "double"
+  PlanFeatures:
+    type: "array"
+    items:
+      type: "object"
+      properties:
+        feature_id:
+          type: "integer"
+          format: "int32"
+        amount:
+          type: "integer"
+          format: "int32"
+        maximum_amount:
+          type: "integer"
+          format: "int32"
 
   ActivatePlanRequest:
     type: "object"
@@ -1183,7 +1205,7 @@ definitions:
         format: "int32"
       features:
         type: "object"
-        $ref: '#/definitions/PlanFeature'
+        $ref: '#/definitions/PlanFeatures'
 
   SetPlanPriceRequest:
     type: "object"

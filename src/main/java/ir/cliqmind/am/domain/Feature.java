@@ -33,7 +33,11 @@ public class Feature implements Serializable {
 
   }
 
-  public Integer getId() {
+  public Feature(Integer featureId) {
+    this.id = featureId;
+  }
+
+    public Integer getId() {
     return id;
   }
 

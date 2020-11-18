@@ -11,7 +11,7 @@ import javax.validation.constraints.*;
  * SetPlanFeaturesRequest
  */
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2020-11-12T12:24:22.951Z")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2020-11-17T18:53:52.082Z")
 
 
 
@@ -21,7 +21,7 @@ public class SetPlanFeaturesRequest   {
   private Integer id = null;
 
   @JsonProperty("features")
-  private PlanFeature features = null;
+  private PlanFeatures features = null;
 
   public SetPlanFeaturesRequest id(Integer id) {
     this.id = id;
@@ -44,7 +44,7 @@ public class SetPlanFeaturesRequest   {
     this.id = id;
   }
 
-  public SetPlanFeaturesRequest features(PlanFeature features) {
+  public SetPlanFeaturesRequest features(PlanFeatures features) {
     this.features = features;
     return this;
   }
@@ -58,11 +58,11 @@ public class SetPlanFeaturesRequest   {
 
   @Valid
 
-  public PlanFeature getFeatures() {
+  public PlanFeatures getFeatures() {
     return features;
   }
 
-  public void setFeatures(PlanFeature features) {
+  public void setFeatures(PlanFeatures features) {
     this.features = features;
   }
 

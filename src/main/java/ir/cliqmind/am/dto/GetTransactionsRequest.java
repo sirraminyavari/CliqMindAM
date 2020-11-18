@@ -1,9 +1,12 @@
 package ir.cliqmind.am.dto;
 
-import java.util.*;
-
+import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModelProperty;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
+import org.threeten.bp.LocalDate;
 import org.springframework.validation.annotation.Validated;
 import javax.validation.Valid;
 import javax.validation.constraints.*;
@@ -12,7 +15,7 @@ import javax.validation.constraints.*;
  * GetTransactionsRequest
  */
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2020-11-12T12:24:22.951Z")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2020-11-17T18:53:52.082Z")
 
 
 
@@ -35,10 +38,10 @@ public class GetTransactionsRequest   {
   private Boolean rollbacked = null;
 
   @JsonProperty("from_date")
-  private Date fromDate = null;
+  private LocalDate fromDate = null;
 
   @JsonProperty("to_date")
-  private Date toDate = null;
+  private LocalDate toDate = null;
 
   @JsonProperty("from_amount")
   private Double fromAmount = null;
@@ -161,7 +164,7 @@ public class GetTransactionsRequest   {
     this.rollbacked = rollbacked;
   }
 
-  public GetTransactionsRequest fromDate(Date fromDate) {
+  public GetTransactionsRequest fromDate(LocalDate fromDate) {
     this.fromDate = fromDate;
     return this;
   }
@@ -174,15 +177,15 @@ public class GetTransactionsRequest   {
 
   @Valid
 
-  public Date getFromDate() {
+  public LocalDate getFromDate() {
     return fromDate;
   }
 
-  public void setFromDate(Date fromDate) {
+  public void setFromDate(LocalDate fromDate) {
     this.fromDate = fromDate;
   }
 
-  public GetTransactionsRequest toDate(Date toDate) {
+  public GetTransactionsRequest toDate(LocalDate toDate) {
     this.toDate = toDate;
     return this;
   }
@@ -195,11 +198,11 @@ public class GetTransactionsRequest   {
 
   @Valid
 
-  public Date getToDate() {
+  public LocalDate getToDate() {
     return toDate;
   }
 
-  public void setToDate(Date toDate) {
+  public void setToDate(LocalDate toDate) {
     this.toDate = toDate;
   }
 

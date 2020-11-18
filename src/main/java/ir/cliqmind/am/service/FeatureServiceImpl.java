@@ -41,7 +41,7 @@ public class FeatureServiceImpl implements FeatureService {
     public ResponseMessage edit(EditFeatureRequest body) {
         log.info("editFeature {}", body);
         ir.cliqmind.am.domain.Feature entity = findFeature(body.getId());
-        if(entity == null){
+        if(entity == null || entity.getId() == null){
             throw new NotFoundException("feature does not exist");
         }
         entity.setName(body.getName());
@@ -80,7 +80,7 @@ public class FeatureServiceImpl implements FeatureService {
 
     private ResponseMessage activate(Integer id, boolean active){
         ir.cliqmind.am.domain.Feature entity = findFeature(id);
-        if(entity == null){
+        if(entity == null || entity.getId() == null){
             throw new NotFoundException("feature does not exist");
         }
         entity.setActive(active);

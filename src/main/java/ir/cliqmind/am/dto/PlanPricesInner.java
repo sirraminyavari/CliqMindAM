@@ -5,10 +5,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModelProperty;
 import org.springframework.validation.annotation.Validated;
 import javax.validation.Valid;
-import javax.validation.constraints.*;
 
 /**
- * PlanPriceItem
+ * PlanPricesInner
  */
 @Validated
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2020-11-17T18:53:52.082Z")
@@ -16,7 +15,7 @@ import javax.validation.constraints.*;
 
 
 
-public class PlanPriceItem   {
+public class PlanPricesInner   {
   @JsonProperty("currency")
   private String currency = null;
 
@@ -26,7 +25,7 @@ public class PlanPriceItem   {
   @JsonProperty("secondary_price")
   private PlanPriceItemSecondaryPrice secondaryPrice = null;
 
-  public PlanPriceItem currency(String currency) {
+  public PlanPricesInner currency(String currency) {
     this.currency = currency;
     return this;
   }
@@ -37,7 +36,7 @@ public class PlanPriceItem   {
   **/
   @ApiModelProperty(value = "")
 
-@Pattern(regexp="[A-Z][A-Z][A-Z]") 
+
   public String getCurrency() {
     return currency;
   }
@@ -46,7 +45,7 @@ public class PlanPriceItem   {
     this.currency = currency;
   }
 
-  public PlanPriceItem price(Double price) {
+  public PlanPricesInner price(Double price) {
     this.price = price;
     return this;
   }
@@ -66,7 +65,7 @@ public class PlanPriceItem   {
     this.price = price;
   }
 
-  public PlanPriceItem secondaryPrice(PlanPriceItemSecondaryPrice secondaryPrice) {
+  public PlanPricesInner secondaryPrice(PlanPriceItemSecondaryPrice secondaryPrice) {
     this.secondaryPrice = secondaryPrice;
     return this;
   }
@@ -96,10 +95,10 @@ public class PlanPriceItem   {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    PlanPriceItem planPriceItem = (PlanPriceItem) o;
-    return Objects.equals(this.currency, planPriceItem.currency) &&
-        Objects.equals(this.price, planPriceItem.price) &&
-        Objects.equals(this.secondaryPrice, planPriceItem.secondaryPrice);
+    PlanPricesInner planPricesInner = (PlanPricesInner) o;
+    return Objects.equals(this.currency, planPricesInner.currency) &&
+        Objects.equals(this.price, planPricesInner.price) &&
+        Objects.equals(this.secondaryPrice, planPricesInner.secondaryPrice);
   }
 
   @Override
@@ -110,7 +109,7 @@ public class PlanPriceItem   {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class PlanPriceItem {\n");
+    sb.append("class PlanPricesInner {\n");
     
     sb.append("    currency: ").append(toIndentedString(currency)).append("\n");
     sb.append("    price: ").append(toIndentedString(price)).append("\n");

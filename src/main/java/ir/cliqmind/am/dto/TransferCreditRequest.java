@@ -12,7 +12,7 @@ import javax.validation.constraints.*;
  * TransferCreditRequest
  */
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2020-11-12T12:24:22.951Z")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2020-11-17T18:53:52.082Z")
 
 
 
@@ -32,19 +32,6 @@ public class TransferCreditRequest   {
 
   @JsonProperty("code")
   private String code = null;
-
-  public String getCode() {
-    return code;
-  }
-
-  public void setCode(String code) {
-    this.code = code;
-  }
-
-  public TransferCreditRequest code(String code) {
-    this.code = code;
-    return this;
-  }
 
   public TransferCreditRequest fromUserId(UUID fromUserId) {
     this.fromUserId = fromUserId;
@@ -132,6 +119,26 @@ public class TransferCreditRequest   {
     this.amount = amount;
   }
 
+  public TransferCreditRequest code(String code) {
+    this.code = code;
+    return this;
+  }
+
+  /**
+   * Get code
+   * @return code
+  **/
+  @ApiModelProperty(value = "")
+
+
+  public String getCode() {
+    return code;
+  }
+
+  public void setCode(String code) {
+    this.code = code;
+  }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -145,12 +152,13 @@ public class TransferCreditRequest   {
     return Objects.equals(this.fromUserId, transferCreditRequest.fromUserId) &&
         Objects.equals(this.toUserId, transferCreditRequest.toUserId) &&
         Objects.equals(this.currency, transferCreditRequest.currency) &&
-        Objects.equals(this.amount, transferCreditRequest.amount);
+        Objects.equals(this.amount, transferCreditRequest.amount) &&
+        Objects.equals(this.code, transferCreditRequest.code);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(fromUserId, toUserId, currency, amount);
+    return Objects.hash(fromUserId, toUserId, currency, amount, code);
   }
 
   @Override
@@ -162,6 +170,7 @@ public class TransferCreditRequest   {
     sb.append("    toUserId: ").append(toIndentedString(toUserId)).append("\n");
     sb.append("    currency: ").append(toIndentedString(currency)).append("\n");
     sb.append("    amount: ").append(toIndentedString(amount)).append("\n");
+    sb.append("    code: ").append(toIndentedString(code)).append("\n");
     sb.append("}");
     return sb.toString();
   }

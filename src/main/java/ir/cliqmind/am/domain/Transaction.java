@@ -7,7 +7,6 @@ import javax.persistence.Index;
 import javax.persistence.Table;
 
 import java.io.Serializable;
-import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.List;
 import java.util.UUID;

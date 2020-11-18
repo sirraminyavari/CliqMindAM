@@ -1,9 +1,9 @@
 package ir.cliqmind.am.dto;
 
+import java.util.Date;
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModelProperty;
-import org.threeten.bp.LocalDate;
 import org.springframework.validation.annotation.Validated;
 import javax.validation.Valid;
 
@@ -11,7 +11,7 @@ import javax.validation.Valid;
  * PlanPriceItemSecondaryPrice
  */
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2020-11-12T12:24:22.951Z")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2020-11-17T18:53:52.082Z")
 
 
 
@@ -21,10 +21,10 @@ public class PlanPriceItemSecondaryPrice   {
   private Double price = null;
 
   @JsonProperty("first_date")
-  private LocalDate firstDate = null;
+  private Date firstDate = null;
 
   @JsonProperty("expiration_date")
-  private LocalDate expirationDate = null;
+  private Date expirationDate = null;
 
   public PlanPriceItemSecondaryPrice price(Double price) {
     this.price = price;
@@ -46,7 +46,7 @@ public class PlanPriceItemSecondaryPrice   {
     this.price = price;
   }
 
-  public PlanPriceItemSecondaryPrice firstDate(LocalDate firstDate) {
+  public PlanPriceItemSecondaryPrice firstDate(Date firstDate) {
     this.firstDate = firstDate;
     return this;
   }
@@ -59,15 +59,15 @@ public class PlanPriceItemSecondaryPrice   {
 
   @Valid
 
-  public LocalDate getFirstDate() {
+  public Date getFirstDate() {
     return firstDate;
   }
 
-  public void setFirstDate(LocalDate firstDate) {
+  public void setFirstDate(Date firstDate) {
     this.firstDate = firstDate;
   }
 
-  public PlanPriceItemSecondaryPrice expirationDate(LocalDate expirationDate) {
+  public PlanPriceItemSecondaryPrice expirationDate(Date expirationDate) {
     this.expirationDate = expirationDate;
     return this;
   }
@@ -80,11 +80,11 @@ public class PlanPriceItemSecondaryPrice   {
 
   @Valid
 
-  public LocalDate getExpirationDate() {
+  public Date getExpirationDate() {
     return expirationDate;
   }
 
-  public void setExpirationDate(LocalDate expirationDate) {
+  public void setExpirationDate(Date expirationDate) {
     this.expirationDate = expirationDate;
   }
 

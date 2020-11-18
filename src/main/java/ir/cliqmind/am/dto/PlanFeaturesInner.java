@@ -6,22 +6,25 @@ import io.swagger.annotations.ApiModelProperty;
 import org.springframework.validation.annotation.Validated;
 
 /**
- * PlanFeature
+ * PlanFeaturesInner
  */
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2020-11-12T12:24:22.951Z")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2020-11-17T18:53:52.082Z")
 
 
 
 
-public class PlanFeature   {
+public class PlanFeaturesInner   {
   @JsonProperty("feature_id")
   private Integer featureId = null;
 
   @JsonProperty("amount")
-  private Double amount = null;
+  private Integer amount = null;
 
-  public PlanFeature featureId(Integer featureId) {
+  @JsonProperty("maximum_amount")
+  private Integer maximumAmount = null;
+
+  public PlanFeaturesInner featureId(Integer featureId) {
     this.featureId = featureId;
     return this;
   }
@@ -41,7 +44,7 @@ public class PlanFeature   {
     this.featureId = featureId;
   }
 
-  public PlanFeature amount(Double amount) {
+  public PlanFeaturesInner amount(Integer amount) {
     this.amount = amount;
     return this;
   }
@@ -53,12 +56,32 @@ public class PlanFeature   {
   @ApiModelProperty(value = "")
 
 
-  public Double getAmount() {
+  public Integer getAmount() {
     return amount;
   }
 
-  public void setAmount(Double amount) {
+  public void setAmount(Integer amount) {
     this.amount = amount;
+  }
+
+  public PlanFeaturesInner maximumAmount(Integer maximumAmount) {
+    this.maximumAmount = maximumAmount;
+    return this;
+  }
+
+  /**
+   * Get maximumAmount
+   * @return maximumAmount
+  **/
+  @ApiModelProperty(value = "")
+
+
+  public Integer getMaximumAmount() {
+    return maximumAmount;
+  }
+
+  public void setMaximumAmount(Integer maximumAmount) {
+    this.maximumAmount = maximumAmount;
   }
 
 
@@ -70,23 +93,25 @@ public class PlanFeature   {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    PlanFeature planFeature = (PlanFeature) o;
-    return Objects.equals(this.featureId, planFeature.featureId) &&
-        Objects.equals(this.amount, planFeature.amount);
+    PlanFeaturesInner planFeaturesInner = (PlanFeaturesInner) o;
+    return Objects.equals(this.featureId, planFeaturesInner.featureId) &&
+        Objects.equals(this.amount, planFeaturesInner.amount) &&
+        Objects.equals(this.maximumAmount, planFeaturesInner.maximumAmount);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(featureId, amount);
+    return Objects.hash(featureId, amount, maximumAmount);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class PlanFeature {\n");
+    sb.append("class PlanFeaturesInner {\n");
     
     sb.append("    featureId: ").append(toIndentedString(featureId)).append("\n");
     sb.append("    amount: ").append(toIndentedString(amount)).append("\n");
+    sb.append("    maximumAmount: ").append(toIndentedString(maximumAmount)).append("\n");
     sb.append("}");
     return sb.toString();
   }

@@ -11,7 +11,7 @@ import javax.validation.constraints.*;
  * EditPlanRequest
  */
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2020-11-12T12:24:22.951Z")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2020-11-17T18:53:52.082Z")
 
 
 
@@ -39,7 +39,7 @@ public class EditPlanRequest   {
   private Integer durationInMonths = null;
 
   @JsonProperty("features")
-  private PlanFeature features = null;
+  private PlanFeatures features = null;
 
   @JsonProperty("price")
   private PlanPrices price = null;
@@ -188,7 +188,7 @@ public class EditPlanRequest   {
     this.durationInMonths = durationInMonths;
   }
 
-  public EditPlanRequest features(PlanFeature features) {
+  public EditPlanRequest features(PlanFeatures features) {
     this.features = features;
     return this;
   }
@@ -201,11 +201,11 @@ public class EditPlanRequest   {
 
   @Valid
 
-  public PlanFeature getFeatures() {
+  public PlanFeatures getFeatures() {
     return features;
   }
 
-  public void setFeatures(PlanFeature features) {
+  public void setFeatures(PlanFeatures features) {
     this.features = features;
   }
 
