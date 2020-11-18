@@ -1,7 +1,7 @@
 package ir.cliqmind.am.mapper;
 
-import ir.cliqmind.am.domain.Feature;
-
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -111,6 +111,23 @@ public class PlanBuilder {
             return null;
         }
         return entities.stream().map(pp -> planPrice(pp, planId)).collect(Collectors.toSet());
+    }
+
+    public ir.cliqmind.am.dto.GetPlansResponse plan(Iterable<ir.cliqmind.am.domain.Plan> input){
+        ir.cliqmind.am.dto.GetPlansResponse result = new ir.cliqmind.am.dto.GetPlansResponse()
+                .plans(new ArrayList<>())
+                .totalCount(0);
+        if(input==null){
+            return result;
+        }
+        int size = 0;
+        Iterator<ir.cliqmind.am.domain.Plan> it = input.iterator();
+        while (it.hasNext()){
+            ++size;
+            result.addPlansItem(plan(it.next()));
+        }
+        result.totalCount(size);
+        return result;
     }
 
 }

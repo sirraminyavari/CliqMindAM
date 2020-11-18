@@ -102,7 +102,14 @@ public class PlanServiceImpl implements PlanService{
     @Override
     public GetPlansResponse get(GetPlansRequest body) {
         log.info("getPlan {}", body);
-        return null;
+        Iterable<ir.cliqmind.am.domain.Plan> entities = null;
+        if(body.isActive()==null){
+            entities = planRepo.findAllById(body.getIds());
+        }
+        else{
+            entities = planRepo.find(body.getIds(), body.isActive());
+        }
+        return planBuilder.plan(entities);
     }
 
     @Override

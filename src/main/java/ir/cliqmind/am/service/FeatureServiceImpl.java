@@ -65,7 +65,14 @@ public class FeatureServiceImpl implements FeatureService {
     @Override
     public GetFeaturesResponse get(GetFeaturesRequest body) {
         log.info("getFeature {}", body);
-        GetFeaturesResponse response = featureBuilder.get(featureRepo.find(body.getIds(), body.isActive()));
+        Iterable<ir.cliqmind.am.domain.Feature> entities = null;
+        if(body.isActive() == null){
+            entities = featureRepo.findAllById(body.getIds());
+        }
+        else{
+            entities = featureRepo.find(body.getIds(), body.isActive());
+        }
+        GetFeaturesResponse response = featureBuilder.get(entities);
         log.debug("GetFeaturesResponse, result = {}", response);
         return response;
     }
