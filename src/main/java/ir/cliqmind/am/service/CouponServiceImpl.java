@@ -51,7 +51,7 @@ public class CouponServiceImpl implements CouponService{
 
     @Override
     public GetCouponsResponse get(GetCouponsRequest body) {
-        return couponBuilder.get(couponRepo.get(body));
+        return couponBuilder.coupon(couponRepo.get(body));
     }
 
 }

@@ -24,4 +24,45 @@ public class PlanCoupon implements Serializable {
 
     public PlanCoupon(){}
 
+    public PlanCouponId getId() {
+        return id;
+    }
+
+    public void setId(PlanCouponId id) {
+        this.id = id;
+    }
+
+    public Plan getPlan() {
+        return plan;
+    }
+
+    public void setPlan(Plan plan) {
+        this.plan = plan;
+    }
+
+    public Coupon getCoupon() {
+        return coupon;
+    }
+
+    public void setCoupon(Coupon coupon) {
+        this.coupon = coupon;
+    }
+
+    public Boolean getDeny() {
+        return deny;
+    }
+
+    public void setDeny(Boolean deny) {
+        this.deny = deny;
+    }
+
+    @Override
+    public String toString() {
+        return "PlanCoupon{" +
+                "id=" + id +
+                ", plan=" + plan +
+                ", coupon=" + coupon +
+                ", deny=" + deny +
+                '}';
+    }
 }

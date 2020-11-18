@@ -1,14 +1,10 @@
 package ir.cliqmind.am.dto;
 
-import java.util.Objects;
+import java.util.*;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModelProperty;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
-import org.threeten.bp.LocalDate;
-import org.threeten.bp.OffsetDateTime;
 import org.springframework.validation.annotation.Validated;
 import javax.validation.Valid;
 import javax.validation.constraints.*;
@@ -39,10 +35,10 @@ public class Coupon   {
   private String currency = null;
 
   @JsonProperty("time")
-  private OffsetDateTime time = null;
+  private Date time = null;
 
   @JsonProperty("expiration_date")
-  private LocalDate expirationDate = null;
+  private Date expirationDate = null;
 
   @JsonProperty("allow_concurrent_coupons")
   private Boolean allowConcurrentCoupons = null;
@@ -168,7 +164,7 @@ public class Coupon   {
     this.currency = currency;
   }
 
-  public Coupon time(OffsetDateTime time) {
+  public Coupon time(Date time) {
     this.time = time;
     return this;
   }
@@ -181,15 +177,15 @@ public class Coupon   {
 
   @Valid
 
-  public OffsetDateTime getTime() {
+  public Date getTime() {
     return time;
   }
 
-  public void setTime(OffsetDateTime time) {
+  public void setTime(Date time) {
     this.time = time;
   }
 
-  public Coupon expirationDate(LocalDate expirationDate) {
+  public Coupon expirationDate(Date expirationDate) {
     this.expirationDate = expirationDate;
     return this;
   }
@@ -202,11 +198,11 @@ public class Coupon   {
 
   @Valid
 
-  public LocalDate getExpirationDate() {
+  public Date getExpirationDate() {
     return expirationDate;
   }
 
-  public void setExpirationDate(LocalDate expirationDate) {
+  public void setExpirationDate(Date expirationDate) {
     this.expirationDate = expirationDate;
   }
 

@@ -22,7 +22,7 @@ public class PlanRepoImpl implements PlanRepoCustom {
     @Transactional
     @Override
     public void edit(Plan plan) {
-        log.debug("edit id = {}", plan.getId());
+        log.debug("editPlan id = {}", plan.getId());
         Session session = em.unwrap(Session.class);
 
         setFeatures(session, plan);
@@ -47,7 +47,7 @@ public class PlanRepoImpl implements PlanRepoCustom {
     }
 
     private void setFeatures(Session session, Plan plan){
-        log.debug("setFeatures id = {} features = {}", plan.getId(), plan.getPlanFeatures());
+        log.debug("setPlanFeatures id = {} features = {}", plan.getId(), plan.getPlanFeatures());
         Plan currentPlan = em.getReference(Plan.class, plan.getId());
         em.createQuery("DELETE FROM PlanFeature pf WHERE pf.plan=:plan")
                 .setParameter("plan", plan)
@@ -62,7 +62,7 @@ public class PlanRepoImpl implements PlanRepoCustom {
     }
 
     private void setPrice(Session session, Plan plan){
-        log.debug("setPrice id = {} price = {}", plan.getId(), plan.getPlanPrice());
+        log.debug("setPlanPrice id = {} price = {}", plan.getId(), plan.getPlanPrice());
         em.createQuery("DELETE FROM PlanPrice pp WHERE pp.plan=:plan")
                 .setParameter("plan", plan)
                 .executeUpdate();

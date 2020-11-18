@@ -1,11 +1,9 @@
 package ir.cliqmind.am.domain;
 
-import org.hibernate.annotations.*;
 
 import javax.persistence.*;
 import javax.persistence.Entity;
 import javax.persistence.Table;
-import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 import java.sql.Date;
 import java.sql.Timestamp;
@@ -52,6 +50,9 @@ public class Coupon implements Serializable {
   @CollectionTable(name = "coupon_target_users", joinColumns = @JoinColumn(name = "code"))
   @Column(name = "target_id", nullable = false)
   private List<UUID> targetUsers;
+
+  @Transient
+  private List<PlanCoupon> plans;
 
   public Coupon(){
 
@@ -151,6 +152,14 @@ public class Coupon implements Serializable {
 
   public void setTargetUsers(List<UUID> targetUsers) {
     this.targetUsers = targetUsers;
+  }
+
+  public List<PlanCoupon> getPlans() {
+    return plans;
+  }
+
+  public void setPlans(List<PlanCoupon> plans) {
+    this.plans = plans;
   }
 
   @Override
