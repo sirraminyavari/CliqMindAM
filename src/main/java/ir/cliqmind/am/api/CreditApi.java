@@ -29,7 +29,7 @@ public interface CreditApi {
         @ApiResponse(code = 401, message = "Authorization error") })
     @RequestMapping(value = "/credit/balance/get",
         produces = { "application/json" }, 
-        method = RequestMethod.GET)
+        method = {RequestMethod.GET, RequestMethod.POST})
     ResponseEntity<GetCreditBalanceResponse> getCreditBalance(@ApiParam(value = "get credit balance" ,required=true )  @Valid @RequestBody GetCreditBalanceRequest body);
 
 

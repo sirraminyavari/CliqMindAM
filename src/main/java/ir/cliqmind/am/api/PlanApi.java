@@ -82,7 +82,7 @@ public interface PlanApi {
         @ApiResponse(code = 401, message = "Authorization error") })
     @RequestMapping(value = "/plan/price/calculate",
         produces = { "application/json" }, 
-        method = RequestMethod.GET)
+        method = {RequestMethod.GET, RequestMethod.POST})
     ResponseEntity<CalculatePlanPriceResponse> calculatePlanPrice(@ApiParam(value = "calculate plan price" ,required=true )  @Valid @RequestBody CalculatePlanPriceRequest body);
 
 
@@ -93,7 +93,7 @@ public interface PlanApi {
         @ApiResponse(code = 401, message = "Authorization error") })
     @RequestMapping(value = "/plan/price/renewal/calculate",
         produces = { "application/json" }, 
-        method = RequestMethod.GET)
+        method = {RequestMethod.GET, RequestMethod.POST})
     ResponseEntity<CalculatePlanRenewalPriceResponse> calculatePlanRenewalPrice(@ApiParam(value = "calculate plan renewal price" ,required=true )  @Valid @RequestBody CalculatePlanRenewalPriceRequest body);
 
 
@@ -104,7 +104,7 @@ public interface PlanApi {
         @ApiResponse(code = 401, message = "Authorization error") })
     @RequestMapping(value = "/plan/price/upgrade/calculate",
         produces = { "application/json" }, 
-        method = RequestMethod.GET)
+        method = {RequestMethod.GET, RequestMethod.POST})
     ResponseEntity<Transaction> calculatePlanUpgradePrice(@ApiParam(value = "calculate plan upgrade price" ,required=true )  @Valid @RequestBody CalculatePlanUpgradeRequest body);
 
 
@@ -137,7 +137,7 @@ public interface PlanApi {
         @ApiResponse(code = 401, message = "Authorization error") })
     @RequestMapping(value = "/plan/history/activation",
         produces = { "application/json" }, 
-        method = RequestMethod.GET)
+        method = {RequestMethod.GET, RequestMethod.POST})
     ResponseEntity<GetPlanActivationHistoryResponse> getPlanActivationHistory(@ApiParam(value = "get plan activation history" ,required=true )  @Valid @RequestBody GetPlanActivationHistoryRequest body);
 
 
@@ -148,7 +148,7 @@ public interface PlanApi {
         @ApiResponse(code = 401, message = "Authorization error") })
     @RequestMapping(value = "/plan/get",
         produces = { "application/json" }, 
-        method = RequestMethod.GET)
+        method = {RequestMethod.GET, RequestMethod.POST})
     ResponseEntity<GetPlansResponse> getPlans(@ApiParam(value = "get plans" ,required=true )  @Valid @RequestBody GetPlansRequest body);
 
 

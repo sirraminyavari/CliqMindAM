@@ -45,7 +45,7 @@ public interface TransactionApi {
         @ApiResponse(code = 401, message = "Authorization error") })
     @RequestMapping(value = "/transaction/get",
         produces = { "application/json" }, 
-        method = RequestMethod.GET)
+        method = {RequestMethod.GET, RequestMethod.POST})
     ResponseEntity<Transactions> getTransactions(@ApiParam(value = "get transaction objects" ,required=true )  @Valid @RequestBody GetTransactionsRequest body);
 
 

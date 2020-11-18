@@ -82,7 +82,7 @@ public interface FeatureApi {
         @ApiResponse(code = 401, message = "Authorization error") })
     @RequestMapping(value = "/feature/active/get",
         produces = { "application/json" }, 
-        method = RequestMethod.GET)
+        method = {RequestMethod.GET, RequestMethod.POST})
     ResponseEntity<GetActiveFeaturesResponse> getActiveFeatures(@ApiParam(value = "get active features" ,required=true )  @Valid @RequestBody GetActiveFeaturesRequest body);
 
 
@@ -93,7 +93,7 @@ public interface FeatureApi {
         @ApiResponse(code = 401, message = "Authorization error") })
     @RequestMapping(value = "/feature/get",
         produces = { "application/json" }, 
-        method = RequestMethod.GET)
+        method = {RequestMethod.GET, RequestMethod.POST})
     ResponseEntity<GetFeaturesResponse> getFeatures(@ApiParam(value = "get features" ,required=true )  @Valid @RequestBody GetFeaturesRequest body);
 
 }

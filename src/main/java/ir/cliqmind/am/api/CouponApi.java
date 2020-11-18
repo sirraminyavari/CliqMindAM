@@ -55,7 +55,7 @@ public interface CouponApi {
         @ApiResponse(code = 401, message = "Authorization error") })
     @RequestMapping(value = "/coupon/generate",
         produces = { "application/json" }, 
-        method = RequestMethod.GET)
+        method = {RequestMethod.GET, RequestMethod.POST})
     ResponseEntity<GenerateCouponCodeResponse> generateCouponCode();
 
 
@@ -66,7 +66,7 @@ public interface CouponApi {
         @ApiResponse(code = 401, message = "Authorization error") })
     @RequestMapping(value = "/coupon/get",
         produces = { "application/json" }, 
-        method = RequestMethod.GET)
+        method = {RequestMethod.GET, RequestMethod.POST})
     ResponseEntity<GetCouponsResponse> getCoupons(@ApiParam(value = "get coupons" ,required=true )  @Valid @RequestBody GetCouponsRequest body);
 
 }
