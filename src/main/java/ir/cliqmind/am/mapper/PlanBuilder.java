@@ -34,14 +34,14 @@ public class PlanBuilder {
                 .price(price(entity.getPlanPrice()));
     }
 
-    private List<ir.cliqmind.am.dto.PlanPriceItem> price(Set<ir.cliqmind.am.domain.PlanPrice> entities) {
+    private List<ir.cliqmind.am.dto.PlanPriceItem> price(List<ir.cliqmind.am.domain.PlanPrice> entities) {
         if (entities == null) {
             return null;
         }
         return entities.stream().map(pp -> planPrice(pp)).collect(Collectors.toList());
     }
 
-    private List<ir.cliqmind.am.dto.Feature> features(Set<ir.cliqmind.am.domain.PlanFeature> entities) {
+    private List<ir.cliqmind.am.dto.Feature> features(List<ir.cliqmind.am.domain.PlanFeature> entities) {
         if (entities == null) {
             return null;
         }
@@ -99,18 +99,18 @@ public class PlanBuilder {
         return result;
     }
 
-    public Set<ir.cliqmind.am.domain.PlanFeature> planFeatures(ir.cliqmind.am.dto.PlanFeatures entities, Integer planId) {
+    public List<ir.cliqmind.am.domain.PlanFeature> planFeatures(ir.cliqmind.am.dto.PlanFeatures entities, Integer planId) {
         if(entities == null){
             return null;
         }
-        return entities.stream().map(pf -> planFeature(pf, planId)).collect(Collectors.toSet());
+        return entities.stream().map(pf -> planFeature(pf, planId)).collect(Collectors.toList());
     }
 
-    public Set<ir.cliqmind.am.domain.PlanPrice> planPrices(ir.cliqmind.am.dto.PlanPrices entities, Integer planId) {
+    public List<ir.cliqmind.am.domain.PlanPrice> planPrices(ir.cliqmind.am.dto.PlanPrices entities, Integer planId) {
         if(entities == null){
             return null;
         }
-        return entities.stream().map(pp -> planPrice(pp, planId)).collect(Collectors.toSet());
+        return entities.stream().map(pp -> planPrice(pp, planId)).collect(Collectors.toList());
     }
 
     public ir.cliqmind.am.dto.GetPlansResponse plan(Iterable<ir.cliqmind.am.domain.Plan> input){

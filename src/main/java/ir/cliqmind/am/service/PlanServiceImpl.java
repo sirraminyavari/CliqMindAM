@@ -1,5 +1,7 @@
 package ir.cliqmind.am.service;
 
+import ir.cliqmind.am.dao.PlanFeatureRepo;
+import ir.cliqmind.am.dao.PlanPriceRepo;
 import ir.cliqmind.am.dao.PlanRepo;
 import ir.cliqmind.am.dto.*;
 import ir.cliqmind.am.error.NotFoundException;
@@ -9,6 +11,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 public class PlanServiceImpl implements PlanService{
@@ -18,6 +23,12 @@ public class PlanServiceImpl implements PlanService{
 
     @Autowired
     private PlanRepo planRepo;
+
+    @Autowired
+    private PlanPriceRepo planPriceRepo;
+
+    @Autowired
+    private PlanFeatureRepo planFeatureRepo;
 
     private PlanBuilder planBuilder;
 
@@ -108,6 +119,20 @@ public class PlanServiceImpl implements PlanService{
         }
         else{
             entities = planRepo.find(body.getIds(), body.isActive());
+        }
+        List<ir.cliqmind.am.domain.PlanPrice> price = planPriceRepo.find(entities);
+        if(price != null){
+            Map<Integer, List<ir.cliqmind.am.domain.PlanPrice>> mapped = price.stream().collect(Collectors.groupingBy(pp -> pp.getId().getPlanId()));
+            entities.forEach(plan -> {
+                plan.setPlanPrice(mapped.get(plan.getId()));
+            });
+        }
+        List<ir.cliqmind.am.domain.PlanFeature> features = planFeatureRepo.find(entities);
+        if(features!=null){
+            Map<Integer, List<ir.cliqmind.am.domain.PlanFeature>> mapped = features.stream().collect(Collectors.groupingBy(pp -> pp.getId().getPlanId()));
+            entities.forEach(plan -> {
+                plan.setPlanFeatures(mapped.get(plan.getId()));
+            });
         }
         return planBuilder.plan(entities);
     }

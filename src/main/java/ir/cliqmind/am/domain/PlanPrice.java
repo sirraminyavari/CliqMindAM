@@ -3,6 +3,7 @@ package ir.cliqmind.am.domain;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Date;
+import java.util.Objects;
 
 @Entity(name = "PlanPrice")
 @Table(name = "plan_price")
@@ -87,4 +88,5 @@ public class PlanPrice implements Serializable {
                 ", secondaryPriceExpirationDate=" + secondaryPriceExpirationDate +
                 '}';
     }
+
 }

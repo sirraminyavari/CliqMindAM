@@ -35,10 +35,10 @@ public class Plan {
     private Integer durationInMonths;
 
     @Transient
-    private Set<PlanFeature> planFeatures = new HashSet<>();
+    private List<PlanFeature> planFeatures = new ArrayList<>();
 
     @Transient
-    private Set<PlanPrice> planPrice = new HashSet<>();
+    private List<PlanPrice> planPrice = new ArrayList<>();
 
     @Column(name = "active")
     @ColumnDefault("true")
@@ -108,11 +108,11 @@ public class Plan {
         this.durationInMonths = durationInMonths;
     }
 
-    public Set<PlanFeature> getPlanFeatures() {
+    public List<PlanFeature> getPlanFeatures() {
         return planFeatures;
     }
 
-    public void setPlanFeatures(Set<PlanFeature> planFeatures) {
+    public void setPlanFeatures(List<PlanFeature> planFeatures) {
         this.planFeatures = planFeatures;
     }
 
@@ -124,11 +124,11 @@ public class Plan {
         this.active = active;
     }
 
-    public Set<PlanPrice> getPlanPrice() {
+    public List<PlanPrice> getPlanPrice() {
         return planPrice;
     }
 
-    public void setPlanPrice(Set<PlanPrice> planPrice) {
+    public void setPlanPrice(List<PlanPrice> planPrice) {
         this.planPrice = planPrice;
     }
 
