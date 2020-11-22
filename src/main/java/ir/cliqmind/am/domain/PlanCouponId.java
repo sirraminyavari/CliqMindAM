@@ -35,4 +35,12 @@ public class PlanCouponId implements Serializable {
     public void setCouponCode(String couponCode) {
         this.couponCode = couponCode;
     }
+
+    @Override
+    public String toString() {
+        return "PlanCouponId{" +
+                "planId=" + planId +
+                ", couponCode='" + couponCode + '\'' +
+                '}';
+    }
 }

@@ -3,7 +3,6 @@ package ir.cliqmind.am.mapper;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 public class PlanBuilder {
@@ -128,4 +127,8 @@ public class PlanBuilder {
         return result;
     }
 
+    public ir.cliqmind.am.dto.CalculatePlanPriceResponse calculatePrice(Double price) {
+        return new ir.cliqmind.am.dto.CalculatePlanPriceResponse()
+                .price(price);
+    }
 }

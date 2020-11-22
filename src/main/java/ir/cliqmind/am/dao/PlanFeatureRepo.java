@@ -20,4 +20,8 @@ public interface PlanFeatureRepo extends CrudRepository<PlanFeature, Integer> {
     @Query(value = "SELECT pf FROM PlanFeature pf WHERE pf.plan in (:plans)")
     List<PlanFeature> find(Iterable<Plan> plans);
 
+    @Transactional(readOnly = false)
+    @Query(value = "SELECT pf FROM PlanFeature pf WHERE pf.plan=:plan")
+    List<PlanFeature> find(Plan plan);
+
 }

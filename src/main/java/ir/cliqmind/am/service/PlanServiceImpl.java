@@ -1,8 +1,6 @@
 package ir.cliqmind.am.service;
 
-import ir.cliqmind.am.dao.PlanFeatureRepo;
-import ir.cliqmind.am.dao.PlanPriceRepo;
-import ir.cliqmind.am.dao.PlanRepo;
+import ir.cliqmind.am.dao.*;
 import ir.cliqmind.am.dto.*;
 import ir.cliqmind.am.error.NotFoundException;
 import ir.cliqmind.am.mapper.PlanBuilder;
@@ -13,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -30,12 +29,21 @@ public class PlanServiceImpl implements PlanService{
     @Autowired
     private PlanFeatureRepo planFeatureRepo;
 
+    @Autowired
+    private CouponRepo couponRepo;
+
+    @Autowired
+    private PlanActivationHistoryRepo planActivationHistoryRepo;
+
     private PlanBuilder planBuilder;
 
     private ResponseMessageBuilder responseMessageBuilder;
 
+    private PlanServiceBusiness planServiceBusiness;
+
     @Autowired
-    public PlanServiceImpl(){
+    public PlanServiceImpl(PlanServiceBusiness planServiceBusiness){
+        this.planServiceBusiness = planServiceBusiness;
         planBuilder = new PlanBuilder();
         responseMessageBuilder = new ResponseMessageBuilder();
     }
@@ -89,7 +97,29 @@ public class PlanServiceImpl implements PlanService{
     @Override
     public CalculatePlanPriceResponse calculatePrice(CalculatePlanPriceRequest body) {
         log.info("calculatePlanPrice {}", body);
-        return null;
+        ir.cliqmind.am.domain.Plan plan = findPlanByFeatures(body.getPlanId());
+        if(plan == null || plan.getId()==null){
+            throw new NotFoundException("plan does not exist");
+        }
+        Iterable<ir.cliqmind.am.domain.Coupon> coupons = null;
+        if(body.getCoupons()!=null && body.getCoupons().size()>0) {
+            coupons = couponRepo.findAllById(body.getCoupons());
+            Map<String, List<ir.cliqmind.am.domain.PlanCoupon>> mapped =
+                    couponRepo.getIds(new ir.cliqmind.am.dto.GetCouponsRequest()
+                    .exceptPlan(body.getPlanId())
+                    .limitedToPlan(body.getPlanId()));
+            log.debug("calculatePlanPrice mappedCoupons = {}", mapped);
+            if(mapped!=null && coupons!=null){
+                coupons.forEach(c -> {
+                    c.setPlans(mapped.get(c.getCode()));
+                });
+            }
+            log.debug("calculatePlanPrice coupons = {}", coupons);
+        }
+        List<ir.cliqmind.am.domain.Plan> activatedPlans = planActivationHistoryRepo.findPlansByOwnerId(body.getOwnerId());
+        log.debug("calculatePlanPrice activated plans = {}", activatedPlans);
+        Double price = planServiceBusiness.calculatePrice(body, plan, coupons, activatedPlans);
+        return planBuilder.calculatePrice(price);
     }
 
     @Override
@@ -181,6 +211,15 @@ public class PlanServiceImpl implements PlanService{
         entity.setActive(active);
         planRepo.save(entity);
         return responseMessageBuilder.success();
+    }
+
+    private ir.cliqmind.am.domain.Plan findPlanByFeatures(Integer id){
+        ir.cliqmind.am.domain.Plan entity = planRepo.findById(id).orElse(null);
+        if(entity!=null) {
+            entity.setPlanPrice(planPriceRepo.find(entity));
+            entity.setPlanFeatures(planFeatureRepo.find(entity));
+        }
+        return entity;
     }
 
     private ir.cliqmind.am.domain.Plan findPlan(Integer id){

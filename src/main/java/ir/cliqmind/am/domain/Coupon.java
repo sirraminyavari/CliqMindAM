@@ -177,6 +177,7 @@ public class Coupon implements Serializable {
             ", maximumUsageLimit=" + maximumUsageLimit +
             ", maximumUsageLimitPerUser=" + maximumUsageLimitPerUser +
             ", targetUsers=" + targetUsers +
+            ", plans=" + plans +
             '}';
   }
 }
