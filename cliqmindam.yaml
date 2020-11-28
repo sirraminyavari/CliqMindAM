@@ -1515,6 +1515,9 @@ definitions:
       owner_id:
         type: "string"
         format: "uuid"
+      user_id:
+        type: "string"
+        format: "uuid"
       amount:
         type: "integer"
         format: "int32"

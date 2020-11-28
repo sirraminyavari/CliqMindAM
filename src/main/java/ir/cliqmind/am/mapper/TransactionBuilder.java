@@ -34,10 +34,6 @@ public class TransactionBuilder {
                 .type(input.getType().name());
     }
 
-    private Date time(Timestamp input) {
-        return new Date(input.getTime());
-    }
-
     public Transactions getTransactions(List<ir.cliqmind.am.domain.Transaction> input) {
         return new Transactions()
                 .totalCount(input == null ? 0 : input.size())

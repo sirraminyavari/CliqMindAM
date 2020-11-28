@@ -17,7 +17,6 @@ public class PlanActivationHistory implements Serializable {
     private Long id;
 
     @ManyToOne
-    @MapsId("planId")
     private Plan plan;
 
     @Column(name = "owner_id", nullable = false)
@@ -126,4 +125,5 @@ public class PlanActivationHistory implements Serializable {
     public void setActivatedBy(UUID activatedBy) {
         this.activatedBy = activatedBy;
     }
+
 }

@@ -1,17 +1,17 @@
 package ir.cliqmind.am.service;
 
+import ir.cliqmind.am.dao.*;
 import ir.cliqmind.am.domain.*;
 import ir.cliqmind.am.dto.CalculatePlanPriceRequest;
 import ir.cliqmind.am.error.ValidationException;
+import ir.cliqmind.am.utils.DateUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
@@ -21,14 +21,47 @@ public class PlanServiceBusiness {
 
     private static final Logger log = LoggerFactory.getLogger(PlanServiceBusiness.class);
 
-    public double calculatePrice(CalculatePlanPriceRequest body, Plan plan, Iterable<Coupon> coupons, List<PlanActivationHistory> activatedPlans){
+    @Autowired
+    private PlanRepo planRepo;
+
+    @Autowired
+    private PlanPriceRepo planPriceRepo;
+
+    @Autowired
+    private PlanFeatureRepo planFeatureRepo;
+
+    @Autowired
+    private CouponRepo couponRepo;
+
+    @Autowired
+    private PlanActivationHistoryRepo planActivationHistoryRepo;
+
+    public double calculatePrice(CalculatePlanPriceRequest body, Plan plan){
+        Iterable<ir.cliqmind.am.domain.Coupon> coupons = null;
+        if(body.getCoupons()!=null && body.getCoupons().size()>0) {
+            coupons = couponRepo.findAllByIdAndCurrency(body.getCoupons(), body.getCurrency());
+            Map<String, List<PlanCoupon>> mapped =
+                    couponRepo.getIds(new ir.cliqmind.am.dto.GetCouponsRequest()
+                            .exceptPlan(body.getPlanId())
+                            .limitedToPlan(body.getPlanId()));
+            log.debug("calculatePlanPrice mappedCoupons = {}", mapped);
+            if(mapped!=null && coupons!=null){
+                coupons.forEach(c -> {
+                    c.setPlans(mapped.get(c.getCode()));
+                });
+            }
+            log.debug("calculatePlanPrice coupons = {}", coupons);
+        }
+        List<ir.cliqmind.am.domain.PlanActivationHistory> activatedPlans = planActivationHistoryRepo.findByOwnerId(body.getOwnerId());
+        log.debug("calculatePlanPrice activated plans = {}", activatedPlans);
+
         boolean useSecondaryPrice = Optional.ofNullable(body.isUseSecondaryPrice()).orElse(false);
         Integer amount = body.getAmount();
         String currency = body.getCurrency();
         UUID ownerId = body.getOwnerId();
         int durationInMonths = plan.getDurationInMonths();
         AtomicReference<Integer> diffDay = new AtomicReference<>();
-        Date today = today();
+        Date today = DateUtil.today();
         if(useSecondaryPrice && plan.getPlanPrice()!=null){
             AtomicReference<Boolean> checked = new AtomicReference<>(false);
             plan.getPlanPrice().forEach(pp -> {
@@ -36,7 +69,7 @@ public class PlanServiceBusiness {
                 if(!isAnyNull(pp.getSecondaryPrice(), pp.getSecondaryPriceExpirationDate(),
                         pp.getSecondaryPriceFirstDate())){
                     log.debug("calculatePrice, plan price is not null");
-                    if(dateIsInRange(today, pp.getSecondaryPriceFirstDate(), pp.getSecondaryPriceExpirationDate())){
+                    if(DateUtil.dateIsInRange(today, pp.getSecondaryPriceFirstDate(), pp.getSecondaryPriceExpirationDate())){
                         log.debug("calculatePrice, plan price is checked with date");
                         checked.set(true);
                     }
@@ -88,7 +121,7 @@ public class PlanServiceBusiness {
                 }
                 if(ap.getExpirationDate().after(today)){
                     diffDay.set(Math.min(
-                            diffDay(ap.getExpirationDate(), today),
+                            DateUtil.diffDay(ap.getExpirationDate(), today),
                             Optional.ofNullable(diffDay.get()).orElse(Integer.MAX_VALUE)
                     ));
                 }
@@ -99,7 +132,7 @@ public class PlanServiceBusiness {
             if(planPrice.getId().getCurrency().equals(currency)) {
                 double price = planPrice.getPrice();
                 if(useSecondaryPrice) {
-                    if (dateIsInRange(today, planPrice.getSecondaryPriceFirstDate(),
+                    if (DateUtil.dateIsInRange(today, planPrice.getSecondaryPriceFirstDate(),
                             planPrice.getSecondaryPriceExpirationDate())) {
                         if (planPrice.getSecondaryPrice() != null) {
                             if(planPrice.getSecondaryPrice() < price) {
@@ -112,8 +145,21 @@ public class PlanServiceBusiness {
             }
         }
         if(coupons!=null){
+            double cpercent = 0;
+            double camount = 0;
             for(Coupon coupon : coupons){
-                
+                if(coupon.getPercentageBased()){
+                    cpercent += coupon.getAmount();
+                }
+                else{
+                    camount += coupon.getAmount();
+                }
+            }
+            if(cpercent > 0) {
+                totalPrice = totalPrice * (100 - cpercent) / 100;
+            }
+            if(camount > 0){
+                totalPrice = totalPrice - camount;
             }
         }
         return totalPrice;
@@ -125,7 +171,7 @@ public class PlanServiceBusiness {
     }
 
     private void validate(Coupon c, String currency, UUID ownerId) {
-        Date today = today();
+        Date today = DateUtil.today();
         if(today.after(c.getExpirationDate())) {
             throw new ValidationException(String.format("coupon is expired %s - code = %s", c.getExpirationDate(), c.getCode()));
         }
@@ -148,19 +194,6 @@ public class PlanServiceBusiness {
         }
     }
 
-    private boolean dateIsInRange(Date date, Date start, Date end) {
-        if(start == null && end == null){
-            return true;
-        }
-        if(start==null){
-            return date.equals(end) || date.before(end);
-        }
-        if(end == null){
-            return date.equals(start) || date.after(start);
-        }
-        return date.equals(start) || date.equals(end) || (date.after(start) && date.before(end);
-    }
-
     private boolean isAnyNull(Object ... objs){
         for(Object o : objs){
             if(o==null){
@@ -170,18 +203,5 @@ public class PlanServiceBusiness {
         return false;
     }
 
-    private Date today(){
-        Date today = new Date(1000 * (System.currentTimeMillis() / 1000));
-        today.setHours(0);
-        today.setMinutes(0);
-        today.setSeconds(0);
-        return today;
-    }
-
-    private int diffDay(Date d1, Date d2){
-        return Math.abs((int) ((d1.getTime() - d2.getTime()) / MILLIS_IN_DAY));
-    }
-
-    private final static long MILLIS_IN_DAY = 24 * 60 * 60 * 1000;
 
 }

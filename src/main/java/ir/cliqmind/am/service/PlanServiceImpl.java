@@ -3,15 +3,17 @@ package ir.cliqmind.am.service;
 import ir.cliqmind.am.dao.*;
 import ir.cliqmind.am.dto.*;
 import ir.cliqmind.am.error.NotFoundException;
+import ir.cliqmind.am.error.ValidationException;
 import ir.cliqmind.am.mapper.PlanBuilder;
 import ir.cliqmind.am.mapper.ResponseMessageBuilder;
+import ir.cliqmind.am.mapper.TransactionBuilder;
+import ir.cliqmind.am.utils.DateUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -30,9 +32,6 @@ public class PlanServiceImpl implements PlanService{
     private PlanFeatureRepo planFeatureRepo;
 
     @Autowired
-    private CouponRepo couponRepo;
-
-    @Autowired
     private PlanActivationHistoryRepo planActivationHistoryRepo;
 
     private PlanBuilder planBuilder;
@@ -41,11 +40,14 @@ public class PlanServiceImpl implements PlanService{
 
     private PlanServiceBusiness planServiceBusiness;
 
+    private TransactionBuilder transactionBuilder;
+
     @Autowired
     public PlanServiceImpl(PlanServiceBusiness planServiceBusiness){
         this.planServiceBusiness = planServiceBusiness;
         planBuilder = new PlanBuilder();
         responseMessageBuilder = new ResponseMessageBuilder();
+        transactionBuilder = new TransactionBuilder();
     }
 
     @Override
@@ -91,34 +93,52 @@ public class PlanServiceImpl implements PlanService{
     @Override
     public Transaction buy(BuyPlanRequest body) {
         log.info("buyPlan {}", body);
-        return null;
+        ir.cliqmind.am.domain.Plan plan = findPlanWithFeaturesPrice(body.getPlanId(), true, true);
+        if(plan == null || plan.getId()==null){
+            throw new NotFoundException("plan does not exist");
+        }
+        if(plan.getPlanFeatures()!=null && plan.getPlanFeatures().size()>0) {
+            List<Integer> featureIds = plan.getPlanFeatures().stream().map(pf -> pf.getId().getFeatureId()).collect(Collectors.toList());
+            List<Integer> currentPlansWithSameFeatures = planRepo.findMaximumAmountByFeatureIds(featureIds);
+            log.debug("buyPlan currentPlansWithSameFeatures = {}", currentPlansWithSameFeatures);
+            if(currentPlansWithSameFeatures!=null){
+                currentPlansWithSameFeatures.forEach(p -> {
+                    if(p < body.getAmount()){
+                        throw new ValidationException(String.format("Amount is not allowed to be more than %s",
+                                p));
+                    }
+                });
+            }
+        }
+        Date today = DateUtil.today();
+        List<ir.cliqmind.am.domain.PlanActivationHistory> activatedPlans = planActivationHistoryRepo.findByOwnerIdAndPlan(
+                body.getOwnerId(), plan.getId());
+        log.debug("activatedPlans = {}", activatedPlans);
+        java.sql.Date expirationDate = null;
+        if(activatedPlans!=null){
+            ir.cliqmind.am.domain.PlanActivationHistory currentPlan = activatedPlans.stream().filter(
+                    ap -> DateUtil.dateIsInRange(today,
+                    ap.getStartDate(), ap.getExpirationDate())).max(Comparator.comparingInt(h ->
+                    DateUtil.diffDay(today, h.getExpirationDate()))).orElse(null);
+            log.debug("buyPlan current activated plan = {}", currentPlan);
+            if(currentPlan != null){
+                expirationDate = currentPlan.getExpirationDate();
+                log.debug("set expiration based on previously activated plan {}", expirationDate);
+            }
+        }
+        ir.cliqmind.am.domain.Transaction transaction = planActivationHistoryRepo.performBuyTransaction(body, plan, expirationDate);
+        log.debug("buyPlan transaction {}", transaction);
+        return transactionBuilder.transaction(transaction);
     }
 
     @Override
     public CalculatePlanPriceResponse calculatePrice(CalculatePlanPriceRequest body) {
         log.info("calculatePlanPrice {}", body);
-        ir.cliqmind.am.domain.Plan plan = findPlanByFeatures(body.getPlanId());
+        ir.cliqmind.am.domain.Plan plan = findPlanWithFeaturesPrice(body.getPlanId(), true, true);
         if(plan == null || plan.getId()==null){
             throw new NotFoundException("plan does not exist");
         }
-        Iterable<ir.cliqmind.am.domain.Coupon> coupons = null;
-        if(body.getCoupons()!=null && body.getCoupons().size()>0) {
-            coupons = couponRepo.findAllById(body.getCoupons());
-            Map<String, List<ir.cliqmind.am.domain.PlanCoupon>> mapped =
-                    couponRepo.getIds(new ir.cliqmind.am.dto.GetCouponsRequest()
-                    .exceptPlan(body.getPlanId())
-                    .limitedToPlan(body.getPlanId()));
-            log.debug("calculatePlanPrice mappedCoupons = {}", mapped);
-            if(mapped!=null && coupons!=null){
-                coupons.forEach(c -> {
-                    c.setPlans(mapped.get(c.getCode()));
-                });
-            }
-            log.debug("calculatePlanPrice coupons = {}", coupons);
-        }
-        List<ir.cliqmind.am.domain.Plan> activatedPlans = planActivationHistoryRepo.findPlansByOwnerId(body.getOwnerId());
-        log.debug("calculatePlanPrice activated plans = {}", activatedPlans);
-        Double price = planServiceBusiness.calculatePrice(body, plan, coupons, activatedPlans);
+        Double price = planServiceBusiness.calculatePrice(body, plan);
         return planBuilder.calculatePrice(price);
     }
 
@@ -213,11 +233,15 @@ public class PlanServiceImpl implements PlanService{
         return responseMessageBuilder.success();
     }
 
-    private ir.cliqmind.am.domain.Plan findPlanByFeatures(Integer id){
+    private ir.cliqmind.am.domain.Plan findPlanWithFeaturesPrice(Integer id, boolean features, boolean price){
         ir.cliqmind.am.domain.Plan entity = planRepo.findById(id).orElse(null);
         if(entity!=null) {
-            entity.setPlanPrice(planPriceRepo.find(entity));
-            entity.setPlanFeatures(planFeatureRepo.find(entity));
+            if(price) {
+                entity.setPlanPrice(planPriceRepo.find(entity));
+            }
+            if(features) {
+                entity.setPlanFeatures(planFeatureRepo.find(entity));
+            }
         }
         return entity;
     }

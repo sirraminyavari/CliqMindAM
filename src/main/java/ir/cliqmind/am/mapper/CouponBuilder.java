@@ -1,5 +1,7 @@
 package ir.cliqmind.am.mapper;
 
+import ir.cliqmind.am.utils.DateUtil;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.stream.Collectors;
@@ -13,12 +15,12 @@ public class CouponBuilder {
         result.setAllowSecondaryPrice(input.isAllowSecondaryPrice());
         result.setAmount(input.getAmount());
         result.setCurrency(input.getCurrency());
-        result.setExpirationDate(DateMapper.convertDate(input.getExpirationDate()));
+        result.setExpirationDate(DateUtil.convertDate(input.getExpirationDate()));
         result.setMaximumAmount(input.getMaximumAmount());
         result.setMaximumUsageLimit(input.getMaximumUsageLimit());
         result.setMaximumUsageLimitPerUser(input.getMaximumUsageLimitPerUser());
         result.setPercentageBased(input.isPercentageBased());
-        result.setTime(DateMapper.now());
+        result.setTime(DateUtil.nowTimestamp());
         if(input.getLimitToPlans()!=null || input.getExceptPlans()!=null){
             result.setPlans(new ArrayList<>());
             String code = input.getCode();

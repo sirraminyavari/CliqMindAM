@@ -14,4 +14,11 @@ import java.util.List;
 @CrossOrigin( methods = RequestMethod.GET, allowCredentials = "false", origins = "*")
 public interface CouponRepo extends CrudRepository<Coupon, String>, CouponRepoCustom {
 
+    @Transactional(readOnly = false)
+    @Query(value = "SELECT c FROM Coupon c WHERE c.code in (:ids)")
+    List<Coupon> find(List<String> ids);
+
+    @Transactional(readOnly = false)
+    @Query(value = "SELECT c FROM Coupon c WHERE c.currency=:currency AND c.code in (:ids)")
+    List<Coupon> findAllByIdAndCurrency(List<String> ids, String currency);
 }

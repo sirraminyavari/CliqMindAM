@@ -1,5 +1,7 @@
 package ir.cliqmind.am.mapper;
 
+import ir.cliqmind.am.utils.DateUtil;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -92,8 +94,8 @@ public class PlanBuilder {
         ir.cliqmind.am.dto.PlanPriceItemSecondaryPrice planPriceItemSecondaryPrice = entity.getSecondaryPrice();
         if(planPriceItemSecondaryPrice!=null) {
             result.setSecondaryPrice(planPriceItemSecondaryPrice.getPrice());
-            result.setSecondaryPriceExpirationDate(DateMapper.convertDate(planPriceItemSecondaryPrice.getExpirationDate()));
-            result.setSecondaryPriceFirstDate(DateMapper.convertDate(planPriceItemSecondaryPrice.getFirstDate()));
+            result.setSecondaryPriceExpirationDate(DateUtil.convertDate(planPriceItemSecondaryPrice.getExpirationDate()));
+            result.setSecondaryPriceFirstDate(DateUtil.convertDate(planPriceItemSecondaryPrice.getFirstDate()));
         }
         return result;
     }

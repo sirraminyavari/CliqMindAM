@@ -26,6 +26,9 @@ public class BuyPlanRequest   {
   @JsonProperty("owner_id")
   private UUID ownerId = null;
 
+  @JsonProperty("user_id")
+  private UUID userId = null;
+
   @JsonProperty("amount")
   private Integer amount = null;
 
@@ -65,6 +68,11 @@ public class BuyPlanRequest   {
     return this;
   }
 
+  public BuyPlanRequest userId(UUID userId) {
+    this.userId = userId;
+    return this;
+  }
+
   /**
    * Get ownerId
    * @return ownerId
@@ -80,6 +88,14 @@ public class BuyPlanRequest   {
 
   public void setOwnerId(UUID ownerId) {
     this.ownerId = ownerId;
+  }
+
+  public UUID getUserId() {
+    return userId;
+  }
+
+  public void setUserId(UUID userId) {
+    this.userId = userId;
   }
 
   public BuyPlanRequest amount(Integer amount) {
@@ -201,6 +217,7 @@ public class BuyPlanRequest   {
     
     sb.append("    planId: ").append(toIndentedString(planId)).append("\n");
     sb.append("    ownerId: ").append(toIndentedString(ownerId)).append("\n");
+    sb.append("    userId: ").append(toIndentedString(userId)).append("\n");
     sb.append("    amount: ").append(toIndentedString(amount)).append("\n");
     sb.append("    useSecondaryPrice: ").append(toIndentedString(useSecondaryPrice)).append("\n");
     sb.append("    currency: ").append(toIndentedString(currency)).append("\n");
