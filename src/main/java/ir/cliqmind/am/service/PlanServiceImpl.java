@@ -14,7 +14,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
+import java.util.function.Function;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 public class PlanServiceImpl implements PlanService{
@@ -93,7 +95,7 @@ public class PlanServiceImpl implements PlanService{
     @Override
     public Transaction buy(BuyPlanRequest body) {
         log.info("buyPlan {}", body);
-        ir.cliqmind.am.domain.Plan plan = findPlanWithFeaturesPrice(body.getPlanId(), true, true);
+        ir.cliqmind.am.domain.Plan plan = findPlanWithFeaturesPrice(body.getPlanId());
         if(plan == null || plan.getId()==null){
             throw new NotFoundException("plan does not exist");
         }
@@ -134,7 +136,7 @@ public class PlanServiceImpl implements PlanService{
     @Override
     public CalculatePlanPriceResponse calculatePrice(CalculatePlanPriceRequest body) {
         log.info("calculatePlanPrice {}", body);
-        ir.cliqmind.am.domain.Plan plan = findPlanWithFeaturesPrice(body.getPlanId(), true, true);
+        ir.cliqmind.am.domain.Plan plan = findPlanWithFeaturesPrice(body.getPlanId());
         if(plan == null || plan.getId()==null){
             throw new NotFoundException("plan does not exist");
         }
@@ -145,19 +147,51 @@ public class PlanServiceImpl implements PlanService{
     @Override
     public CalculatePlanRenewalPriceResponse calculateRenewalPrice(CalculatePlanRenewalPriceRequest body) {
         log.info("calculatePlanRenewalPrice {}", body);
-        return null;
+        if(body.getPlans()==null || body.getPlans().size()==0){
+            throw new ValidationException("empty plans");
+        }
+        List<Integer> planIds = body.getPlans().keySet().stream().flatMap((Function<String, Stream<Integer>>) s -> {
+            try{
+                return Stream.of(Integer.parseInt(s));
+            }
+            catch (Exception ex){
+                return null;
+            }
+        }).collect(Collectors.toList());
+        if(planIds.size()!=body.getPlans().size()){
+            throw new ValidationException("invalid plan id");
+        }
+        List<ir.cliqmind.am.domain.Plan> plans = findPlanWithFeaturesPrice(planIds);
+        if(plans == null || plans.size()==0){
+            throw new NotFoundException("plan does not exist");
+        }
+        List<ir.cliqmind.am.domain.PlanActivationHistory> activatedPlans = planActivationHistoryRepo.findByOwnerId(body.getOwnerId());
+        Double price = planServiceBusiness.calculateRenewalPrice(body, plans, activatedPlans);
+        return planBuilder.calculatePlanRenewalPriceResponse(price);
     }
 
     @Override
-    public Transaction calculateUpgradePrice(CalculatePlanUpgradeRequest body) {
+    public CalculatePlanUpgradePriceResponse calculateUpgradePrice(CalculatePlanUpgradeRequest body) {
         log.info("calculatePlanUpgradePrice {}", body);
-        return null;
+        if(body.getFromPlanId()==null || body.getToPlanId()==null){
+            throw new ValidationException("empty plans");
+        }
+        ir.cliqmind.am.domain.Plan planFrom = findPlanWithFeaturesPrice(body.getFromPlanId());
+        ir.cliqmind.am.domain.Plan planTo = findPlanWithFeaturesPrice(body.getToPlanId());
+        List<ir.cliqmind.am.domain.PlanActivationHistory> activatedPlans = planActivationHistoryRepo.findByOwnerId(body.getOwnerId());
+        Double price = planServiceBusiness.calculateUpgradePrice(body, planFrom, planTo, activatedPlans);
+        return planBuilder.calculatePlanUpgradePriceResponse(price);
     }
 
     @Override
     public GetPlanActivationHistoryResponse getActivationHistory(GetPlanActivationHistoryRequest body) {
         log.info("getPlanActivationHistory {}", body);
-        return null;
+        List<ir.cliqmind.am.domain.PlanActivationHistory> planActivationHistories = planActivationHistoryRepo.findAll(body);
+        log.debug("getPlanActivationHistory result = {}", planActivationHistories);
+        return new GetPlanActivationHistoryResponse().
+                totalCount(planActivationHistories==null ? 0 : planActivationHistories.size())
+                .items(planActivationHistories==null ? null :
+                        planActivationHistories.stream().map(pah -> planBuilder.planActivationHistory(pah)).collect(Collectors.toList()));
     }
 
     @Override
@@ -190,7 +224,31 @@ public class PlanServiceImpl implements PlanService{
     @Override
     public Transaction renew(RenewPlansRequest body) {
         log.info("renewPlan {}", body);
-        return null;
+        if(body.getPlans()==null || body.getPlans().size()==0){
+            throw new ValidationException("empty plans");
+        }
+
+        List<Integer> planIds = body.getPlans().keySet().stream().flatMap((Function<String, Stream<Integer>>) s -> {
+            try{
+                return Stream.of(Integer.parseInt(s));
+            }
+            catch (Exception ex){
+                return null;
+            }
+        }).collect(Collectors.toList());
+
+        if(planIds.size()!=body.getPlans().size()){
+            throw new ValidationException("invalid plan id");
+        }
+
+        List<ir.cliqmind.am.domain.Plan> plans = findPlanWithFeaturesPrice(planIds);
+        if(plans == null || plans.size()==0){
+            throw new NotFoundException("plan does not exist");
+        }
+        List<ir.cliqmind.am.domain.PlanActivationHistory> activatedPlans = planActivationHistoryRepo.findByOwnerId(body.getOwnerId());
+        ir.cliqmind.am.domain.Transaction transaction = planActivationHistoryRepo.performRenewTransaction(body, plans, activatedPlans);
+        log.debug("renewPlan transaction {}", transaction);
+        return transactionBuilder.transaction(transaction);
     }
 
     @Override
@@ -220,7 +278,17 @@ public class PlanServiceImpl implements PlanService{
     @Override
     public Transaction upgrade(UpradePlanRequest body) {
         log.info("upgradePlan {}", body);
-        return null;
+        if(body.getFromPlanId()==null || body.getToPlanId()==null){
+            throw new ValidationException("empty plans");
+        }
+
+        ir.cliqmind.am.domain.Plan planFrom = findPlanWithFeaturesPrice(body.getFromPlanId());
+        ir.cliqmind.am.domain.Plan planTo = findPlanWithFeaturesPrice(body.getToPlanId());
+
+        List<ir.cliqmind.am.domain.PlanActivationHistory> activatedPlans = planActivationHistoryRepo.findByOwnerId(body.getOwnerId());
+        ir.cliqmind.am.domain.Transaction transaction = planActivationHistoryRepo.performUpgradeTransaction(body, planFrom, planTo, activatedPlans);
+        log.debug("upgradePlan transaction {}", transaction);
+        return transactionBuilder.transaction(transaction);
     }
 
     private ResponseMessage activate(Integer id, boolean active){
@@ -233,17 +301,24 @@ public class PlanServiceImpl implements PlanService{
         return responseMessageBuilder.success();
     }
 
-    private ir.cliqmind.am.domain.Plan findPlanWithFeaturesPrice(Integer id, boolean features, boolean price){
+    private ir.cliqmind.am.domain.Plan findPlanWithFeaturesPrice(Integer id){
         ir.cliqmind.am.domain.Plan entity = planRepo.findById(id).orElse(null);
         if(entity!=null) {
-            if(price) {
-                entity.setPlanPrice(planPriceRepo.find(entity));
-            }
-            if(features) {
-                entity.setPlanFeatures(planFeatureRepo.find(entity));
-            }
+            entity.setPlanPrice(planPriceRepo.find(entity));
+            entity.setPlanFeatures(planFeatureRepo.find(entity));
         }
         return entity;
+    }
+
+    private List<ir.cliqmind.am.domain.Plan> findPlanWithFeaturesPrice(List<Integer> ids){
+        List<ir.cliqmind.am.domain.Plan> entities = new ArrayList<>();
+        Optional.ofNullable(planRepo.findAllById(ids)).ifPresent(
+                results -> results.forEach(p->entities.add(p)));
+        entities.forEach(entity -> {
+            entity.setPlanPrice(planPriceRepo.find(entity));
+            entity.setPlanFeatures(planFeatureRepo.find(entity));
+        });
+        return entities;
     }
 
     private ir.cliqmind.am.domain.Plan findPlan(Integer id){

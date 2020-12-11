@@ -557,7 +557,7 @@ paths:
         "200":
           description: "successful plan upgrade price calculated"
           schema:
-            $ref: "#/definitions/Transaction"
+            $ref: "#/definitions/CalculatePlanUpgradePriceResponse"
         "400":
           description: "Invalid request format "
         "401":
@@ -1471,7 +1471,14 @@ definitions:
       price:
         type: "number"
         format: "double"
-
+  
+  CalculatePlanUpgradePriceResponse:
+    type: object
+    properties:
+      price:
+        type: number
+        format: double
+        
   CalculatePlanUpgradeRequest:
     type: "object"
     required:
@@ -1538,6 +1545,9 @@ definitions:
       - plans
       - currency
     properties:
+      user_id:
+        type: "string"
+        format: "uuid"
       owner_id:
         type: "string"
         format: "uuid"
@@ -1564,6 +1574,9 @@ definitions:
       to_plan_id:
         type: "integer"
         format: "int32"
+      user_id:
+        type: "string"
+        format: "uuid"
       owner_id:
         type: "string"
         format: "uuid"
@@ -1578,7 +1591,7 @@ definitions:
       coupons:
         type: "array"
         items:
-          $ref: '#/definitions/Coupon'
+          type: "string"
 
   GetPlanActivationHistoryRequest:
     type: "object"
@@ -1623,7 +1636,7 @@ definitions:
     properties:
       id:
         type: "integer"
-        format: "int32"
+        format: "int64"
       owner_id:
         type: "string"
         format: "uuid"

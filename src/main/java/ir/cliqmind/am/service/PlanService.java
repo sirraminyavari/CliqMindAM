@@ -18,7 +18,7 @@ public interface PlanService {
 
     CalculatePlanRenewalPriceResponse calculateRenewalPrice(CalculatePlanRenewalPriceRequest body);
 
-    Transaction calculateUpgradePrice(CalculatePlanUpgradeRequest body);
+    CalculatePlanUpgradePriceResponse calculateUpgradePrice(CalculatePlanUpgradeRequest body);
 
     GetPlanActivationHistoryResponse getActivationHistory(GetPlanActivationHistoryRequest body);
 

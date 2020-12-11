@@ -1,6 +1,9 @@
 package ir.cliqmind.am.dao;
 
 import ir.cliqmind.am.domain.*;
+import ir.cliqmind.am.dto.GetPlanActivationHistoryRequest;
+import ir.cliqmind.am.dto.RenewPlansRequest;
+import ir.cliqmind.am.dto.UpradePlanRequest;
 import ir.cliqmind.am.error.ValidationException;
 import ir.cliqmind.am.service.PlanServiceBusiness;
 import ir.cliqmind.am.utils.DateUtil;
@@ -15,6 +18,7 @@ import javax.annotation.PostConstruct;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.stream.Stream;
 
 @Repository
 public class PlanActivationHistoryRepoImpl implements PlanActivationHistoryRepoCustom {
@@ -85,6 +89,104 @@ public class PlanActivationHistoryRepoImpl implements PlanActivationHistoryRepoC
         planActivationHistory.setTransactionId(transaction.getId());
         planActivationHistory.setPlan(plan);
         planActivationHistoryRepo.save(planActivationHistory);
+
+        return transaction;
+    }
+
+    @Override
+    public Transaction performRenewTransaction(RenewPlansRequest renewPlansRequest, List<Plan> plans, List<PlanActivationHistory> activatedPlans) {
+        Transaction transaction = new Transaction();
+        transaction.setDeposit(false);
+        transaction.setUserId(renewPlansRequest.getUserId());
+        transaction.setTransactionCode(randomGenerator.generateAlphaNumeric(10));
+        double price = planServiceBusiness.calculateRenewalPrice(
+                new ir.cliqmind.am.dto.CalculatePlanRenewalPriceRequest()
+                        .coupons(renewPlansRequest.getCoupons())
+                        .plans(renewPlansRequest.getPlans())
+                        .currency(renewPlansRequest.getCurrency())
+                        .ownerId(renewPlansRequest.getOwnerId())
+                , plans,
+                activatedPlans);
+        log.debug("calculated renewal price = {}", price);
+        transaction.setAmount(price);
+        transaction.setCurrency(renewPlansRequest.getCurrency());
+        transaction.setType(Transaction.TransactionType.RENEW);
+        transaction.setTime(new Timestamp(System.currentTimeMillis()));
+        if(renewPlansRequest.getCoupons()!=null && renewPlansRequest.getCoupons().size()>0) {
+            List<Coupon> coupons = couponRepo.find(renewPlansRequest.getCoupons());
+            if(coupons==null || coupons.size()!=renewPlansRequest.getCoupons().size()){
+                throw new ValidationException("there are some invalid coupons in the request");
+            }
+            transaction.setCoupons(coupons);
+        }
+        transaction = transactionRepo.save(transaction);
+        Long transactionId = transaction.getId();
+
+        java.sql.Date expiration = Stream.concat(
+                Stream.of(DateUtil.todaySql()),
+                activatedPlans.stream().map(ap -> ap.getExpirationDate()))
+                .max(java.util.Date::compareTo).get();
+
+        activatedPlans.forEach(planActivationHistory -> {
+            planActivationHistory.setActivatedBy(renewPlansRequest.getUserId());
+            planActivationHistory.setExpirationDate(expiration);
+            planActivationHistory.setOwnerId(renewPlansRequest.getOwnerId());
+            planActivationHistory.setTime(new Timestamp(System.currentTimeMillis()));
+            planActivationHistory.setTransactionId(transactionId);
+            planActivationHistoryRepo.save(planActivationHistory);
+        });
+
+        return transaction;
+    }
+
+    @Override
+    public List<PlanActivationHistory> findAll(GetPlanActivationHistoryRequest body) {
+        return planActivationHistoryRepo.findAll(body.getOwnerId(), body.getPlanIds());
+    }
+
+    @Override
+    public Transaction performUpgradeTransaction(UpradePlanRequest upradePlanRequest, Plan planFrom, Plan planTo, List<PlanActivationHistory> activatedPlans) {
+        Transaction transaction = new Transaction();
+        transaction.setDeposit(false);
+        transaction.setUserId(upradePlanRequest.getUserId());
+        transaction.setTransactionCode(randomGenerator.generateAlphaNumeric(10));
+        double price = planServiceBusiness.calculateUpgradePrice(
+                new ir.cliqmind.am.dto.CalculatePlanUpgradeRequest()
+                        .coupons(upradePlanRequest.getCoupons())
+                        .fromPlanId(planFrom.getId())
+                        .toPlanId(planTo.getId())
+                        .currency(upradePlanRequest.getCurrency())
+                        .ownerId(upradePlanRequest.getOwnerId())
+                , planFrom, planTo,
+                activatedPlans);
+        log.debug("calculated upgrade price = {}", price);
+        transaction.setAmount(price);
+        transaction.setCurrency(upradePlanRequest.getCurrency());
+        transaction.setType(Transaction.TransactionType.UPGRADE);
+        transaction.setTime(new Timestamp(System.currentTimeMillis()));
+        if(upradePlanRequest.getCoupons()!=null && upradePlanRequest.getCoupons().size()>0) {
+            List<Coupon> coupons = couponRepo.find(upradePlanRequest.getCoupons());
+            if(coupons==null || coupons.size()!=upradePlanRequest.getCoupons().size()){
+                throw new ValidationException("there are some invalid coupons in the request");
+            }
+            transaction.setCoupons(coupons);
+        }
+        transaction = transactionRepo.save(transaction);
+        Long transactionId = transaction.getId();
+
+        java.sql.Date expiration = Stream.concat(
+                Stream.of(DateUtil.todaySql()),
+                activatedPlans.stream().map(ap -> ap.getExpirationDate()))
+                .max(java.util.Date::compareTo).get();
+
+        activatedPlans.forEach(planActivationHistory -> {
+            planActivationHistory.setActivatedBy(upradePlanRequest.getUserId());
+            planActivationHistory.setExpirationDate(expiration);
+            planActivationHistory.setOwnerId(upradePlanRequest.getOwnerId());
+            planActivationHistory.setTime(new Timestamp(System.currentTimeMillis()));
+            planActivationHistory.setTransactionId(transactionId);
+            planActivationHistoryRepo.save(planActivationHistory);
+        });
 
         return transaction;
     }

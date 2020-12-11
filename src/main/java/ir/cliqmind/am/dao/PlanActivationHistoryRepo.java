@@ -22,4 +22,8 @@ public interface PlanActivationHistoryRepo extends CrudRepository<PlanActivation
     @Transactional(readOnly = false)
     @Query(value = "SELECT p FROM PlanActivationHistory p WHERE p.ownerId=:ownerId AND p.plan.id=:planId")
     List<PlanActivationHistory> findByOwnerIdAndPlan(UUID ownerId, Integer planId);
+
+    @Transactional(readOnly = false)
+    @Query(value = "SELECT p FROM PlanActivationHistory p WHERE p.ownerId=:ownerId AND p.plan.id in (:planIds)")
+    List<PlanActivationHistory> findAll(UUID ownerId, List<Integer> planIds);
 }

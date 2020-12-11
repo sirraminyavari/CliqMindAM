@@ -10,6 +10,8 @@ public interface CouponRepoCustom {
 
     Map<String, List<PlanCoupon>> getIds(ir.cliqmind.am.dto.GetCouponsRequest body);
 
+    Map<String, List<PlanCoupon>> getIds(List<Integer> planIds);
+
     void add(Coupon coupon);
 
     void edit(Coupon coupon);

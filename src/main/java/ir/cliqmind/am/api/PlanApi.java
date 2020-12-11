@@ -5,27 +5,7 @@
  */
 package ir.cliqmind.am.api;
 
-import ir.cliqmind.am.dto.ActivatePlanRequest;
-import ir.cliqmind.am.dto.AddPlanRequest;
-import ir.cliqmind.am.dto.BuyPlanRequest;
-import ir.cliqmind.am.dto.CalculatePlanPriceRequest;
-import ir.cliqmind.am.dto.CalculatePlanPriceResponse;
-import ir.cliqmind.am.dto.CalculatePlanRenewalPriceRequest;
-import ir.cliqmind.am.dto.CalculatePlanRenewalPriceResponse;
-import ir.cliqmind.am.dto.CalculatePlanUpgradeRequest;
-import ir.cliqmind.am.dto.DeactivatePlanRequest;
-import ir.cliqmind.am.dto.EditPlanRequest;
-import ir.cliqmind.am.dto.GetPlanActivationHistoryRequest;
-import ir.cliqmind.am.dto.GetPlanActivationHistoryResponse;
-import ir.cliqmind.am.dto.GetPlansRequest;
-import ir.cliqmind.am.dto.GetPlansResponse;
-import ir.cliqmind.am.dto.Plan;
-import ir.cliqmind.am.dto.RenewPlansRequest;
-import ir.cliqmind.am.dto.ResponseMessage;
-import ir.cliqmind.am.dto.SetPlanFeaturesRequest;
-import ir.cliqmind.am.dto.SetPlanPriceRequest;
-import ir.cliqmind.am.dto.Transaction;
-import ir.cliqmind.am.dto.UpradePlanRequest;
+import ir.cliqmind.am.dto.*;
 import io.swagger.annotations.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -105,7 +85,7 @@ public interface PlanApi {
     @RequestMapping(value = "/plan/price/upgrade/calculate",
         produces = { "application/json" }, 
         method = {RequestMethod.GET, RequestMethod.POST})
-    ResponseEntity<Transaction> calculatePlanUpgradePrice(@ApiParam(value = "calculate plan upgrade price" ,required=true )  @Valid @RequestBody CalculatePlanUpgradeRequest body);
+    ResponseEntity<CalculatePlanUpgradePriceResponse> calculatePlanUpgradePrice(@ApiParam(value = "calculate plan upgrade price" ,required=true )  @Valid @RequestBody CalculatePlanUpgradeRequest body);
 
 
     @ApiOperation(value = "Deactivate Plan", nickname = "deactivatePlan", notes = "This can only be done by the unknown user.", response = ResponseMessage.class, tags={ "plan", })

@@ -2,8 +2,9 @@ package ir.cliqmind.am.dto;
 
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -15,7 +16,7 @@ import javax.validation.constraints.*;
  * UpradePlanRequest
  */
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2020-11-17T18:53:52.082Z")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2020-12-11T19:21:58.011Z")
 
 
 
@@ -26,6 +27,9 @@ public class UpradePlanRequest   {
 
   @JsonProperty("to_plan_id")
   private Integer toPlanId = null;
+
+  @JsonProperty("user_id")
+  private UUID userId = null;
 
   @JsonProperty("owner_id")
   private UUID ownerId = null;
@@ -41,7 +45,7 @@ public class UpradePlanRequest   {
 
   @JsonProperty("coupons")
   @Valid
-  private List<Coupon> coupons = null;
+  private List<String> coupons = null;
 
   public UpradePlanRequest fromPlanId(Integer fromPlanId) {
     this.fromPlanId = fromPlanId;
@@ -83,6 +87,27 @@ public class UpradePlanRequest   {
 
   public void setToPlanId(Integer toPlanId) {
     this.toPlanId = toPlanId;
+  }
+
+  public UpradePlanRequest userId(UUID userId) {
+    this.userId = userId;
+    return this;
+  }
+
+  /**
+   * Get userId
+   * @return userId
+  **/
+  @ApiModelProperty(value = "")
+
+  @Valid
+
+  public UUID getUserId() {
+    return userId;
+  }
+
+  public void setUserId(UUID userId) {
+    this.userId = userId;
   }
 
   public UpradePlanRequest ownerId(UUID ownerId) {
@@ -167,14 +192,14 @@ public class UpradePlanRequest   {
     this.currency = currency;
   }
 
-  public UpradePlanRequest coupons(List<Coupon> coupons) {
+  public UpradePlanRequest coupons(List<String> coupons) {
     this.coupons = coupons;
     return this;
   }
 
-  public UpradePlanRequest addCouponsItem(Coupon couponsItem) {
+  public UpradePlanRequest addCouponsItem(String couponsItem) {
     if (this.coupons == null) {
-      this.coupons = new ArrayList<Coupon>();
+      this.coupons = new ArrayList<String>();
     }
     this.coupons.add(couponsItem);
     return this;
@@ -186,19 +211,18 @@ public class UpradePlanRequest   {
   **/
   @ApiModelProperty(value = "")
 
-  @Valid
 
-  public List<Coupon> getCoupons() {
+  public List<String> getCoupons() {
     return coupons;
   }
 
-  public void setCoupons(List<Coupon> coupons) {
+  public void setCoupons(List<String> coupons) {
     this.coupons = coupons;
   }
 
 
   @Override
-  public boolean equals(java.lang.Object o) {
+  public boolean equals(Object o) {
     if (this == o) {
       return true;
     }
@@ -208,6 +232,7 @@ public class UpradePlanRequest   {
     UpradePlanRequest upradePlanRequest = (UpradePlanRequest) o;
     return Objects.equals(this.fromPlanId, upradePlanRequest.fromPlanId) &&
         Objects.equals(this.toPlanId, upradePlanRequest.toPlanId) &&
+        Objects.equals(this.userId, upradePlanRequest.userId) &&
         Objects.equals(this.ownerId, upradePlanRequest.ownerId) &&
         Objects.equals(this.amount, upradePlanRequest.amount) &&
         Objects.equals(this.useSecondaryPrice, upradePlanRequest.useSecondaryPrice) &&
@@ -217,7 +242,7 @@ public class UpradePlanRequest   {
 
   @Override
   public int hashCode() {
-    return Objects.hash(fromPlanId, toPlanId, ownerId, amount, useSecondaryPrice, currency, coupons);
+    return Objects.hash(fromPlanId, toPlanId, userId, ownerId, amount, useSecondaryPrice, currency, coupons);
   }
 
   @Override
@@ -227,6 +252,7 @@ public class UpradePlanRequest   {
     
     sb.append("    fromPlanId: ").append(toIndentedString(fromPlanId)).append("\n");
     sb.append("    toPlanId: ").append(toIndentedString(toPlanId)).append("\n");
+    sb.append("    userId: ").append(toIndentedString(userId)).append("\n");
     sb.append("    ownerId: ").append(toIndentedString(ownerId)).append("\n");
     sb.append("    amount: ").append(toIndentedString(amount)).append("\n");
     sb.append("    useSecondaryPrice: ").append(toIndentedString(useSecondaryPrice)).append("\n");
@@ -240,7 +266,7 @@ public class UpradePlanRequest   {
    * Convert the given object to string with each line indented by 4 spaces
    * (except the first line).
    */
-  private String toIndentedString(java.lang.Object o) {
+  private String toIndentedString(Object o) {
     if (o == null) {
       return "null";
     }

@@ -1,5 +1,6 @@
 package ir.cliqmind.am.dto;
 
+import java.util.Date;
 import java.util.Objects;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -7,8 +8,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModelProperty;
 
 import java.util.UUID;
-import org.threeten.bp.LocalDate;
-import org.threeten.bp.OffsetDateTime;
+import java.time.OffsetDateTime;
 import org.springframework.validation.annotation.Validated;
 import javax.validation.Valid;
 
@@ -23,7 +23,7 @@ import javax.validation.Valid;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class PlanActivationItem   {
   @JsonProperty("id")
-  private Integer id = null;
+  private Long id = null;
 
   @JsonProperty("owner_id")
   private UUID ownerId = null;
@@ -44,10 +44,10 @@ public class PlanActivationItem   {
   private OffsetDateTime time = null;
 
   @JsonProperty("start_date")
-  private LocalDate startDate = null;
+  private Date startDate = null;
 
   @JsonProperty("expiration_date")
-  private LocalDate expirationDate = null;
+  private Date expirationDate = null;
 
   @JsonProperty("activated_by_user_id")
   private UUID activatedByUserId = null;
@@ -58,7 +58,7 @@ public class PlanActivationItem   {
   @JsonProperty("is_active")
   private Boolean isActive = null;
 
-  public PlanActivationItem id(Integer id) {
+  public PlanActivationItem id(Long id) {
     this.id = id;
     return this;
   }
@@ -70,11 +70,11 @@ public class PlanActivationItem   {
   @ApiModelProperty(value = "")
 
 
-  public Integer getId() {
+  public Long getId() {
     return id;
   }
 
-  public void setId(Integer id) {
+  public void setId(Long id) {
     this.id = id;
   }
 
@@ -203,7 +203,7 @@ public class PlanActivationItem   {
     this.time = time;
   }
 
-  public PlanActivationItem startDate(LocalDate startDate) {
+  public PlanActivationItem startDate(Date startDate) {
     this.startDate = startDate;
     return this;
   }
@@ -216,15 +216,15 @@ public class PlanActivationItem   {
 
   @Valid
 
-  public LocalDate getStartDate() {
+  public Date getStartDate() {
     return startDate;
   }
 
-  public void setStartDate(LocalDate startDate) {
+  public void setStartDate(Date startDate) {
     this.startDate = startDate;
   }
 
-  public PlanActivationItem expirationDate(LocalDate expirationDate) {
+  public PlanActivationItem expirationDate(Date expirationDate) {
     this.expirationDate = expirationDate;
     return this;
   }
@@ -237,11 +237,11 @@ public class PlanActivationItem   {
 
   @Valid
 
-  public LocalDate getExpirationDate() {
+  public Date getExpirationDate() {
     return expirationDate;
   }
 
-  public void setExpirationDate(LocalDate expirationDate) {
+  public void setExpirationDate(Date expirationDate) {
     this.expirationDate = expirationDate;
   }
 

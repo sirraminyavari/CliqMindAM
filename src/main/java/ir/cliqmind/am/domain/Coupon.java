@@ -180,5 +180,10 @@ public class Coupon implements Serializable {
             ", plans=" + plans +
             '}';
   }
+
+    public Coupon code(String code) {
+      setCode(code);;
+      return this;
+    }
 }
 

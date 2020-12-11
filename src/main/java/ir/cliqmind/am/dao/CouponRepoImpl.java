@@ -73,6 +73,43 @@ public class CouponRepoImpl implements CouponRepoCustom {
         return resultList;
     }
 
+    @Override
+    public Map<String, List<PlanCoupon>> getIds(List<Integer> planIds) {
+        List<String> where = new ArrayList<>();
+
+        String planIdsString = planIds.stream().map(String::valueOf).collect(Collectors.joining(","));
+
+        List<String> where2 = new ArrayList<>();
+        where2.add(String.format("p.plan_id IN (%s) AND p.deny=%s", planIdsString, "true"));
+        where2.add(String.format("p.plan_id IN (%s) AND p.deny=%s", planIdsString, "false"));
+
+        where.add(where2.stream().collect(Collectors.joining(" OR ")));
+
+        String sql = String.format(GET_COUPON_ID_SQL,
+                where.stream().collect(Collectors.joining(" AND ")));
+
+        Query q = em.createNativeQuery(sql);
+        Map<String, List<PlanCoupon>> resultList = new HashMap<>();
+        q.getResultList().forEach(r -> {
+            Object[] a = (Object[])r;
+            String code = (String) a[0];
+            PlanCoupon pc = new PlanCoupon();
+            PlanCouponId pcid = new PlanCouponId();
+            pcid.setPlanId((Integer) a[1]);
+            pcid.setCouponCode(code);
+            pc.setId(pcid);
+            pc.setDeny((Boolean) a[2]);
+            List<PlanCoupon> l = resultList.get(code);
+            if(l == null){
+                l = new ArrayList<>();
+            }
+            l.add(pc);
+            resultList.put(code, l);
+        });
+        log.debug("getIds , size = {}", resultList.size());
+        return resultList;
+    }
+
     @Transactional
     @Override
     public void add(Coupon coupon) {

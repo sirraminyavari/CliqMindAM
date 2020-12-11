@@ -24,6 +24,9 @@ public class RenewPlansRequest   {
   @JsonProperty("owner_id")
   private UUID ownerId = null;
 
+  @JsonProperty("user_id")
+  private UUID userId = null;
+
   @JsonProperty("plans")
   private PlanRenewalPrice plans = null;
 
@@ -170,6 +173,29 @@ public class RenewPlansRequest   {
       return "null";
     }
     return o.toString().replace("\n", "\n    ");
+  }
+
+
+  /**
+   * Get ownerId
+   * @return ownerId
+   **/
+  @ApiModelProperty(required = true, value = "")
+  @NotNull
+
+  @Valid
+
+  public UUID getUserId() {
+    return userId;
+  }
+
+  public void setUserId(UUID userId) {
+    this.userId = userId;
+  }
+
+  public RenewPlansRequest userId(UUID userId) {
+    this.userId = userId;
+    return this;
   }
 }
 

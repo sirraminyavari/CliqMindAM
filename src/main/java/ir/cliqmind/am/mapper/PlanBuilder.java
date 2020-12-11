@@ -1,8 +1,13 @@
 package ir.cliqmind.am.mapper;
 
+import ir.cliqmind.am.domain.PlanActivationHistory;
+import ir.cliqmind.am.dto.CalculatePlanUpgradePriceResponse;
 import ir.cliqmind.am.utils.DateUtil;
 
+import java.time.Clock;
+import java.time.OffsetDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -131,6 +136,33 @@ public class PlanBuilder {
 
     public ir.cliqmind.am.dto.CalculatePlanPriceResponse calculatePrice(Double price) {
         return new ir.cliqmind.am.dto.CalculatePlanPriceResponse()
+                .price(price);
+    }
+
+    public ir.cliqmind.am.dto.CalculatePlanRenewalPriceResponse calculatePlanRenewalPriceResponse(Double price) {
+        return new ir.cliqmind.am.dto.CalculatePlanRenewalPriceResponse()
+                .price(price);
+    }
+
+    public ir.cliqmind.am.dto.PlanActivationItem planActivationHistory(PlanActivationHistory pah) {
+        Date now = DateUtil.today();
+        return new ir.cliqmind.am.dto.PlanActivationItem()
+                .activatedByUserId(pah.getActivatedBy())
+                .amount(pah.getAmount())
+                .expirationDate(pah.getExpirationDate())
+                .id(pah.getId())
+                .isActive(pah.getActivatedBy()!=null)
+                .isExpired(pah.getExpirationDate().before(now))
+                .plan(plan(pah.getPlan()))
+                .ownerId(pah.getOwnerId())
+                .startDate(pah.getStartDate())
+                .time(OffsetDateTime.ofInstant(pah.getTime().toInstant(), Clock.systemDefaultZone().getZone()))
+                .transaction(pah.getTransactionId()==null ? null : new ir.cliqmind.am.dto.Transaction().id(pah.getTransactionId()))
+                .upgradedFromPlan(pah.getUpgradedFromPlanId()==null ? null : new ir.cliqmind.am.dto.Plan().id(pah.getUpgradedFromPlanId()));
+    }
+
+    public CalculatePlanUpgradePriceResponse calculatePlanUpgradePriceResponse(Double price) {
+        return new CalculatePlanUpgradePriceResponse()
                 .price(price);
     }
 }
