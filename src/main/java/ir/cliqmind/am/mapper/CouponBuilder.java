@@ -59,10 +59,10 @@ public class CouponBuilder {
                 .maximumUsageLimitPerUser(input.getMaximumUsageLimitPerUser())
                 .targetUsers(input.getTargetUsers())
                 .exceptPlans(input.getPlans() == null ? null :
-                        input.getPlans().stream().filter(pc -> pc.getDeny())
+                        input.getPlans().stream().filter(pc -> pc.getDeny()!=null && pc.getDeny())
                                 .map(pc -> planCoupon(pc)).collect(Collectors.toList()))
                 .limitedToPlans(input.getPlans() == null ? null :
-                        input.getPlans().stream().filter(pc -> !pc.getDeny())
+                        input.getPlans().stream().filter(pc -> pc.getDeny()!=null && !pc.getDeny())
                                 .map(pc -> planCoupon(pc)).collect(Collectors.toList()));
     }
 
