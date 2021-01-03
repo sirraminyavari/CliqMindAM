@@ -1,6 +1,7 @@
 package ir.cliqmind.am.service;
 
 import ir.cliqmind.am.dao.TransactionRepo;
+import ir.cliqmind.am.error.ValidationException;
 import ir.cliqmind.am.mapper.TransactionBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -42,6 +43,10 @@ public class CreditServiceImpl implements CreditService{
     @Override
     public ir.cliqmind.am.dto.Transactions transfer(ir.cliqmind.am.dto.TransferCreditRequest body) {
         log.info("transfer {}", body);
+        double balance = transactionRepo.getCreditBalance(body.getFromUserId(), body.getCurrency()).getOrDefault(body.getCurrency(), 0d);
+        if(balance < body.getAmount()){
+            throw new ValidationException("Credit is lower than balance");
+        }
         List<ir.cliqmind.am.domain.Transaction> transactions = transactionBuilder.transferBalance(body);
         ir.cliqmind.am.dto.Transactions result = new ir.cliqmind.am.dto.Transactions();
         AtomicInteger totalCount = new AtomicInteger();
