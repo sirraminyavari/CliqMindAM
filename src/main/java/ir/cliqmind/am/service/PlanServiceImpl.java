@@ -36,6 +36,9 @@ public class PlanServiceImpl implements PlanService{
     @Autowired
     private PlanActivationHistoryRepo planActivationHistoryRepo;
 
+    @Autowired
+    private TransactionRepo transactionRepo;
+
     private PlanBuilder planBuilder;
 
     private ResponseMessageBuilder responseMessageBuilder;
@@ -95,6 +98,9 @@ public class PlanServiceImpl implements PlanService{
     @Override
     public Transaction buy(BuyPlanRequest body) {
         log.info("buyPlan {}", body);
+        if(!checkBalance(body.getUserId(), body.getCurrency(), body.getAmount())){
+            throw new ValidationException("Credit is lower than amount");
+        }
         ir.cliqmind.am.domain.Plan plan = findPlanWithFeaturesPrice(body.getPlanId());
         if(plan == null || plan.getId()==null){
             throw new NotFoundException("plan does not exist");
@@ -131,6 +137,14 @@ public class PlanServiceImpl implements PlanService{
         ir.cliqmind.am.domain.Transaction transaction = planActivationHistoryRepo.performBuyTransaction(body, plan, expirationDate);
         log.debug("buyPlan transaction {}", transaction);
         return transactionBuilder.transaction(transaction);
+    }
+
+    private boolean checkBalance(UUID userId, String currency, double amount) {
+        double balance = transactionRepo.getCreditBalance(userId, currency).getOrDefault(currency, 0d);
+        if(balance < amount){
+            return false;
+        }
+        return true;
     }
 
     @Override
@@ -227,7 +241,6 @@ public class PlanServiceImpl implements PlanService{
         if(body.getPlans()==null || body.getPlans().size()==0){
             throw new ValidationException("empty plans");
         }
-
         List<Integer> planIds = body.getPlans().keySet().stream().flatMap((Function<String, Stream<Integer>>) s -> {
             try{
                 return Stream.of(Integer.parseInt(s));
@@ -281,7 +294,9 @@ public class PlanServiceImpl implements PlanService{
         if(body.getFromPlanId()==null || body.getToPlanId()==null){
             throw new ValidationException("empty plans");
         }
-
+        if(!checkBalance(body.getUserId(), body.getCurrency(), body.getAmount())){
+            throw new ValidationException("Credit is lower than amount");
+        }
         ir.cliqmind.am.domain.Plan planFrom = findPlanWithFeaturesPrice(body.getFromPlanId());
         ir.cliqmind.am.domain.Plan planTo = findPlanWithFeaturesPrice(body.getToPlanId());
 
