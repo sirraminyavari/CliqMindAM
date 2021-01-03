@@ -21,6 +21,22 @@ public class PlanRepoImpl implements PlanRepoCustom {
 
     @Transactional
     @Override
+    public Plan add(Plan plan) {
+        log.debug("addPlan");
+        Session session = em.unwrap(Session.class);
+
+        Integer id = (Integer) session.save(plan);
+        plan.setId(id);
+        
+        setFeatures(session, plan);
+
+        setPrice(session, plan);
+
+        return plan;
+    }
+
+    @Transactional
+    @Override
     public void edit(Plan plan) {
         log.debug("editPlan id = {}", plan.getId());
         Session session = em.unwrap(Session.class);

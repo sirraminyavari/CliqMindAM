@@ -1104,6 +1104,12 @@ definitions:
       duration_in_months:
         type: "integer"
         format: "int32"
+      features:
+        type: "object"
+        $ref: '#/definitions/PlanFeatures'
+      price:
+        type: "object"
+        $ref: '#/definitions/PlanPrices'
 
   EditPlanRequest:
     type: "object"

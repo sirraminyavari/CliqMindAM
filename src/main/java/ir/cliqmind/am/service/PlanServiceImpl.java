@@ -70,10 +70,21 @@ public class PlanServiceImpl implements PlanService{
     @Override
     public Plan add(AddPlanRequest body) {
         log.info("addPlan {}", body);
-        ir.cliqmind.am.domain.Plan entity = planRepo.save(planBuilder.add(body));
-        Plan response = planBuilder.plan(entity);
-        log.debug("addPlan result = {}", response);
-        return response;
+        //ir.cliqmind.am.domain.Plan entity = planRepo.save(planBuilder.add(body));
+        //Plan response = planBuilder.plan(entity);
+        //log.debug("addPlan result = {}", response);
+        //return response;
+        ir.cliqmind.am.domain.Plan entity = new ir.cliqmind.am.domain.Plan();
+        entity.setName(body.getName());
+        entity.setDescription(body.getDescription());
+        entity.setUserBased(body.isUserBased());
+        entity.setEnableAmount(body.isEnableAmount());
+        entity.setMaximumAmount(body.getMaximumAmount());
+        entity.setDurationInMonths(body.getDurationInMonths());
+        entity.setPlanFeatures(planBuilder.planFeatures(body.getFeatures(), entity.getId()));
+        entity.setPlanPrice(planBuilder.planPrices(body.getPrice(), entity.getId()));
+        entity = planRepo.add(entity);
+        return planBuilder.plan(entity);
     }
 
     @Override

@@ -35,6 +35,38 @@ public class AddPlanRequest   {
   @JsonProperty("duration_in_months")
   private Integer durationInMonths = null;
 
+  @JsonProperty("features")
+  private PlanFeatures features = null;
+
+  @JsonProperty("price")
+  private PlanPrices price = null;
+
+  public PlanFeatures getFeatures() {
+    return features;
+  }
+
+  public void setFeatures(PlanFeatures features) {
+    this.features = features;
+  }
+
+  public AddPlanRequest features(PlanFeatures features) {
+    this.features = features;
+    return this;
+  }
+
+  public PlanPrices getPrice() {
+    return price;
+  }
+
+  public void setPrice(PlanPrices price) {
+    this.price = price;
+  }
+
+  public AddPlanRequest price(PlanPrices price) {
+    this.price = price;
+    return this;
+  }
+
   public AddPlanRequest name(String name) {
     this.name = name;
     return this;
