@@ -10,6 +10,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class FeatureServiceImpl implements FeatureService {
 
@@ -65,13 +67,11 @@ public class FeatureServiceImpl implements FeatureService {
     @Override
     public GetFeaturesResponse get(GetFeaturesRequest body) {
         log.info("getFeature {}", body);
-        Iterable<ir.cliqmind.am.domain.Feature> entities = null;
-        if(body.isActive() == null){
-            entities = featureRepo.findAllById(body.getIds());
+        List<Integer> ids = body.getIds();
+        if(ids!=null && ids.size() == 0){
+            ids = null;
         }
-        else{
-            entities = featureRepo.find(body.getIds(), body.isActive());
-        }
+        Iterable<ir.cliqmind.am.domain.Feature> entities = featureRepo.find(ids, body.isActive());
         GetFeaturesResponse response = featureBuilder.get(entities);
         log.debug("GetFeaturesResponse result = {}", response);
         return response;

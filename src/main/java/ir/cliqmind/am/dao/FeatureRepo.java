@@ -14,8 +14,8 @@ import java.util.List;
 @CrossOrigin( methods = RequestMethod.GET, allowCredentials = "false", origins = "*")
 public interface FeatureRepo extends CrudRepository<Feature, Integer>, FeatureRepoCustom {
 
-    @Transactional(readOnly = false)
-    @Query(value = "SELECT f FROM Feature f WHERE f.active=:active AND f.id in (:ids)")
+    @Transactional(readOnly = true)
+    @Query(value = "SELECT f FROM Feature f WHERE (:active IS NULL OR f.active=:active) AND ((:ids) IS NULL OR f.id in (:ids))")
     List<Feature> find(List<Integer> ids, Boolean active);
 
 }
