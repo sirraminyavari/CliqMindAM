@@ -211,13 +211,11 @@ public class PlanServiceImpl implements PlanService{
     @Override
     public GetPlansResponse get(GetPlansRequest body) {
         log.info("getPlan {}", body);
-        Iterable<ir.cliqmind.am.domain.Plan> entities = null;
-        if(body.isActive()==null){
-            entities = planRepo.findAllById(body.getIds());
+        List<Integer> ids = body.getIds();
+        if(ids!=null && ids.size() == 0){
+            ids = null;
         }
-        else{
-            entities = planRepo.find(body.getIds(), body.isActive());
-        }
+        Iterable<ir.cliqmind.am.domain.Plan> entities = planRepo.find(ids, body.isActive());
         List<ir.cliqmind.am.domain.PlanPrice> price = planPriceRepo.find(entities);
         if(price != null){
             Map<Integer, List<ir.cliqmind.am.domain.PlanPrice>> mapped = price.stream().collect(Collectors.groupingBy(pp -> pp.getId().getPlanId()));

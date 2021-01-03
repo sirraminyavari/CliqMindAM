@@ -15,11 +15,11 @@ import java.util.Optional;
 @CrossOrigin( methods = RequestMethod.GET, allowCredentials = "false", origins = "*")
 public interface PlanRepo extends CrudRepository<Plan, Integer>, PlanRepoCustom {
 
-    @Transactional(readOnly = false)
-    @Query(value = "SELECT p FROM Plan p WHERE p.active=:active AND p.id in (:ids)")
+    @Transactional(readOnly = true)
+    @Query(value = "SELECT p FROM Plan p WHERE (:active IS NULL OR p.active=:active) AND ((:ids) IS NULL OR p.id in (:ids))")
     List<Plan> find(List<Integer> ids, Boolean active);
 
-    @Transactional(readOnly = false)
+    @Transactional(readOnly = true)
     @Query(value = "SELECT p.maximumAmount FROM Plan p WHERE p.id in (SELECT pf.id.planId FROM PlanFeature pf WHERE pf.id.featureId in (:ids))")
     List<Integer> findMaximumAmountByFeatureIds(List<Integer> ids);
 }
