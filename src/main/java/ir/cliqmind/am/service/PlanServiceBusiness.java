@@ -94,9 +94,6 @@ public class PlanServiceBusiness {
                     fetchedCouponsSize.incrementAndGet();
                 });
             }
-            if(fetchedCouponsSize.get() !=body.getCoupons().size()){
-                throw new ValidationException("Invalid coupons, some coupons does not exist");
-            }
             if(coupons!=null) {
                 for (Coupon c : coupons) {
                     validate(c, currency, ownerId);
@@ -229,9 +226,6 @@ public class PlanServiceBusiness {
                         fetchedCouponsSize.incrementAndGet();
                     });
                 }
-                if(fetchedCouponsSize.get() !=body.getCoupons().size()){
-                    throw new ValidationException("Invalid coupons, some coupons does not exist");
-                }
                 if(coupons!=null) {
                     for (Coupon c : coupons) {
                         validate(c, currency, ownerId);
@@ -337,9 +331,6 @@ public class PlanServiceBusiness {
                 coupons.forEach(c -> {
                     fetchedCouponsSize.incrementAndGet();
                 });
-            }
-            if(fetchedCouponsSize.get() !=body.getCoupons().size()){
-                throw new ValidationException("Invalid coupons, some coupons does not exist");
             }
             if(coupons!=null) {
                 for (Coupon c : coupons) {
