@@ -4,9 +4,8 @@ import ir.cliqmind.am.dao.*;
 import ir.cliqmind.am.domain.*;
 import ir.cliqmind.am.dto.CalculatePlanPriceRequest;
 import ir.cliqmind.am.dto.CalculatePlanRenewalPriceRequest;
-import ir.cliqmind.am.dto.CalculatePlanUpgradePriceResponse;
 import ir.cliqmind.am.dto.CalculatePlanUpgradeRequest;
-import ir.cliqmind.am.error.ValidationException;
+import ir.cliqmind.am.error.NokException;
 import ir.cliqmind.am.utils.DateUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -106,7 +105,7 @@ public class PlanServiceBusiness {
                 if (fetchedCouponsSize.get() > 1) {
                     coupons.forEach(c -> {
                         if (!Optional.ofNullable(c.getAllowConcurrentCoupons()).orElse(true)) {
-                            throw new ValidationException(String.format("Invalid concurrent coupon %s", c.getCode()));
+                            throw new NokException(String.format("Invalid concurrent coupon %s", c.getCode()));
                         }
                     });
                 }
@@ -114,12 +113,12 @@ public class PlanServiceBusiness {
             log.debug("check coupons successfully, coupons fetched size = {}", fetchedCouponsSize.get());
         }
         if(amount!=null && amount > plan.getMaximumAmount()){
-            throw new ValidationException(String.format("Invalid amount %s for plan %s", amount, plan.getId()));
+            throw new NokException(String.format("Invalid amount %s for plan %s", amount, plan.getId()));
         }
         if(activatedPlans!=null && plan.getPlanFeatures()!=null){
             activatedPlans.forEach(ap -> {
                 if(featureIsIn(plan.getPlanFeatures(), ap.getPlan().getPlanFeatures())){
-                    throw new ValidationException(String.format("a feature is already activated in %s", ap.getPlan().getName()));
+                    throw new NokException(String.format("a feature is already activated in %s", ap.getPlan().getName()));
                 }
                 if(ap.getExpirationDate().after(today)){
                     diffDay.set(Math.min(
@@ -238,7 +237,7 @@ public class PlanServiceBusiness {
                     if (fetchedCouponsSize.get() > 1) {
                         coupons.forEach(c -> {
                             if (!Optional.ofNullable(c.getAllowConcurrentCoupons()).orElse(true)) {
-                                throw new ValidationException(String.format("Invalid concurrent coupon %s", c.getCode()));
+                                throw new NokException(String.format("Invalid concurrent coupon %s", c.getCode()));
                             }
                         });
                     }
@@ -246,12 +245,12 @@ public class PlanServiceBusiness {
                 log.debug("check coupons successfully, coupons fetched size = {}", fetchedCouponsSize.get());
             }
             if(amount!=null && amount > plan.getMaximumAmount()){
-                throw new ValidationException(String.format("Invalid amount %s for plan %s", amount, plan.getId()));
+                throw new NokException(String.format("Invalid amount %s for plan %s", amount, plan.getId()));
             }
             if(activatedPlans!=null && plan.getPlanFeatures()!=null){
                 activatedPlans.forEach(ap -> {
                     if(featureIsIn(plan.getPlanFeatures(), ap.getPlan().getPlanFeatures())){
-                        throw new ValidationException(String.format("a feature is already activated in %s", ap.getPlan().getName()));
+                        throw new NokException(String.format("a feature is already activated in %s", ap.getPlan().getName()));
                     }
                     if(ap.getExpirationDate().after(today)){
                         diffDay.set(Math.min(
@@ -344,7 +343,7 @@ public class PlanServiceBusiness {
                 if (fetchedCouponsSize.get() > 1) {
                     coupons.forEach(c -> {
                         if (!Optional.ofNullable(c.getAllowConcurrentCoupons()).orElse(true)) {
-                            throw new ValidationException(String.format("Invalid concurrent coupon %s", c.getCode()));
+                            throw new NokException(String.format("Invalid concurrent coupon %s", c.getCode()));
                         }
                     });
                 }
@@ -397,22 +396,22 @@ public class PlanServiceBusiness {
     private void validate(Coupon c, String currency, UUID ownerId) {
         Date today = DateUtil.today();
         if(today.after(c.getExpirationDate())) {
-            throw new ValidationException(String.format("coupon is expired %s - code = %s", c.getExpirationDate(), c.getCode()));
+            throw new NokException(String.format("coupon is expired %s - code = %s", c.getExpirationDate(), c.getCode()));
         }
         if(!StringUtils.equals(c.getCurrency(), currency)){
-            throw new ValidationException(String.format("coupon differs in currency %s - code = %s", currency, c.getCode()));
+            throw new NokException(String.format("coupon differs in currency %s - code = %s", currency, c.getCode()));
         }
         if(c.getTargetUsers()!=null){
             log.debug("validating coupon target users");
             if(!c.getTargetUsers().contains(ownerId)){
-                throw new ValidationException(String.format("coupon differs does not belong to owner %s - code = %s", ownerId, c.getCode()));
+                throw new NokException(String.format("coupon differs does not belong to owner %s - code = %s", ownerId, c.getCode()));
             }
         }
         if(c.getPlans()!=null){
             log.debug("validating coupon plans");
             c.getPlans().forEach(p->{
                 if(p.getDeny()){
-                    throw new ValidationException(String.format("coupon is denied to be dedicated to this plan - code = %s", ownerId, c.getCode()));
+                    throw new NokException(String.format("coupon is denied to be dedicated to this plan - code = %s", ownerId, c.getCode()));
                 }
             });
         }
