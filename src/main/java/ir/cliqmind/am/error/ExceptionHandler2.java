@@ -39,4 +39,11 @@ public class ExceptionHandler2 {
                 HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler(value = NokException.class)
+    public ResponseEntity<ResponseMessage> nokException(NokException exception) {
+        log.error("Nok Exception occured", exception);
+        return new ResponseEntity<>(responseMessageBuilder.failure(exception),
+                HttpStatus.OK);
+    }
+
 }
