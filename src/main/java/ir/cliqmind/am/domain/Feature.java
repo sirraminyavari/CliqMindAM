@@ -91,5 +91,12 @@ public class Feature implements Serializable {
             ", amount=" + amount +
             '}';
   }
+
+  @PrePersist
+  public void prePersist(){
+    if(active == null){
+      active = true;
+    }
+  }
 }
 

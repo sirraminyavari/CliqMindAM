@@ -27,7 +27,7 @@ public class PlanRepoImpl implements PlanRepoCustom {
 
         Integer id = (Integer) session.save(plan);
         plan.setId(id);
-        
+
         setFeatures(session, plan);
 
         setPrice(session, plan);
