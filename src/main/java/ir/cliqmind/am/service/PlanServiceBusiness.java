@@ -97,20 +97,22 @@ public class PlanServiceBusiness {
             if(fetchedCouponsSize.get() !=body.getCoupons().size()){
                 throw new ValidationException("Invalid coupons, some coupons does not exist");
             }
-            for(Coupon c : coupons){
-                validate(c, currency, ownerId);
-                log.debug("coupon validated : {}", c.getCode());
+            if(coupons!=null) {
+                for (Coupon c : coupons) {
+                    validate(c, currency, ownerId);
+                    log.debug("coupon validated : {}", c.getCode());
 
-                if(!c.getAllowSecondaryPrice()){
-                    useSecondaryPrice = false;
-                }
-            }
-            if(fetchedCouponsSize.get() > 1){
-                coupons.forEach(c -> {
-                    if(!Optional.ofNullable(c.getAllowConcurrentCoupons()).orElse(true)){
-                        throw new ValidationException(String.format("Invalid concurrent coupon %s", c.getCode()));
+                    if (!c.getAllowSecondaryPrice()) {
+                        useSecondaryPrice = false;
                     }
-                });
+                }
+                if (fetchedCouponsSize.get() > 1) {
+                    coupons.forEach(c -> {
+                        if (!Optional.ofNullable(c.getAllowConcurrentCoupons()).orElse(true)) {
+                            throw new ValidationException(String.format("Invalid concurrent coupon %s", c.getCode()));
+                        }
+                    });
+                }
             }
             log.debug("check coupons successfully, coupons fetched size = {}", fetchedCouponsSize.get());
         }
@@ -230,20 +232,22 @@ public class PlanServiceBusiness {
                 if(fetchedCouponsSize.get() !=body.getCoupons().size()){
                     throw new ValidationException("Invalid coupons, some coupons does not exist");
                 }
-                for(Coupon c : coupons){
-                    validate(c, currency, ownerId);
-                    log.debug("coupon validated : {}", c.getCode());
+                if(coupons!=null) {
+                    for (Coupon c : coupons) {
+                        validate(c, currency, ownerId);
+                        log.debug("coupon validated : {}", c.getCode());
 
-                    if(!c.getAllowSecondaryPrice()){
-                        useSecondaryPrice = false;
-                    }
-                }
-                if(fetchedCouponsSize.get() > 1){
-                    coupons.forEach(c -> {
-                        if(!Optional.ofNullable(c.getAllowConcurrentCoupons()).orElse(true)){
-                            throw new ValidationException(String.format("Invalid concurrent coupon %s", c.getCode()));
+                        if (!c.getAllowSecondaryPrice()) {
+                            useSecondaryPrice = false;
                         }
-                    });
+                    }
+                    if (fetchedCouponsSize.get() > 1) {
+                        coupons.forEach(c -> {
+                            if (!Optional.ofNullable(c.getAllowConcurrentCoupons()).orElse(true)) {
+                                throw new ValidationException(String.format("Invalid concurrent coupon %s", c.getCode()));
+                            }
+                        });
+                    }
                 }
                 log.debug("check coupons successfully, coupons fetched size = {}", fetchedCouponsSize.get());
             }
@@ -337,20 +341,22 @@ public class PlanServiceBusiness {
             if(fetchedCouponsSize.get() !=body.getCoupons().size()){
                 throw new ValidationException("Invalid coupons, some coupons does not exist");
             }
-            for(Coupon c : coupons){
-                validate(c, currency, ownerId);
-                log.debug("coupon validated : {}", c.getCode());
+            if(coupons!=null) {
+                for (Coupon c : coupons) {
+                    validate(c, currency, ownerId);
+                    log.debug("coupon validated : {}", c.getCode());
 
-                if(!c.getAllowSecondaryPrice()){
-                    useSecondaryPrice = false;
-                }
-            }
-            if(fetchedCouponsSize.get() > 1){
-                coupons.forEach(c -> {
-                    if(!Optional.ofNullable(c.getAllowConcurrentCoupons()).orElse(true)){
-                        throw new ValidationException(String.format("Invalid concurrent coupon %s", c.getCode()));
+                    if (!c.getAllowSecondaryPrice()) {
+                        useSecondaryPrice = false;
                     }
-                });
+                }
+                if (fetchedCouponsSize.get() > 1) {
+                    coupons.forEach(c -> {
+                        if (!Optional.ofNullable(c.getAllowConcurrentCoupons()).orElse(true)) {
+                            throw new ValidationException(String.format("Invalid concurrent coupon %s", c.getCode()));
+                        }
+                    });
+                }
             }
             log.debug("check coupons successfully, coupons fetched size = {}", fetchedCouponsSize.get());
         }
