@@ -2,7 +2,6 @@ package ir.cliqmind.am.dto;
 
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import io.swagger.annotations.ApiModelProperty;
 import org.springframework.validation.annotation.Validated;
 import javax.validation.Valid;
 import javax.validation.constraints.*;
@@ -11,15 +10,10 @@ import javax.validation.constraints.*;
  * EditPlanRequest
  */
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2020-11-17T18:53:52.082Z")
-
-
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-01-22T08:12:05.647Z[GMT]")
 
 
 public class EditPlanRequest   {
-  @JsonProperty("id")
-  private Integer id = null;
-
   @JsonProperty("name")
   private String name = null;
 
@@ -44,27 +38,6 @@ public class EditPlanRequest   {
   @JsonProperty("price")
   private PlanPrices price = null;
 
-  public EditPlanRequest id(Integer id) {
-    this.id = id;
-    return this;
-  }
-
-  /**
-   * Get id
-   * @return id
-  **/
-  @ApiModelProperty(required = true, value = "")
-  @NotNull
-
-
-  public Integer getId() {
-    return id;
-  }
-
-  public void setId(Integer id) {
-    this.id = id;
-  }
-
   public EditPlanRequest name(String name) {
     this.name = name;
     return this;
@@ -73,12 +46,10 @@ public class EditPlanRequest   {
   /**
    * Get name
    * @return name
-  **/
-  @ApiModelProperty(required = true, value = "")
-  @NotNull
+   **/
+      @NotNull
 
-
-  public String getName() {
+    public String getName() {
     return name;
   }
 
@@ -94,11 +65,10 @@ public class EditPlanRequest   {
   /**
    * Get description
    * @return description
-  **/
-  @ApiModelProperty(value = "")
-
-
-  public String getDescription() {
+   **/
+  
+  
+    public String getDescription() {
     return description;
   }
 
@@ -114,12 +84,10 @@ public class EditPlanRequest   {
   /**
    * Get userBased
    * @return userBased
-  **/
-  @ApiModelProperty(required = true, value = "")
-  @NotNull
+   **/
+      @NotNull
 
-
-  public Boolean isUserBased() {
+    public Boolean isUserBased() {
     return userBased;
   }
 
@@ -135,12 +103,11 @@ public class EditPlanRequest   {
   /**
    * Get enableAmount
    * @return enableAmount
-  **/
-  @ApiModelProperty(required = true, value = "")
-  @NotNull
+   **/
+  
+      @NotNull
 
-
-  public Boolean isEnableAmount() {
+    public Boolean isEnableAmount() {
     return enableAmount;
   }
 
@@ -156,11 +123,10 @@ public class EditPlanRequest   {
   /**
    * Get maximumAmount
    * @return maximumAmount
-  **/
-  @ApiModelProperty(value = "")
-
-
-  public Integer getMaximumAmount() {
+   **/
+  
+  
+    public Integer getMaximumAmount() {
     return maximumAmount;
   }
 
@@ -176,11 +142,10 @@ public class EditPlanRequest   {
   /**
    * Get durationInMonths
    * @return durationInMonths
-  **/
-  @ApiModelProperty(value = "")
-
-
-  public Integer getDurationInMonths() {
+   **/
+  
+  
+    public Integer getDurationInMonths() {
     return durationInMonths;
   }
 
@@ -196,12 +161,11 @@ public class EditPlanRequest   {
   /**
    * Get features
    * @return features
-  **/
-  @ApiModelProperty(value = "")
-
-  @Valid
-
-  public PlanFeatures getFeatures() {
+   **/
+  
+  
+    @Valid
+    public PlanFeatures getFeatures() {
     return features;
   }
 
@@ -217,12 +181,11 @@ public class EditPlanRequest   {
   /**
    * Get price
    * @return price
-  **/
-  @ApiModelProperty(value = "")
-
-  @Valid
-
-  public PlanPrices getPrice() {
+   **/
+  
+  
+    @Valid
+    public PlanPrices getPrice() {
     return price;
   }
 
@@ -232,7 +195,7 @@ public class EditPlanRequest   {
 
 
   @Override
-  public boolean equals(java.lang.Object o) {
+  public boolean equals(Object o) {
     if (this == o) {
       return true;
     }
@@ -240,8 +203,7 @@ public class EditPlanRequest   {
       return false;
     }
     EditPlanRequest editPlanRequest = (EditPlanRequest) o;
-    return Objects.equals(this.id, editPlanRequest.id) &&
-        Objects.equals(this.name, editPlanRequest.name) &&
+    return Objects.equals(this.name, editPlanRequest.name) &&
         Objects.equals(this.description, editPlanRequest.description) &&
         Objects.equals(this.userBased, editPlanRequest.userBased) &&
         Objects.equals(this.enableAmount, editPlanRequest.enableAmount) &&
@@ -253,7 +215,7 @@ public class EditPlanRequest   {
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, name, description, userBased, enableAmount, maximumAmount, durationInMonths, features, price);
+    return Objects.hash(name, description, userBased, enableAmount, maximumAmount, durationInMonths, features, price);
   }
 
   @Override
@@ -261,7 +223,6 @@ public class EditPlanRequest   {
     StringBuilder sb = new StringBuilder();
     sb.append("class EditPlanRequest {\n");
     
-    sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    description: ").append(toIndentedString(description)).append("\n");
     sb.append("    userBased: ").append(toIndentedString(userBased)).append("\n");
@@ -278,11 +239,10 @@ public class EditPlanRequest   {
    * Convert the given object to string with each line indented by 4 spaces
    * (except the first line).
    */
-  private String toIndentedString(java.lang.Object o) {
+  private String toIndentedString(Object o) {
     if (o == null) {
       return "null";
     }
     return o.toString().replace("\n", "\n    ");
   }
 }
-

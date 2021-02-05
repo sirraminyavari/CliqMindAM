@@ -1,10 +1,7 @@
 package ir.cliqmind.am.dto;
 
-import java.time.Instant;
 import java.time.LocalDate;
 import java.util.Objects;
-
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,13 +11,13 @@ import javax.validation.Valid;
 import javax.validation.constraints.*;
 
 /**
- * Coupon
+ * AddCouponRequest
  */
 @Validated
 @javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-01-22T08:12:05.647Z[GMT]")
 
-@JsonInclude(JsonInclude.Include.NON_NULL)
-public class Coupon   {
+
+public class AddCouponRequest {
   @JsonProperty("code")
   private String code = null;
 
@@ -35,9 +32,6 @@ public class Coupon   {
 
   @JsonProperty("currency")
   private String currency = null;
-
-  @JsonProperty("time")
-  private Instant time = null;
 
   @JsonProperty("expiration_date")
   private LocalDate expirationDate = null;
@@ -54,19 +48,19 @@ public class Coupon   {
   @JsonProperty("maximum_usage_limit_per_user")
   private Integer maximumUsageLimitPerUser = null;
 
+  @JsonProperty("limit_to_plans")
+  @Valid
+  private List<Integer> limitToPlans = null;
+
   @JsonProperty("except_plans")
   @Valid
-  private List<Plan> exceptPlans = null;
-
-  @JsonProperty("limited_to_plans")
-  @Valid
-  private List<Plan> limitedToPlans = null;
+  private List<Integer> exceptPlans = null;
 
   @JsonProperty("target_users")
   @Valid
   private List<UUID> targetUsers = null;
 
-  public Coupon code(String code) {
+  public AddCouponRequest code(String code) {
     this.code = code;
     return this;
   }
@@ -75,6 +69,7 @@ public class Coupon   {
    * Get code
    * @return code
    **/
+      @NotNull
 
     public String getCode() {
     return code;
@@ -84,7 +79,7 @@ public class Coupon   {
     this.code = code;
   }
 
-  public Coupon percentageBased(Boolean percentageBased) {
+  public AddCouponRequest percentageBased(Boolean percentageBased) {
     this.percentageBased = percentageBased;
     return this;
   }
@@ -93,6 +88,7 @@ public class Coupon   {
    * Get percentageBased
    * @return percentageBased
    **/
+      @NotNull
 
     public Boolean isPercentageBased() {
     return percentageBased;
@@ -102,7 +98,7 @@ public class Coupon   {
     this.percentageBased = percentageBased;
   }
 
-  public Coupon amount(Double amount) {
+  public AddCouponRequest amount(Double amount) {
     this.amount = amount;
     return this;
   }
@@ -111,6 +107,7 @@ public class Coupon   {
    * Get amount
    * @return amount
    **/
+      @NotNull
 
     public Double getAmount() {
     return amount;
@@ -120,7 +117,7 @@ public class Coupon   {
     this.amount = amount;
   }
 
-  public Coupon maximumAmount(Double maximumAmount) {
+  public AddCouponRequest maximumAmount(Double maximumAmount) {
     this.maximumAmount = maximumAmount;
     return this;
   }
@@ -138,7 +135,7 @@ public class Coupon   {
     this.maximumAmount = maximumAmount;
   }
 
-  public Coupon currency(String currency) {
+  public AddCouponRequest currency(String currency) {
     this.currency = currency;
     return this;
   }
@@ -147,6 +144,7 @@ public class Coupon   {
    * Get currency
    * @return currency
    **/
+      @NotNull
 
   @Pattern(regexp="[A-Z][A-Z][A-Z]")   public String getCurrency() {
     return currency;
@@ -156,26 +154,7 @@ public class Coupon   {
     this.currency = currency;
   }
 
-  public Coupon time(Instant time) {
-    this.time = time;
-    return this;
-  }
-
-  /**
-   * Get time
-   * @return time
-   **/
-
-    @Valid
-    public Instant getTime() {
-    return time;
-  }
-
-  public void setTime(Instant time) {
-    this.time = time;
-  }
-
-  public Coupon expirationDate(LocalDate expirationDate) {
+  public AddCouponRequest expirationDate(LocalDate expirationDate) {
     this.expirationDate = expirationDate;
     return this;
   }
@@ -194,7 +173,7 @@ public class Coupon   {
     this.expirationDate = expirationDate;
   }
 
-  public Coupon allowConcurrentCoupons(Boolean allowConcurrentCoupons) {
+  public AddCouponRequest allowConcurrentCoupons(Boolean allowConcurrentCoupons) {
     this.allowConcurrentCoupons = allowConcurrentCoupons;
     return this;
   }
@@ -212,7 +191,7 @@ public class Coupon   {
     this.allowConcurrentCoupons = allowConcurrentCoupons;
   }
 
-  public Coupon allowSecondaryPrice(Boolean allowSecondaryPrice) {
+  public AddCouponRequest allowSecondaryPrice(Boolean allowSecondaryPrice) {
     this.allowSecondaryPrice = allowSecondaryPrice;
     return this;
   }
@@ -230,7 +209,7 @@ public class Coupon   {
     this.allowSecondaryPrice = allowSecondaryPrice;
   }
 
-  public Coupon maximumUsageLimit(Integer maximumUsageLimit) {
+  public AddCouponRequest maximumUsageLimit(Integer maximumUsageLimit) {
     this.maximumUsageLimit = maximumUsageLimit;
     return this;
   }
@@ -248,7 +227,7 @@ public class Coupon   {
     this.maximumUsageLimit = maximumUsageLimit;
   }
 
-  public Coupon maximumUsageLimitPerUser(Integer maximumUsageLimitPerUser) {
+  public AddCouponRequest maximumUsageLimitPerUser(Integer maximumUsageLimitPerUser) {
     this.maximumUsageLimitPerUser = maximumUsageLimitPerUser;
     return this;
   }
@@ -266,14 +245,40 @@ public class Coupon   {
     this.maximumUsageLimitPerUser = maximumUsageLimitPerUser;
   }
 
-  public Coupon exceptPlans(List<Plan> exceptPlans) {
+  public AddCouponRequest limitToPlans(List<Integer> limitToPlans) {
+    this.limitToPlans = limitToPlans;
+    return this;
+  }
+
+  public AddCouponRequest addLimitToPlansItem(Integer limitToPlansItem) {
+    if (this.limitToPlans == null) {
+      this.limitToPlans = new ArrayList<Integer>();
+    }
+    this.limitToPlans.add(limitToPlansItem);
+    return this;
+  }
+
+  /**
+   * Get limitToPlans
+   * @return limitToPlans
+   **/
+
+    public List<Integer> getLimitToPlans() {
+    return limitToPlans;
+  }
+
+  public void setLimitToPlans(List<Integer> limitToPlans) {
+    this.limitToPlans = limitToPlans;
+  }
+
+  public AddCouponRequest exceptPlans(List<Integer> exceptPlans) {
     this.exceptPlans = exceptPlans;
     return this;
   }
 
-  public Coupon addExceptPlansItem(Plan exceptPlansItem) {
+  public AddCouponRequest addExceptPlansItem(Integer exceptPlansItem) {
     if (this.exceptPlans == null) {
-      this.exceptPlans = new ArrayList<Plan>();
+      this.exceptPlans = new ArrayList<Integer>();
     }
     this.exceptPlans.add(exceptPlansItem);
     return this;
@@ -283,47 +288,21 @@ public class Coupon   {
    * Get exceptPlans
    * @return exceptPlans
    **/
-      @Valid
-    public List<Plan> getExceptPlans() {
+
+    public List<Integer> getExceptPlans() {
     return exceptPlans;
   }
 
-  public void setExceptPlans(List<Plan> exceptPlans) {
+  public void setExceptPlans(List<Integer> exceptPlans) {
     this.exceptPlans = exceptPlans;
   }
 
-  public Coupon limitedToPlans(List<Plan> limitedToPlans) {
-    this.limitedToPlans = limitedToPlans;
-    return this;
-  }
-
-  public Coupon addLimitedToPlansItem(Plan limitedToPlansItem) {
-    if (this.limitedToPlans == null) {
-      this.limitedToPlans = new ArrayList<Plan>();
-    }
-    this.limitedToPlans.add(limitedToPlansItem);
-    return this;
-  }
-
-  /**
-   * Get limitedToPlans
-   * @return limitedToPlans
-   **/
-      @Valid
-    public List<Plan> getLimitedToPlans() {
-    return limitedToPlans;
-  }
-
-  public void setLimitedToPlans(List<Plan> limitedToPlans) {
-    this.limitedToPlans = limitedToPlans;
-  }
-
-  public Coupon targetUsers(List<UUID> targetUsers) {
+  public AddCouponRequest targetUsers(List<UUID> targetUsers) {
     this.targetUsers = targetUsers;
     return this;
   }
 
-  public Coupon addTargetUsersItem(UUID targetUsersItem) {
+  public AddCouponRequest addTargetUsersItem(UUID targetUsersItem) {
     if (this.targetUsers == null) {
       this.targetUsers = new ArrayList<UUID>();
     }
@@ -353,46 +332,44 @@ public class Coupon   {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    Coupon coupon = (Coupon) o;
-    return Objects.equals(this.code, coupon.code) &&
-        Objects.equals(this.percentageBased, coupon.percentageBased) &&
-        Objects.equals(this.amount, coupon.amount) &&
-        Objects.equals(this.maximumAmount, coupon.maximumAmount) &&
-        Objects.equals(this.currency, coupon.currency) &&
-        Objects.equals(this.time, coupon.time) &&
-        Objects.equals(this.expirationDate, coupon.expirationDate) &&
-        Objects.equals(this.allowConcurrentCoupons, coupon.allowConcurrentCoupons) &&
-        Objects.equals(this.allowSecondaryPrice, coupon.allowSecondaryPrice) &&
-        Objects.equals(this.maximumUsageLimit, coupon.maximumUsageLimit) &&
-        Objects.equals(this.maximumUsageLimitPerUser, coupon.maximumUsageLimitPerUser) &&
-        Objects.equals(this.exceptPlans, coupon.exceptPlans) &&
-        Objects.equals(this.limitedToPlans, coupon.limitedToPlans) &&
-        Objects.equals(this.targetUsers, coupon.targetUsers);
+    AddCouponRequest addCouponRequest = (AddCouponRequest) o;
+    return Objects.equals(this.code, addCouponRequest.code) &&
+        Objects.equals(this.percentageBased, addCouponRequest.percentageBased) &&
+        Objects.equals(this.amount, addCouponRequest.amount) &&
+        Objects.equals(this.maximumAmount, addCouponRequest.maximumAmount) &&
+        Objects.equals(this.currency, addCouponRequest.currency) &&
+        Objects.equals(this.expirationDate, addCouponRequest.expirationDate) &&
+        Objects.equals(this.allowConcurrentCoupons, addCouponRequest.allowConcurrentCoupons) &&
+        Objects.equals(this.allowSecondaryPrice, addCouponRequest.allowSecondaryPrice) &&
+        Objects.equals(this.maximumUsageLimit, addCouponRequest.maximumUsageLimit) &&
+        Objects.equals(this.maximumUsageLimitPerUser, addCouponRequest.maximumUsageLimitPerUser) &&
+        Objects.equals(this.limitToPlans, addCouponRequest.limitToPlans) &&
+        Objects.equals(this.exceptPlans, addCouponRequest.exceptPlans) &&
+        Objects.equals(this.targetUsers, addCouponRequest.targetUsers);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(code, percentageBased, amount, maximumAmount, currency, time, expirationDate, allowConcurrentCoupons, allowSecondaryPrice, maximumUsageLimit, maximumUsageLimitPerUser, exceptPlans, limitedToPlans, targetUsers);
+    return Objects.hash(code, percentageBased, amount, maximumAmount, currency, expirationDate, allowConcurrentCoupons, allowSecondaryPrice, maximumUsageLimit, maximumUsageLimitPerUser, limitToPlans, exceptPlans, targetUsers);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class Coupon {\n");
+    sb.append("class AddCouponRequest {\n");
     
     sb.append("    code: ").append(toIndentedString(code)).append("\n");
     sb.append("    percentageBased: ").append(toIndentedString(percentageBased)).append("\n");
     sb.append("    amount: ").append(toIndentedString(amount)).append("\n");
     sb.append("    maximumAmount: ").append(toIndentedString(maximumAmount)).append("\n");
     sb.append("    currency: ").append(toIndentedString(currency)).append("\n");
-    sb.append("    time: ").append(toIndentedString(time)).append("\n");
     sb.append("    expirationDate: ").append(toIndentedString(expirationDate)).append("\n");
     sb.append("    allowConcurrentCoupons: ").append(toIndentedString(allowConcurrentCoupons)).append("\n");
     sb.append("    allowSecondaryPrice: ").append(toIndentedString(allowSecondaryPrice)).append("\n");
     sb.append("    maximumUsageLimit: ").append(toIndentedString(maximumUsageLimit)).append("\n");
     sb.append("    maximumUsageLimitPerUser: ").append(toIndentedString(maximumUsageLimitPerUser)).append("\n");
+    sb.append("    limitToPlans: ").append(toIndentedString(limitToPlans)).append("\n");
     sb.append("    exceptPlans: ").append(toIndentedString(exceptPlans)).append("\n");
-    sb.append("    limitedToPlans: ").append(toIndentedString(limitedToPlans)).append("\n");
     sb.append("    targetUsers: ").append(toIndentedString(targetUsers)).append("\n");
     sb.append("}");
     return sb.toString();

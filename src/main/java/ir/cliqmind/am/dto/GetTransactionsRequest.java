@@ -1,23 +1,19 @@
 package ir.cliqmind.am.dto;
 
+import java.time.LocalDate;
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-import org.threeten.bp.LocalDate;
 import org.springframework.validation.annotation.Validated;
 import javax.validation.Valid;
-import javax.validation.constraints.*;
 
 /**
  * GetTransactionsRequest
  */
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2020-11-17T18:53:52.082Z")
-
-
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-01-22T08:12:05.647Z[GMT]")
 
 
 public class GetTransactionsRequest   {
@@ -49,12 +45,6 @@ public class GetTransactionsRequest   {
   @JsonProperty("to_amount")
   private Double toAmount = null;
 
-  @JsonProperty("count")
-  private Integer count = 50;
-
-  @JsonProperty("count_from")
-  private Integer countFrom = null;
-
   public GetTransactionsRequest ids(List<Long> ids) {
     this.ids = ids;
     return this;
@@ -71,11 +61,10 @@ public class GetTransactionsRequest   {
   /**
    * Get ids
    * @return ids
-  **/
-  @ApiModelProperty(value = "")
-
-
-  public List<Long> getIds() {
+   **/
+  
+  
+    public List<Long> getIds() {
     return ids;
   }
 
@@ -91,12 +80,11 @@ public class GetTransactionsRequest   {
   /**
    * Get userId
    * @return userId
-  **/
-  @ApiModelProperty(value = "")
-
-  @Valid
-
-  public UUID getUserId() {
+   **/
+  
+  
+    @Valid
+    public UUID getUserId() {
     return userId;
   }
 
@@ -112,11 +100,10 @@ public class GetTransactionsRequest   {
   /**
    * Get currency
    * @return currency
-  **/
-  @ApiModelProperty(value = "")
-
-@Pattern(regexp="[A-Z][A-Z][A-Z]") 
-  public String getCurrency() {
+   **/
+  
+  
+    public String getCurrency() {
     return currency;
   }
 
@@ -132,11 +119,10 @@ public class GetTransactionsRequest   {
   /**
    * Get isDeposit
    * @return isDeposit
-  **/
-  @ApiModelProperty(value = "")
-
-
-  public Boolean isIsDeposit() {
+   **/
+  
+  
+    public Boolean isIsDeposit() {
     return isDeposit;
   }
 
@@ -152,11 +138,10 @@ public class GetTransactionsRequest   {
   /**
    * Get rollbacked
    * @return rollbacked
-  **/
-  @ApiModelProperty(value = "")
-
-
-  public Boolean isRollbacked() {
+   **/
+  
+  
+    public Boolean isRollbacked() {
     return rollbacked;
   }
 
@@ -172,12 +157,11 @@ public class GetTransactionsRequest   {
   /**
    * Get fromDate
    * @return fromDate
-  **/
-  @ApiModelProperty(value = "")
-
-  @Valid
-
-  public LocalDate getFromDate() {
+   **/
+  
+  
+    @Valid
+    public LocalDate getFromDate() {
     return fromDate;
   }
 
@@ -193,12 +177,11 @@ public class GetTransactionsRequest   {
   /**
    * Get toDate
    * @return toDate
-  **/
-  @ApiModelProperty(value = "")
-
-  @Valid
-
-  public LocalDate getToDate() {
+   **/
+  
+  
+    @Valid
+    public LocalDate getToDate() {
     return toDate;
   }
 
@@ -214,11 +197,10 @@ public class GetTransactionsRequest   {
   /**
    * Get fromAmount
    * @return fromAmount
-  **/
-  @ApiModelProperty(value = "")
-
-
-  public Double getFromAmount() {
+   **/
+  
+  
+    public Double getFromAmount() {
     return fromAmount;
   }
 
@@ -234,11 +216,10 @@ public class GetTransactionsRequest   {
   /**
    * Get toAmount
    * @return toAmount
-  **/
-  @ApiModelProperty(value = "")
-
-
-  public Double getToAmount() {
+   **/
+  
+  
+    public Double getToAmount() {
     return toAmount;
   }
 
@@ -246,52 +227,9 @@ public class GetTransactionsRequest   {
     this.toAmount = toAmount;
   }
 
-  public GetTransactionsRequest count(Integer count) {
-    this.count = count;
-    return this;
-  }
-
-  /**
-   * Get count
-   * minimum: 1
-   * maximum: 200
-   * @return count
-  **/
-  @ApiModelProperty(value = "")
-
-@Min(1) @Max(200) 
-  public Integer getCount() {
-    return count;
-  }
-
-  public void setCount(Integer count) {
-    this.count = count;
-  }
-
-  public GetTransactionsRequest countFrom(Integer countFrom) {
-    this.countFrom = countFrom;
-    return this;
-  }
-
-  /**
-   * Get countFrom
-   * minimum: 1
-   * @return countFrom
-  **/
-  @ApiModelProperty(value = "")
-
-@Min(1)
-  public Integer getCountFrom() {
-    return countFrom;
-  }
-
-  public void setCountFrom(Integer countFrom) {
-    this.countFrom = countFrom;
-  }
-
 
   @Override
-  public boolean equals(java.lang.Object o) {
+  public boolean equals(Object o) {
     if (this == o) {
       return true;
     }
@@ -307,14 +245,12 @@ public class GetTransactionsRequest   {
         Objects.equals(this.fromDate, getTransactionsRequest.fromDate) &&
         Objects.equals(this.toDate, getTransactionsRequest.toDate) &&
         Objects.equals(this.fromAmount, getTransactionsRequest.fromAmount) &&
-        Objects.equals(this.toAmount, getTransactionsRequest.toAmount) &&
-        Objects.equals(this.count, getTransactionsRequest.count) &&
-        Objects.equals(this.countFrom, getTransactionsRequest.countFrom);
+        Objects.equals(this.toAmount, getTransactionsRequest.toAmount);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(ids, userId, currency, isDeposit, rollbacked, fromDate, toDate, fromAmount, toAmount, count, countFrom);
+    return Objects.hash(ids, userId, currency, isDeposit, rollbacked, fromDate, toDate, fromAmount, toAmount);
   }
 
   @Override
@@ -331,8 +267,6 @@ public class GetTransactionsRequest   {
     sb.append("    toDate: ").append(toIndentedString(toDate)).append("\n");
     sb.append("    fromAmount: ").append(toIndentedString(fromAmount)).append("\n");
     sb.append("    toAmount: ").append(toIndentedString(toAmount)).append("\n");
-    sb.append("    count: ").append(toIndentedString(count)).append("\n");
-    sb.append("    countFrom: ").append(toIndentedString(countFrom)).append("\n");
     sb.append("}");
     return sb.toString();
   }
@@ -341,11 +275,10 @@ public class GetTransactionsRequest   {
    * Convert the given object to string with each line indented by 4 spaces
    * (except the first line).
    */
-  private String toIndentedString(java.lang.Object o) {
+  private String toIndentedString(Object o) {
     if (o == null) {
       return "null";
     }
     return o.toString().replace("\n", "\n    ");
   }
 }
-

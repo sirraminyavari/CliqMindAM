@@ -15,8 +15,8 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.PostConstruct;
-import java.sql.Date;
-import java.sql.Timestamp;
+import java.time.Instant;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -46,7 +46,7 @@ public class PlanActivationHistoryRepoImpl implements PlanActivationHistoryRepoC
 
     @Transactional
     @Override
-    public Transaction performBuyTransaction(ir.cliqmind.am.dto.BuyPlanRequest buyPlanRequest, Plan plan, java.sql.Date expirationDate) {
+    public Transaction performBuyTransaction(ir.cliqmind.am.dto.BuyPlanRequest buyPlanRequest, Plan plan, LocalDate expirationDate) {
         Transaction transaction = new Transaction();
         transaction.setDeposit(false);
         transaction.setUserId(buyPlanRequest.getUserId());
@@ -65,7 +65,7 @@ public class PlanActivationHistoryRepoImpl implements PlanActivationHistoryRepoC
         transaction.setAmount(price);
         transaction.setCurrency(buyPlanRequest.getCurrency());
         transaction.setType(Transaction.TransactionType.BUY);
-        transaction.setTime(new Timestamp(System.currentTimeMillis()));
+        transaction.setTime(Instant.now());
         if(buyPlanRequest.getCoupons()!=null && buyPlanRequest.getCoupons().size()>0) {
             List<Coupon> coupons = couponRepo.find(buyPlanRequest.getCoupons());
             if(coupons==null || coupons.size()!=buyPlanRequest.getCoupons().size()){
@@ -75,9 +75,9 @@ public class PlanActivationHistoryRepoImpl implements PlanActivationHistoryRepoC
         }
         transaction = transactionRepo.save(transaction);
 
-        Date today = DateUtil.todaySql();
-        Date expiration = (expirationDate == null ?
-                DateUtil.addMonthSql(today, plan.getDurationInMonths()) : expirationDate);
+        LocalDate today = LocalDate.now();
+        LocalDate expiration = (expirationDate == null ?
+                DateUtil.addMonth(today, plan.getDurationInMonths()) : expirationDate);
 
         PlanActivationHistory planActivationHistory = new PlanActivationHistory();
         planActivationHistory.setActivatedBy(buyPlanRequest.getUserId());
@@ -85,7 +85,7 @@ public class PlanActivationHistoryRepoImpl implements PlanActivationHistoryRepoC
         planActivationHistory.setStartDate(today);
         planActivationHistory.setExpirationDate(expiration);
         planActivationHistory.setOwnerId(buyPlanRequest.getOwnerId());
-        planActivationHistory.setTime(new Timestamp(System.currentTimeMillis()));
+        planActivationHistory.setTime(Instant.now());
         planActivationHistory.setTransactionId(transaction.getId());
         planActivationHistory.setPlan(plan);
         planActivationHistoryRepo.save(planActivationHistory);
@@ -111,7 +111,7 @@ public class PlanActivationHistoryRepoImpl implements PlanActivationHistoryRepoC
         transaction.setAmount(price);
         transaction.setCurrency(renewPlansRequest.getCurrency());
         transaction.setType(Transaction.TransactionType.RENEW);
-        transaction.setTime(new Timestamp(System.currentTimeMillis()));
+        transaction.setTime(Instant.now());
         if(renewPlansRequest.getCoupons()!=null && renewPlansRequest.getCoupons().size()>0) {
             List<Coupon> coupons = couponRepo.find(renewPlansRequest.getCoupons());
             if(coupons==null || coupons.size()!=renewPlansRequest.getCoupons().size()){
@@ -122,16 +122,16 @@ public class PlanActivationHistoryRepoImpl implements PlanActivationHistoryRepoC
         transaction = transactionRepo.save(transaction);
         Long transactionId = transaction.getId();
 
-        java.sql.Date expiration = Stream.concat(
-                Stream.of(DateUtil.todaySql()),
+        LocalDate expiration = Stream.concat(
+                Stream.of(LocalDate.now()),
                 activatedPlans.stream().map(ap -> ap.getExpirationDate()))
-                .max(java.util.Date::compareTo).get();
+                .max(LocalDate::compareTo).get();
 
         activatedPlans.forEach(planActivationHistory -> {
             planActivationHistory.setActivatedBy(renewPlansRequest.getUserId());
             planActivationHistory.setExpirationDate(expiration);
             planActivationHistory.setOwnerId(renewPlansRequest.getOwnerId());
-            planActivationHistory.setTime(new Timestamp(System.currentTimeMillis()));
+            planActivationHistory.setTime(Instant.now());
             planActivationHistory.setTransactionId(transactionId);
             planActivationHistoryRepo.save(planActivationHistory);
         });
@@ -163,7 +163,7 @@ public class PlanActivationHistoryRepoImpl implements PlanActivationHistoryRepoC
         transaction.setAmount(price);
         transaction.setCurrency(upradePlanRequest.getCurrency());
         transaction.setType(Transaction.TransactionType.UPGRADE);
-        transaction.setTime(new Timestamp(System.currentTimeMillis()));
+        transaction.setTime(Instant.now());
         if(upradePlanRequest.getCoupons()!=null && upradePlanRequest.getCoupons().size()>0) {
             List<Coupon> coupons = couponRepo.find(upradePlanRequest.getCoupons());
             if(coupons==null || coupons.size()!=upradePlanRequest.getCoupons().size()){
@@ -174,16 +174,16 @@ public class PlanActivationHistoryRepoImpl implements PlanActivationHistoryRepoC
         transaction = transactionRepo.save(transaction);
         Long transactionId = transaction.getId();
 
-        java.sql.Date expiration = Stream.concat(
-                Stream.of(DateUtil.todaySql()),
+        LocalDate expiration = Stream.concat(
+                Stream.of(LocalDate.now()),
                 activatedPlans.stream().map(ap -> ap.getExpirationDate()))
-                .max(java.util.Date::compareTo).get();
+                .max(LocalDate::compareTo).get();
 
         activatedPlans.forEach(planActivationHistory -> {
             planActivationHistory.setActivatedBy(upradePlanRequest.getUserId());
             planActivationHistory.setExpirationDate(expiration);
             planActivationHistory.setOwnerId(upradePlanRequest.getOwnerId());
-            planActivationHistory.setTime(new Timestamp(System.currentTimeMillis()));
+            planActivationHistory.setTime(Instant.now());
             planActivationHistory.setTransactionId(transactionId);
             planActivationHistoryRepo.save(planActivationHistory);
         });

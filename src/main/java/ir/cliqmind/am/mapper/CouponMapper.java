@@ -1,29 +1,74 @@
 package ir.cliqmind.am.mapper;
 
-import ir.cliqmind.am.utils.DateUtil;
+import ir.cliqmind.am.dto.AddCouponRequest;
+import ir.cliqmind.am.dto.EditCouponRequest;
+import ir.cliqmind.am.utils.RandomGenerator;
 
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.stream.Collectors;
 
-public class CouponBuilder {
+public class CouponMapper {
 
-    public ir.cliqmind.am.domain.Coupon addEdit(ir.cliqmind.am.dto.UpsertCouponRequest input) {
+    private RandomGenerator randomGenerator;
+
+    public CouponMapper(){
+        randomGenerator = new RandomGenerator();
+    }
+
+    public ir.cliqmind.am.domain.Coupon edit(String code, EditCouponRequest input) {
         ir.cliqmind.am.domain.Coupon result = new ir.cliqmind.am.domain.Coupon();
-        result.setCode(input.getCode());
+        result.setCode(code);
         result.setAllowConcurrentCoupons(input.isAllowConcurrentCoupons());
         result.setAllowSecondaryPrice(input.isAllowSecondaryPrice());
         result.setAmount(input.getAmount());
         result.setCurrency(input.getCurrency());
-        result.setExpirationDate(DateUtil.convertDate(input.getExpirationDate()));
+        result.setExpirationDate(input.getExpirationDate());
         result.setMaximumAmount(input.getMaximumAmount());
         result.setMaximumUsageLimit(input.getMaximumUsageLimit());
         result.setMaximumUsageLimitPerUser(input.getMaximumUsageLimitPerUser());
         result.setPercentageBased(input.isPercentageBased());
-        result.setTime(DateUtil.nowTimestamp());
+        result.setTime(Instant.now());
         if(input.getLimitToPlans()!=null || input.getExceptPlans()!=null){
             result.setPlans(new ArrayList<>());
-            String code = input.getCode();
+            if(input.getLimitToPlans()!=null){
+                input.getLimitToPlans().forEach(planId -> {
+                    ir.cliqmind.am.domain.PlanCoupon pc = new ir.cliqmind.am.domain.PlanCoupon();
+                    pc.setId(new ir.cliqmind.am.domain.PlanCouponId(planId, code));
+                    pc.setDeny(false);
+                    result.getPlans().add(pc);
+                });
+            }
+            if(input.getExceptPlans()!=null){
+                input.getExceptPlans().forEach(planId -> {
+                    ir.cliqmind.am.domain.PlanCoupon pc = new ir.cliqmind.am.domain.PlanCoupon();
+                    pc.setId(new ir.cliqmind.am.domain.PlanCouponId(planId, code));
+                    pc.setDeny(true);
+                    result.getPlans().add(pc);
+                });
+            }
+        }
+        result.setTargetUsers(input.getTargetUsers());
+        return result;
+    }
+
+    public ir.cliqmind.am.domain.Coupon add(AddCouponRequest input) {
+        String code = input.getCode();
+        ir.cliqmind.am.domain.Coupon result = new ir.cliqmind.am.domain.Coupon();
+        result.setCode(code);
+        result.setAllowConcurrentCoupons(input.isAllowConcurrentCoupons());
+        result.setAllowSecondaryPrice(input.isAllowSecondaryPrice());
+        result.setAmount(input.getAmount());
+        result.setCurrency(input.getCurrency());
+        result.setExpirationDate(input.getExpirationDate());
+        result.setMaximumAmount(input.getMaximumAmount());
+        result.setMaximumUsageLimit(input.getMaximumUsageLimit());
+        result.setMaximumUsageLimitPerUser(input.getMaximumUsageLimitPerUser());
+        result.setPercentageBased(input.isPercentageBased());
+        result.setTime(Instant.now());
+        if(input.getLimitToPlans()!=null || input.getExceptPlans()!=null){
+            result.setPlans(new ArrayList<>());
             if(input.getLimitToPlans()!=null){
                 input.getLimitToPlans().forEach(planId -> {
                     ir.cliqmind.am.domain.PlanCoupon pc = new ir.cliqmind.am.domain.PlanCoupon();
@@ -71,19 +116,19 @@ public class CouponBuilder {
                 .id(input.getId().getPlanId());
     }
 
-    public ir.cliqmind.am.dto.GetCouponsResponse coupon(Iterable<ir.cliqmind.am.domain.Coupon> input) {
-        ir.cliqmind.am.dto.GetCouponsResponse result = new ir.cliqmind.am.dto.GetCouponsResponse();
+    public ir.cliqmind.am.dto.Coupons coupon(Iterable<ir.cliqmind.am.domain.Coupon> input) {
+        ir.cliqmind.am.dto.Coupons result = new ir.cliqmind.am.dto.Coupons();
         if(input != null){
             Iterator<ir.cliqmind.am.domain.Coupon> it = input.iterator();
             while(it.hasNext()){
-                result.addCouponsItem(coupon(it.next()));
+                result.add(coupon(it.next()));
             }
         }
-        result.totalCount(result.getCoupons()==null ? 0 : result.getCoupons().size());
         return result;
     }
 
-    public ir.cliqmind.am.dto.GenerateCouponCodeResponse generate(String code){
+    public ir.cliqmind.am.dto.GenerateCouponCodeResponse generate(){
+        String code = randomGenerator.generateAlphaNumeric(10);
         return new ir.cliqmind.am.dto.GenerateCouponCodeResponse()
                 .code(code);
     }

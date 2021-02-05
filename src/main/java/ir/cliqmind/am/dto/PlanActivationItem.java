@@ -1,24 +1,22 @@
 package ir.cliqmind.am.dto;
 
-import java.util.Date;
+import java.time.Instant;
+import java.time.LocalDate;
 import java.util.Objects;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import io.swagger.annotations.ApiModelProperty;
-
 import java.util.UUID;
-import java.time.OffsetDateTime;
+
 import org.springframework.validation.annotation.Validated;
 import javax.validation.Valid;
+import javax.validation.constraints.*;
 
 /**
  * PlanActivationItem
  */
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2020-11-17T18:53:52.082Z")
-
-
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-01-22T08:12:05.647Z[GMT]")
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class PlanActivationItem   {
@@ -41,13 +39,13 @@ public class PlanActivationItem   {
   private Integer amount = null;
 
   @JsonProperty("time")
-  private OffsetDateTime time = null;
+  private Instant time = null;
 
   @JsonProperty("start_date")
-  private Date startDate = null;
+  private LocalDate startDate = null;
 
   @JsonProperty("expiration_date")
-  private Date expirationDate = null;
+  private LocalDate expirationDate = null;
 
   @JsonProperty("activated_by_user_id")
   private UUID activatedByUserId = null;
@@ -66,11 +64,10 @@ public class PlanActivationItem   {
   /**
    * Get id
    * @return id
-  **/
-  @ApiModelProperty(value = "")
-
-
-  public Long getId() {
+   **/
+  
+  
+    public Long getId() {
     return id;
   }
 
@@ -86,12 +83,11 @@ public class PlanActivationItem   {
   /**
    * Get ownerId
    * @return ownerId
-  **/
-  @ApiModelProperty(value = "")
-
-  @Valid
-
-  public UUID getOwnerId() {
+   **/
+  
+  
+    @Valid
+    public UUID getOwnerId() {
     return ownerId;
   }
 
@@ -107,12 +103,11 @@ public class PlanActivationItem   {
   /**
    * Get plan
    * @return plan
-  **/
-  @ApiModelProperty(value = "")
-
-  @Valid
-
-  public Plan getPlan() {
+   **/
+  
+  
+    @Valid
+    public Plan getPlan() {
     return plan;
   }
 
@@ -128,12 +123,11 @@ public class PlanActivationItem   {
   /**
    * Get upgradedFromPlan
    * @return upgradedFromPlan
-  **/
-  @ApiModelProperty(value = "")
-
-  @Valid
-
-  public Plan getUpgradedFromPlan() {
+   **/
+  
+  
+    @Valid
+    public Plan getUpgradedFromPlan() {
     return upgradedFromPlan;
   }
 
@@ -149,12 +143,11 @@ public class PlanActivationItem   {
   /**
    * Get transaction
    * @return transaction
-  **/
-  @ApiModelProperty(value = "")
-
-  @Valid
-
-  public Transaction getTransaction() {
+   **/
+  
+  
+    @Valid
+    public Transaction getTransaction() {
     return transaction;
   }
 
@@ -170,11 +163,10 @@ public class PlanActivationItem   {
   /**
    * Get amount
    * @return amount
-  **/
-  @ApiModelProperty(value = "")
-
-
-  public Integer getAmount() {
+   **/
+  
+  
+    public Integer getAmount() {
     return amount;
   }
 
@@ -182,7 +174,7 @@ public class PlanActivationItem   {
     this.amount = amount;
   }
 
-  public PlanActivationItem time(OffsetDateTime time) {
+  public PlanActivationItem time(Instant time) {
     this.time = time;
     return this;
   }
@@ -190,20 +182,19 @@ public class PlanActivationItem   {
   /**
    * Get time
    * @return time
-  **/
-  @ApiModelProperty(value = "")
-
-  @Valid
-
-  public OffsetDateTime getTime() {
+   **/
+  
+  
+    @Valid
+    public Instant getTime() {
     return time;
   }
 
-  public void setTime(OffsetDateTime time) {
+  public void setTime(Instant time) {
     this.time = time;
   }
 
-  public PlanActivationItem startDate(Date startDate) {
+  public PlanActivationItem startDate(LocalDate startDate) {
     this.startDate = startDate;
     return this;
   }
@@ -211,20 +202,19 @@ public class PlanActivationItem   {
   /**
    * Get startDate
    * @return startDate
-  **/
-  @ApiModelProperty(value = "")
-
-  @Valid
-
-  public Date getStartDate() {
+   **/
+  
+  
+    @Valid
+    public LocalDate getStartDate() {
     return startDate;
   }
 
-  public void setStartDate(Date startDate) {
+  public void setStartDate(LocalDate startDate) {
     this.startDate = startDate;
   }
 
-  public PlanActivationItem expirationDate(Date expirationDate) {
+  public PlanActivationItem expirationDate(LocalDate expirationDate) {
     this.expirationDate = expirationDate;
     return this;
   }
@@ -232,16 +222,15 @@ public class PlanActivationItem   {
   /**
    * Get expirationDate
    * @return expirationDate
-  **/
-  @ApiModelProperty(value = "")
-
-  @Valid
-
-  public Date getExpirationDate() {
+   **/
+  
+  
+    @Valid
+    public LocalDate getExpirationDate() {
     return expirationDate;
   }
 
-  public void setExpirationDate(Date expirationDate) {
+  public void setExpirationDate(LocalDate expirationDate) {
     this.expirationDate = expirationDate;
   }
 
@@ -253,12 +242,11 @@ public class PlanActivationItem   {
   /**
    * Get activatedByUserId
    * @return activatedByUserId
-  **/
-  @ApiModelProperty(value = "")
-
-  @Valid
-
-  public UUID getActivatedByUserId() {
+   **/
+  
+  
+    @Valid
+    public UUID getActivatedByUserId() {
     return activatedByUserId;
   }
 
@@ -274,11 +262,10 @@ public class PlanActivationItem   {
   /**
    * Get isExpired
    * @return isExpired
-  **/
-  @ApiModelProperty(value = "")
-
-
-  public Boolean isIsExpired() {
+   **/
+  
+  
+    public Boolean isIsExpired() {
     return isExpired;
   }
 
@@ -294,11 +281,10 @@ public class PlanActivationItem   {
   /**
    * Get isActive
    * @return isActive
-  **/
-  @ApiModelProperty(value = "")
-
-
-  public Boolean isIsActive() {
+   **/
+  
+  
+    public Boolean isIsActive() {
     return isActive;
   }
 
@@ -308,7 +294,7 @@ public class PlanActivationItem   {
 
 
   @Override
-  public boolean equals(java.lang.Object o) {
+  public boolean equals(Object o) {
     if (this == o) {
       return true;
     }
@@ -360,11 +346,10 @@ public class PlanActivationItem   {
    * Convert the given object to string with each line indented by 4 spaces
    * (except the first line).
    */
-  private String toIndentedString(java.lang.Object o) {
+  private String toIndentedString(Object o) {
     if (o == null) {
       return "null";
     }
     return o.toString().replace("\n", "\n    ");
   }
 }
-

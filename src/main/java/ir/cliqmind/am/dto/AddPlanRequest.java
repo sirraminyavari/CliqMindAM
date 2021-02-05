@@ -2,18 +2,15 @@ package ir.cliqmind.am.dto;
 
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import io.swagger.annotations.ApiModelProperty;
 import org.springframework.validation.annotation.Validated;
-
+import javax.validation.Valid;
 import javax.validation.constraints.*;
 
 /**
  * AddPlanRequest
  */
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2020-11-17T18:53:52.082Z")
-
-
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-01-22T08:12:05.647Z[GMT]")
 
 
 public class AddPlanRequest   {
@@ -41,32 +38,6 @@ public class AddPlanRequest   {
   @JsonProperty("price")
   private PlanPrices price = null;
 
-  public PlanFeatures getFeatures() {
-    return features;
-  }
-
-  public void setFeatures(PlanFeatures features) {
-    this.features = features;
-  }
-
-  public AddPlanRequest features(PlanFeatures features) {
-    this.features = features;
-    return this;
-  }
-
-  public PlanPrices getPrice() {
-    return price;
-  }
-
-  public void setPrice(PlanPrices price) {
-    this.price = price;
-  }
-
-  public AddPlanRequest price(PlanPrices price) {
-    this.price = price;
-    return this;
-  }
-
   public AddPlanRequest name(String name) {
     this.name = name;
     return this;
@@ -75,12 +46,10 @@ public class AddPlanRequest   {
   /**
    * Get name
    * @return name
-  **/
-  @ApiModelProperty(required = true, value = "")
-  @NotNull
+   **/
+      @NotNull
 
-
-  public String getName() {
+    public String getName() {
     return name;
   }
 
@@ -96,11 +65,9 @@ public class AddPlanRequest   {
   /**
    * Get description
    * @return description
-  **/
-  @ApiModelProperty(value = "")
+   **/
 
-
-  public String getDescription() {
+    public String getDescription() {
     return description;
   }
 
@@ -116,12 +83,10 @@ public class AddPlanRequest   {
   /**
    * Get userBased
    * @return userBased
-  **/
-  @ApiModelProperty(required = true, value = "")
-  @NotNull
+   **/
+      @NotNull
 
-
-  public Boolean isUserBased() {
+    public Boolean isUserBased() {
     return userBased;
   }
 
@@ -137,12 +102,10 @@ public class AddPlanRequest   {
   /**
    * Get enableAmount
    * @return enableAmount
-  **/
-  @ApiModelProperty(required = true, value = "")
-  @NotNull
+   **/
+      @NotNull
 
-
-  public Boolean isEnableAmount() {
+    public Boolean isEnableAmount() {
     return enableAmount;
   }
 
@@ -158,11 +121,9 @@ public class AddPlanRequest   {
   /**
    * Get maximumAmount
    * @return maximumAmount
-  **/
-  @ApiModelProperty(value = "")
+   **/
 
-
-  public Integer getMaximumAmount() {
+    public Integer getMaximumAmount() {
     return maximumAmount;
   }
 
@@ -178,11 +139,9 @@ public class AddPlanRequest   {
   /**
    * Get durationInMonths
    * @return durationInMonths
-  **/
-  @ApiModelProperty(value = "")
+   **/
 
-
-  public Integer getDurationInMonths() {
+    public Integer getDurationInMonths() {
     return durationInMonths;
   }
 
@@ -190,9 +149,47 @@ public class AddPlanRequest   {
     this.durationInMonths = durationInMonths;
   }
 
+  public AddPlanRequest features(PlanFeatures features) {
+    this.features = features;
+    return this;
+  }
+
+  /**
+   * Get features
+   * @return features
+   **/
+
+    @Valid
+    public PlanFeatures getFeatures() {
+    return features;
+  }
+
+  public void setFeatures(PlanFeatures features) {
+    this.features = features;
+  }
+
+  public AddPlanRequest price(PlanPrices price) {
+    this.price = price;
+    return this;
+  }
+
+  /**
+   * Get price
+   * @return price
+   **/
+
+    @Valid
+    public PlanPrices getPrice() {
+    return price;
+  }
+
+  public void setPrice(PlanPrices price) {
+    this.price = price;
+  }
+
 
   @Override
-  public boolean equals(java.lang.Object o) {
+  public boolean equals(Object o) {
     if (this == o) {
       return true;
     }
@@ -205,12 +202,14 @@ public class AddPlanRequest   {
         Objects.equals(this.userBased, addPlanRequest.userBased) &&
         Objects.equals(this.enableAmount, addPlanRequest.enableAmount) &&
         Objects.equals(this.maximumAmount, addPlanRequest.maximumAmount) &&
-        Objects.equals(this.durationInMonths, addPlanRequest.durationInMonths);
+        Objects.equals(this.durationInMonths, addPlanRequest.durationInMonths) &&
+        Objects.equals(this.features, addPlanRequest.features) &&
+        Objects.equals(this.price, addPlanRequest.price);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(name, description, userBased, enableAmount, maximumAmount, durationInMonths);
+    return Objects.hash(name, description, userBased, enableAmount, maximumAmount, durationInMonths, features, price);
   }
 
   @Override
@@ -224,6 +223,8 @@ public class AddPlanRequest   {
     sb.append("    enableAmount: ").append(toIndentedString(enableAmount)).append("\n");
     sb.append("    maximumAmount: ").append(toIndentedString(maximumAmount)).append("\n");
     sb.append("    durationInMonths: ").append(toIndentedString(durationInMonths)).append("\n");
+    sb.append("    features: ").append(toIndentedString(features)).append("\n");
+    sb.append("    price: ").append(toIndentedString(price)).append("\n");
     sb.append("}");
     return sb.toString();
   }
@@ -232,11 +233,10 @@ public class AddPlanRequest   {
    * Convert the given object to string with each line indented by 4 spaces
    * (except the first line).
    */
-  private String toIndentedString(java.lang.Object o) {
+  private String toIndentedString(Object o) {
     if (o == null) {
       return "null";
     }
     return o.toString().replace("\n", "\n    ");
   }
 }
-

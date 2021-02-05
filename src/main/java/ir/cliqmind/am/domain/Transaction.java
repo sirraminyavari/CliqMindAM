@@ -8,6 +8,7 @@ import javax.persistence.Table;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.time.Instant;
 import java.util.List;
 import java.util.UUID;
 
@@ -57,13 +58,13 @@ public class Transaction implements Serializable {
     private TransactionType type;
 
     @Column(name = "time", nullable = false)
-    private Timestamp time;
+    private Instant time;
 
     @Column(name = "rollbacked")
     private Boolean rollbacked;
 
     @Column(name = "rollback_time")
-    private Timestamp rollbackTime;
+    private Instant rollbackTime;
 
     @Column(name = "rollback_description")
     private String rollbackDescription;
@@ -140,11 +141,11 @@ public class Transaction implements Serializable {
         this.type = type;
     }
 
-    public Timestamp getTime() {
+    public Instant getTime() {
         return time;
     }
 
-    public void setTime(Timestamp time) {
+    public void setTime(Instant time) {
         this.time = time;
     }
 
@@ -156,11 +157,11 @@ public class Transaction implements Serializable {
         this.rollbacked = rollbacked;
     }
 
-    public Timestamp getRollbackTime() {
+    public Instant getRollbackTime() {
         return rollbackTime;
     }
 
-    public void setRollbackTime(Timestamp rollbackTime) {
+    public void setRollbackTime(Instant rollbackTime) {
         this.rollbackTime = rollbackTime;
     }
 

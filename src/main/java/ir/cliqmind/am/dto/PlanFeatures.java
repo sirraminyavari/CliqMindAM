@@ -3,21 +3,20 @@ package ir.cliqmind.am.dto;
 import java.util.Objects;
 import java.util.ArrayList;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import org.springframework.validation.annotation.Validated;
 
 /**
  * PlanFeatures
  */
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2020-11-17T18:53:52.082Z")
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-01-22T08:12:05.647Z[GMT]")
 
-
-
-
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class PlanFeatures extends ArrayList<PlanFeaturesInner>  {
 
   @Override
-  public boolean equals(java.lang.Object o) {
+  public boolean equals(Object o) {
     if (this == o) {
       return true;
     }
@@ -45,11 +44,10 @@ public class PlanFeatures extends ArrayList<PlanFeaturesInner>  {
    * Convert the given object to string with each line indented by 4 spaces
    * (except the first line).
    */
-  private String toIndentedString(java.lang.Object o) {
+  private String toIndentedString(Object o) {
     if (o == null) {
       return "null";
     }
     return o.toString().replace("\n", "\n    ");
   }
 }
-

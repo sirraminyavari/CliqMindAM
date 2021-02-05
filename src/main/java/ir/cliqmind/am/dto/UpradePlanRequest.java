@@ -2,9 +2,6 @@ package ir.cliqmind.am.dto;
 
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -16,9 +13,7 @@ import javax.validation.constraints.*;
  * UpradePlanRequest
  */
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2020-12-11T19:21:58.011Z")
-
-
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-01-22T08:12:05.647Z[GMT]")
 
 
 public class UpradePlanRequest   {
@@ -55,12 +50,11 @@ public class UpradePlanRequest   {
   /**
    * Get fromPlanId
    * @return fromPlanId
-  **/
-  @ApiModelProperty(required = true, value = "")
-  @NotNull
+   **/
+  
+      @NotNull
 
-
-  public Integer getFromPlanId() {
+    public Integer getFromPlanId() {
     return fromPlanId;
   }
 
@@ -76,12 +70,11 @@ public class UpradePlanRequest   {
   /**
    * Get toPlanId
    * @return toPlanId
-  **/
-  @ApiModelProperty(required = true, value = "")
-  @NotNull
+   **/
+  
+      @NotNull
 
-
-  public Integer getToPlanId() {
+    public Integer getToPlanId() {
     return toPlanId;
   }
 
@@ -97,12 +90,11 @@ public class UpradePlanRequest   {
   /**
    * Get userId
    * @return userId
-  **/
-  @ApiModelProperty(value = "")
-
-  @Valid
-
-  public UUID getUserId() {
+   **/
+  
+  
+    @Valid
+    public UUID getUserId() {
     return userId;
   }
 
@@ -118,12 +110,11 @@ public class UpradePlanRequest   {
   /**
    * Get ownerId
    * @return ownerId
-  **/
-  @ApiModelProperty(value = "")
-
-  @Valid
-
-  public UUID getOwnerId() {
+   **/
+  
+  
+    @Valid
+    public UUID getOwnerId() {
     return ownerId;
   }
 
@@ -139,11 +130,10 @@ public class UpradePlanRequest   {
   /**
    * Get amount
    * @return amount
-  **/
-  @ApiModelProperty(value = "")
-
-
-  public Integer getAmount() {
+   **/
+  
+  
+    public Integer getAmount() {
     return amount;
   }
 
@@ -159,11 +149,10 @@ public class UpradePlanRequest   {
   /**
    * Get useSecondaryPrice
    * @return useSecondaryPrice
-  **/
-  @ApiModelProperty(value = "")
-
-
-  public Boolean isUseSecondaryPrice() {
+   **/
+  
+  
+    public Boolean isUseSecondaryPrice() {
     return useSecondaryPrice;
   }
 
@@ -179,12 +168,11 @@ public class UpradePlanRequest   {
   /**
    * Get currency
    * @return currency
-  **/
-  @ApiModelProperty(required = true, value = "")
-  @NotNull
+   **/
+  
+      @NotNull
 
-@Pattern(regexp="[A-Z][A-Z][A-Z]") 
-  public String getCurrency() {
+  @Pattern(regexp="[A-Z][A-Z][A-Z]")   public String getCurrency() {
     return currency;
   }
 
@@ -208,11 +196,10 @@ public class UpradePlanRequest   {
   /**
    * Get coupons
    * @return coupons
-  **/
-  @ApiModelProperty(value = "")
-
-
-  public List<String> getCoupons() {
+   **/
+  
+  
+    public List<String> getCoupons() {
     return coupons;
   }
 
@@ -273,4 +260,3 @@ public class UpradePlanRequest   {
     return o.toString().replace("\n", "\n    ");
   }
 }
-

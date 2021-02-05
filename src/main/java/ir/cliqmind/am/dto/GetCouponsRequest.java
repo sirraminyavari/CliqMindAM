@@ -1,10 +1,11 @@
 package ir.cliqmind.am.dto;
 
+import java.time.LocalDate;
 import java.util.Objects;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.UUID;
-import org.threeten.bp.LocalDate;
 import org.springframework.validation.annotation.Validated;
 import javax.validation.Valid;
 import javax.validation.constraints.*;
@@ -13,11 +14,9 @@ import javax.validation.constraints.*;
  * GetCouponsRequest
  */
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2020-11-17T18:53:52.082Z")
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-01-22T08:12:05.647Z[GMT]")
 
-
-
-
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class GetCouponsRequest   {
   @JsonProperty("code")
   private String code = null;
@@ -49,12 +48,6 @@ public class GetCouponsRequest   {
   @JsonProperty("to_date")
   private LocalDate toDate = null;
 
-  @JsonProperty("count")
-  private Integer count = 50;
-
-  @JsonProperty("count_from")
-  private Integer countFrom = null;
-
   public GetCouponsRequest code(String code) {
     this.code = code;
     return this;
@@ -63,11 +56,10 @@ public class GetCouponsRequest   {
   /**
    * Get code
    * @return code
-  **/
-  @ApiModelProperty(value = "")
-
-
-  public String getCode() {
+   **/
+  
+  
+    public String getCode() {
     return code;
   }
 
@@ -83,11 +75,10 @@ public class GetCouponsRequest   {
   /**
    * Get currency
    * @return currency
-  **/
-  @ApiModelProperty(value = "")
-
-@Pattern(regexp="[A-Z][A-Z][A-Z]") 
-  public String getCurrency() {
+   **/
+  
+  
+  @Pattern(regexp="[A-Z][A-Z][A-Z]")   public String getCurrency() {
     return currency;
   }
 
@@ -103,11 +94,10 @@ public class GetCouponsRequest   {
   /**
    * Get percentageBased
    * @return percentageBased
-  **/
-  @ApiModelProperty(value = "")
-
-
-  public Boolean isPercentageBased() {
+   **/
+  
+  
+    public Boolean isPercentageBased() {
     return percentageBased;
   }
 
@@ -123,11 +113,10 @@ public class GetCouponsRequest   {
   /**
    * Get fromAmount
    * @return fromAmount
-  **/
-  @ApiModelProperty(value = "")
+   **/
+  
 
-
-  public Double getFromAmount() {
+    public Double getFromAmount() {
     return fromAmount;
   }
 
@@ -143,11 +132,10 @@ public class GetCouponsRequest   {
   /**
    * Get toAmount
    * @return toAmount
-  **/
-  @ApiModelProperty(value = "")
-
-
-  public Double getToAmount() {
+   **/
+  
+  
+    public Double getToAmount() {
     return toAmount;
   }
 
@@ -163,11 +151,10 @@ public class GetCouponsRequest   {
   /**
    * Get limitedToPlan
    * @return limitedToPlan
-  **/
-  @ApiModelProperty(value = "")
-
-
-  public Integer getLimitedToPlan() {
+   **/
+  
+  
+    public Integer getLimitedToPlan() {
     return limitedToPlan;
   }
 
@@ -183,11 +170,10 @@ public class GetCouponsRequest   {
   /**
    * Get exceptPlan
    * @return exceptPlan
-  **/
-  @ApiModelProperty(value = "")
-
-
-  public Integer getExceptPlan() {
+   **/
+  
+  
+    public Integer getExceptPlan() {
     return exceptPlan;
   }
 
@@ -203,12 +189,11 @@ public class GetCouponsRequest   {
   /**
    * Get targetUser
    * @return targetUser
-  **/
-  @ApiModelProperty(value = "")
-
-  @Valid
-
-  public UUID getTargetUser() {
+   **/
+  
+  
+    @Valid
+    public UUID getTargetUser() {
     return targetUser;
   }
 
@@ -224,12 +209,11 @@ public class GetCouponsRequest   {
   /**
    * Get fromDate
    * @return fromDate
-  **/
-  @ApiModelProperty(value = "")
-
-  @Valid
-
-  public LocalDate getFromDate() {
+   **/
+  
+  
+    @Valid
+    public LocalDate getFromDate() {
     return fromDate;
   }
 
@@ -245,12 +229,11 @@ public class GetCouponsRequest   {
   /**
    * Get toDate
    * @return toDate
-  **/
-  @ApiModelProperty(value = "")
-
-  @Valid
-
-  public LocalDate getToDate() {
+   **/
+  
+  
+    @Valid
+    public LocalDate getToDate() {
     return toDate;
   }
 
@@ -258,52 +241,9 @@ public class GetCouponsRequest   {
     this.toDate = toDate;
   }
 
-  public GetCouponsRequest count(Integer count) {
-    this.count = count;
-    return this;
-  }
-
-  /**
-   * Get count
-   * minimum: 1
-   * maximum: 200
-   * @return count
-  **/
-  @ApiModelProperty(value = "")
-
-@Min(1) @Max(200) 
-  public Integer getCount() {
-    return count;
-  }
-
-  public void setCount(Integer count) {
-    this.count = count;
-  }
-
-  public GetCouponsRequest countFrom(Integer countFrom) {
-    this.countFrom = countFrom;
-    return this;
-  }
-
-  /**
-   * Get countFrom
-   * minimum: 1
-   * @return countFrom
-  **/
-  @ApiModelProperty(value = "")
-
-@Min(1)
-  public Integer getCountFrom() {
-    return countFrom;
-  }
-
-  public void setCountFrom(Integer countFrom) {
-    this.countFrom = countFrom;
-  }
-
 
   @Override
-  public boolean equals(java.lang.Object o) {
+  public boolean equals(Object o) {
     if (this == o) {
       return true;
     }
@@ -320,14 +260,12 @@ public class GetCouponsRequest   {
         Objects.equals(this.exceptPlan, getCouponsRequest.exceptPlan) &&
         Objects.equals(this.targetUser, getCouponsRequest.targetUser) &&
         Objects.equals(this.fromDate, getCouponsRequest.fromDate) &&
-        Objects.equals(this.toDate, getCouponsRequest.toDate) &&
-        Objects.equals(this.count, getCouponsRequest.count) &&
-        Objects.equals(this.countFrom, getCouponsRequest.countFrom);
+        Objects.equals(this.toDate, getCouponsRequest.toDate);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(code, currency, percentageBased, fromAmount, toAmount, limitedToPlan, exceptPlan, targetUser, fromDate, toDate, count, countFrom);
+    return Objects.hash(code, currency, percentageBased, fromAmount, toAmount, limitedToPlan, exceptPlan, targetUser, fromDate, toDate);
   }
 
   @Override
@@ -345,8 +283,6 @@ public class GetCouponsRequest   {
     sb.append("    targetUser: ").append(toIndentedString(targetUser)).append("\n");
     sb.append("    fromDate: ").append(toIndentedString(fromDate)).append("\n");
     sb.append("    toDate: ").append(toIndentedString(toDate)).append("\n");
-    sb.append("    count: ").append(toIndentedString(count)).append("\n");
-    sb.append("    countFrom: ").append(toIndentedString(countFrom)).append("\n");
     sb.append("}");
     return sb.toString();
   }
@@ -355,11 +291,10 @@ public class GetCouponsRequest   {
    * Convert the given object to string with each line indented by 4 spaces
    * (except the first line).
    */
-  private String toIndentedString(java.lang.Object o) {
+  private String toIndentedString(Object o) {
     if (o == null) {
       return "null";
     }
     return o.toString().replace("\n", "\n    ");
   }
 }
-

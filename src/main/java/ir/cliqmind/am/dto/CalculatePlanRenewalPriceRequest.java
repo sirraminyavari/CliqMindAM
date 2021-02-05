@@ -2,8 +2,6 @@ package ir.cliqmind.am.dto;
 
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import io.swagger.annotations.ApiModelProperty;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -15,9 +13,7 @@ import javax.validation.constraints.*;
  * CalculatePlanRenewalPriceRequest
  */
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2020-11-17T18:53:52.082Z")
-
-
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-01-22T08:12:05.647Z[GMT]")
 
 
 public class CalculatePlanRenewalPriceRequest   {
@@ -42,13 +38,11 @@ public class CalculatePlanRenewalPriceRequest   {
   /**
    * Get ownerId
    * @return ownerId
-  **/
-  @ApiModelProperty(required = true, value = "")
-  @NotNull
+   **/
+      @NotNull
 
-  @Valid
-
-  public UUID getOwnerId() {
+    @Valid
+    public UUID getOwnerId() {
     return ownerId;
   }
 
@@ -64,13 +58,11 @@ public class CalculatePlanRenewalPriceRequest   {
   /**
    * Get plans
    * @return plans
-  **/
-  @ApiModelProperty(required = true, value = "")
-  @NotNull
+   **/
+      @NotNull
 
-  @Valid
-
-  public PlanRenewalPrice getPlans() {
+    @Valid
+    public PlanRenewalPrice getPlans() {
     return plans;
   }
 
@@ -86,12 +78,10 @@ public class CalculatePlanRenewalPriceRequest   {
   /**
    * Get currency
    * @return currency
-  **/
-  @ApiModelProperty(required = true, value = "")
-  @NotNull
+   **/
+      @NotNull
 
-@Pattern(regexp="[A-Z][A-Z][A-Z]") 
-  public String getCurrency() {
+  @Pattern(regexp="[A-Z][A-Z][A-Z]")   public String getCurrency() {
     return currency;
   }
 
@@ -115,11 +105,9 @@ public class CalculatePlanRenewalPriceRequest   {
   /**
    * Get coupons
    * @return coupons
-  **/
-  @ApiModelProperty(value = "")
+   **/
 
-
-  public List<String> getCoupons() {
+    public List<String> getCoupons() {
     return coupons;
   }
 
@@ -129,7 +117,7 @@ public class CalculatePlanRenewalPriceRequest   {
 
 
   @Override
-  public boolean equals(java.lang.Object o) {
+  public boolean equals(Object o) {
     if (this == o) {
       return true;
     }
@@ -165,11 +153,10 @@ public class CalculatePlanRenewalPriceRequest   {
    * Convert the given object to string with each line indented by 4 spaces
    * (except the first line).
    */
-  private String toIndentedString(java.lang.Object o) {
+  private String toIndentedString(Object o) {
     if (o == null) {
       return "null";
     }
     return o.toString().replace("\n", "\n    ");
   }
 }
-

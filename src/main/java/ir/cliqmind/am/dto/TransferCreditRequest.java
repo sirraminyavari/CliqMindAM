@@ -2,7 +2,6 @@ package ir.cliqmind.am.dto;
 
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.UUID;
 import org.springframework.validation.annotation.Validated;
 import javax.validation.Valid;
@@ -12,9 +11,7 @@ import javax.validation.constraints.*;
  * TransferCreditRequest
  */
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2020-11-17T18:53:52.082Z")
-
-
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-01-22T08:12:05.647Z[GMT]")
 
 
 public class TransferCreditRequest   {
@@ -41,13 +38,12 @@ public class TransferCreditRequest   {
   /**
    * Get fromUserId
    * @return fromUserId
-  **/
-  @ApiModelProperty(required = true, value = "")
-  @NotNull
+   **/
+  
+      @NotNull
 
-  @Valid
-
-  public UUID getFromUserId() {
+    @Valid
+    public UUID getFromUserId() {
     return fromUserId;
   }
 
@@ -63,13 +59,12 @@ public class TransferCreditRequest   {
   /**
    * Get toUserId
    * @return toUserId
-  **/
-  @ApiModelProperty(required = true, value = "")
-  @NotNull
+   **/
+  
+      @NotNull
 
-  @Valid
-
-  public UUID getToUserId() {
+    @Valid
+    public UUID getToUserId() {
     return toUserId;
   }
 
@@ -85,12 +80,11 @@ public class TransferCreditRequest   {
   /**
    * Get currency
    * @return currency
-  **/
-  @ApiModelProperty(required = true, value = "")
-  @NotNull
+   **/
+  
+      @NotNull
 
-@Pattern(regexp="[A-Z][A-Z][A-Z]") 
-  public String getCurrency() {
+  @Pattern(regexp="[A-Z][A-Z][A-Z]")   public String getCurrency() {
     return currency;
   }
 
@@ -106,12 +100,11 @@ public class TransferCreditRequest   {
   /**
    * Get amount
    * @return amount
-  **/
-  @ApiModelProperty(required = true, value = "")
-  @NotNull
+   **/
+  
+      @NotNull
 
-
-  public Double getAmount() {
+    public Double getAmount() {
     return amount;
   }
 
@@ -127,11 +120,10 @@ public class TransferCreditRequest   {
   /**
    * Get code
    * @return code
-  **/
-  @ApiModelProperty(value = "")
-
-
-  public String getCode() {
+   **/
+  
+  
+    public String getCode() {
     return code;
   }
 
@@ -141,7 +133,7 @@ public class TransferCreditRequest   {
 
 
   @Override
-  public boolean equals(java.lang.Object o) {
+  public boolean equals(Object o) {
     if (this == o) {
       return true;
     }
@@ -179,11 +171,10 @@ public class TransferCreditRequest   {
    * Convert the given object to string with each line indented by 4 spaces
    * (except the first line).
    */
-  private String toIndentedString(java.lang.Object o) {
+  private String toIndentedString(Object o) {
     if (o == null) {
       return "null";
     }
     return o.toString().replace("\n", "\n    ");
   }
 }
-

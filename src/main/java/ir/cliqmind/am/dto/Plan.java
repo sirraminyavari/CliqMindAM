@@ -4,8 +4,6 @@ import java.util.Objects;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import io.swagger.annotations.ApiModelProperty;
-
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.validation.annotation.Validated;
@@ -15,9 +13,7 @@ import javax.validation.Valid;
  * Plan
  */
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2020-11-17T18:53:52.082Z")
-
-
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-01-22T08:12:05.647Z[GMT]")
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Plan   {
@@ -61,11 +57,10 @@ public class Plan   {
   /**
    * Get id
    * @return id
-  **/
-  @ApiModelProperty(value = "")
-
-
-  public Integer getId() {
+   **/
+  
+  
+    public Integer getId() {
     return id;
   }
 
@@ -81,11 +76,10 @@ public class Plan   {
   /**
    * Get name
    * @return name
-  **/
-  @ApiModelProperty(value = "")
-
-
-  public String getName() {
+   **/
+  
+  
+    public String getName() {
     return name;
   }
 
@@ -101,11 +95,10 @@ public class Plan   {
   /**
    * Get description
    * @return description
-  **/
-  @ApiModelProperty(value = "")
-
-
-  public String getDescription() {
+   **/
+  
+  
+    public String getDescription() {
     return description;
   }
 
@@ -121,11 +114,10 @@ public class Plan   {
   /**
    * Get userBased
    * @return userBased
-  **/
-  @ApiModelProperty(value = "")
-
-
-  public Boolean isUserBased() {
+   **/
+  
+  
+    public Boolean isUserBased() {
     return userBased;
   }
 
@@ -141,11 +133,10 @@ public class Plan   {
   /**
    * Get enableAmount
    * @return enableAmount
-  **/
-  @ApiModelProperty(value = "")
-
-
-  public Boolean isEnableAmount() {
+   **/
+  
+  
+    public Boolean isEnableAmount() {
     return enableAmount;
   }
 
@@ -161,11 +152,10 @@ public class Plan   {
   /**
    * Get maximumAmount
    * @return maximumAmount
-  **/
-  @ApiModelProperty(value = "")
-
-
-  public Integer getMaximumAmount() {
+   **/
+  
+  
+    public Integer getMaximumAmount() {
     return maximumAmount;
   }
 
@@ -181,11 +171,10 @@ public class Plan   {
   /**
    * Get durationInMonths
    * @return durationInMonths
-  **/
-  @ApiModelProperty(value = "")
-
-
-  public Integer getDurationInMonths() {
+   **/
+  
+  
+    public Integer getDurationInMonths() {
     return durationInMonths;
   }
 
@@ -201,11 +190,10 @@ public class Plan   {
   /**
    * Get active
    * @return active
-  **/
-  @ApiModelProperty(value = "")
-
-
-  public Boolean isActive() {
+   **/
+  
+  
+    public Boolean isActive() {
     return active;
   }
 
@@ -229,12 +217,10 @@ public class Plan   {
   /**
    * Get features
    * @return features
-  **/
-  @ApiModelProperty(value = "")
-
-  @Valid
-
-  public List<Feature> getFeatures() {
+   **/
+  
+      @Valid
+    public List<Feature> getFeatures() {
     return features;
   }
 
@@ -258,12 +244,10 @@ public class Plan   {
   /**
    * Get price
    * @return price
-  **/
-  @ApiModelProperty(value = "")
-
-  @Valid
-
-  public List<PlanPriceItem> getPrice() {
+   **/
+  
+      @Valid
+    public List<PlanPriceItem> getPrice() {
     return price;
   }
 
@@ -273,7 +257,7 @@ public class Plan   {
 
 
   @Override
-  public boolean equals(java.lang.Object o) {
+  public boolean equals(Object o) {
     if (this == o) {
       return true;
     }
@@ -321,11 +305,10 @@ public class Plan   {
    * Convert the given object to string with each line indented by 4 spaces
    * (except the first line).
    */
-  private String toIndentedString(java.lang.Object o) {
+  private String toIndentedString(Object o) {
     if (o == null) {
       return "null";
     }
     return o.toString().replace("\n", "\n    ");
   }
 }
-

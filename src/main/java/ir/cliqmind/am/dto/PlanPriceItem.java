@@ -4,7 +4,6 @@ import java.util.Objects;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import io.swagger.annotations.ApiModelProperty;
 import org.springframework.validation.annotation.Validated;
 import javax.validation.Valid;
 import javax.validation.constraints.*;
@@ -13,9 +12,7 @@ import javax.validation.constraints.*;
  * PlanPriceItem
  */
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2020-11-17T18:53:52.082Z")
-
-
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-01-22T08:12:05.647Z[GMT]")
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class PlanPriceItem   {
@@ -36,11 +33,10 @@ public class PlanPriceItem   {
   /**
    * Get currency
    * @return currency
-  **/
-  @ApiModelProperty(value = "")
-
-@Pattern(regexp="[A-Z][A-Z][A-Z]") 
-  public String getCurrency() {
+   **/
+  
+  
+  @Pattern(regexp="[A-Z][A-Z][A-Z]")   public String getCurrency() {
     return currency;
   }
 
@@ -56,11 +52,10 @@ public class PlanPriceItem   {
   /**
    * Get price
    * @return price
-  **/
-  @ApiModelProperty(value = "")
-
-
-  public Double getPrice() {
+   **/
+  
+  
+    public Double getPrice() {
     return price;
   }
 
@@ -76,12 +71,11 @@ public class PlanPriceItem   {
   /**
    * Get secondaryPrice
    * @return secondaryPrice
-  **/
-  @ApiModelProperty(value = "")
-
-  @Valid
-
-  public PlanPriceItemSecondaryPrice getSecondaryPrice() {
+   **/
+  
+  
+    @Valid
+    public PlanPriceItemSecondaryPrice getSecondaryPrice() {
     return secondaryPrice;
   }
 
@@ -91,7 +85,7 @@ public class PlanPriceItem   {
 
 
   @Override
-  public boolean equals(java.lang.Object o) {
+  public boolean equals(Object o) {
     if (this == o) {
       return true;
     }
@@ -125,11 +119,10 @@ public class PlanPriceItem   {
    * Convert the given object to string with each line indented by 4 spaces
    * (except the first line).
    */
-  private String toIndentedString(java.lang.Object o) {
+  private String toIndentedString(Object o) {
     if (o == null) {
       return "null";
     }
     return o.toString().replace("\n", "\n    ");
   }
 }
-

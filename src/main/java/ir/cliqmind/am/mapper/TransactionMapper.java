@@ -1,14 +1,12 @@
 package ir.cliqmind.am.mapper;
 
-import ir.cliqmind.am.dto.TransactionRollback;
-import ir.cliqmind.am.dto.Transactions;
-import ir.cliqmind.am.dto.TransferCreditRequest;
+import ir.cliqmind.am.dto.*;
 
-import java.sql.Timestamp;
+import java.time.Instant;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class TransactionBuilder {
+public class TransactionMapper {
 
     public ir.cliqmind.am.domain.Transaction addTransactionRequest(ir.cliqmind.am.dto.AddTransactionRequest input) {
         ir.cliqmind.am.domain.Transaction result = new ir.cliqmind.am.domain.Transaction();
@@ -19,7 +17,7 @@ public class TransactionBuilder {
         result.setTransactionCode(input.getCode());
         result.setType(Arrays.stream(ir.cliqmind.am.domain.Transaction.TransactionType.values()).filter(
                 e -> e.name().equalsIgnoreCase(input.getType())).findAny().orElse(null));
-        result.setTime(new Timestamp(System.currentTimeMillis()));
+        result.setTime(Instant.now());
         return result;
     }
 
@@ -35,10 +33,12 @@ public class TransactionBuilder {
     }
 
     public Transactions getTransactions(List<ir.cliqmind.am.domain.Transaction> input) {
-        return new Transactions()
-                .totalCount(input == null ? 0 : input.size())
-                .transactions(input == null ? null :
-                        input.stream().map(t -> transaction(t)).collect(Collectors.toList()));
+        if(input == null){
+            return null;
+        }
+        Transactions transactions = new Transactions(input.size());
+        transactions.addAll(input.stream().map(t -> transaction(t)).collect(Collectors.toList()));
+        return transactions;
     }
 
     public ir.cliqmind.am.dto.Transaction transaction(ir.cliqmind.am.domain.Transaction input) {
@@ -58,7 +58,7 @@ public class TransactionBuilder {
 
     public List<ir.cliqmind.am.domain.Transaction> transferBalance(TransferCreditRequest body) {
         List<ir.cliqmind.am.domain.Transaction> result = new ArrayList<>();
-        Timestamp time = new Timestamp(System.currentTimeMillis());
+        Instant time = Instant.now();
         result.add(transfer(body.getFromUserId(), body.getCurrency(), body.getAmount(), false, time,
                 body.getCode()));
         result.add(transfer(body.getToUserId(), body.getCurrency(), body.getAmount(), true, time,
@@ -67,7 +67,7 @@ public class TransactionBuilder {
     }
 
     public ir.cliqmind.am.domain.Transaction transfer(
-            UUID userId, String currency, double amount, boolean deposit, Timestamp time, String code) {
+            UUID userId, String currency, double amount, boolean deposit, Instant time, String code) {
         ir.cliqmind.am.domain.Transaction result = new ir.cliqmind.am.domain.Transaction();
         result.setTime(time);
         result.setType(ir.cliqmind.am.domain.Transaction.TransactionType.TRANSFER);

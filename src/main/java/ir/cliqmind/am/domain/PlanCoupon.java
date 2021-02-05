@@ -65,4 +65,14 @@ public class PlanCoupon implements Serializable {
                 ", deny=" + deny +
                 '}';
     }
+
+    public PlanCoupon id(PlanCouponId id) {
+        this.id = id;
+        return this;
+    }
+
+    public PlanCoupon coupon(Coupon coupon) {
+        this.coupon = coupon;
+        return this;
+    }
 }

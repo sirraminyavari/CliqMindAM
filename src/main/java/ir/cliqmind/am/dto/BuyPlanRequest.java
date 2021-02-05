@@ -2,7 +2,6 @@ package ir.cliqmind.am.dto;
 
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -14,9 +13,7 @@ import javax.validation.constraints.*;
  * BuyPlanRequest
  */
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2020-11-17T18:53:52.082Z")
-
-
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-01-22T08:12:05.647Z[GMT]")
 
 
 public class BuyPlanRequest   {
@@ -50,12 +47,10 @@ public class BuyPlanRequest   {
   /**
    * Get planId
    * @return planId
-  **/
-  @ApiModelProperty(required = true, value = "")
-  @NotNull
+   **/
+      @NotNull
 
-
-  public Integer getPlanId() {
+    public Integer getPlanId() {
     return planId;
   }
 
@@ -68,21 +63,14 @@ public class BuyPlanRequest   {
     return this;
   }
 
-  public BuyPlanRequest userId(UUID userId) {
-    this.userId = userId;
-    return this;
-  }
-
   /**
    * Get ownerId
    * @return ownerId
-  **/
-  @ApiModelProperty(required = true, value = "")
-  @NotNull
+   **/
+      @NotNull
 
-  @Valid
-
-  public UUID getOwnerId() {
+    @Valid
+    public UUID getOwnerId() {
     return ownerId;
   }
 
@@ -90,7 +78,18 @@ public class BuyPlanRequest   {
     this.ownerId = ownerId;
   }
 
-  public UUID getUserId() {
+  public BuyPlanRequest userId(UUID userId) {
+    this.userId = userId;
+    return this;
+  }
+
+  /**
+   * Get userId
+   * @return userId
+   **/
+
+    @Valid
+    public UUID getUserId() {
     return userId;
   }
 
@@ -106,11 +105,9 @@ public class BuyPlanRequest   {
   /**
    * Get amount
    * @return amount
-  **/
-  @ApiModelProperty(value = "")
+   **/
 
-
-  public Integer getAmount() {
+    public Integer getAmount() {
     return amount;
   }
 
@@ -126,11 +123,9 @@ public class BuyPlanRequest   {
   /**
    * Get useSecondaryPrice
    * @return useSecondaryPrice
-  **/
-  @ApiModelProperty(value = "")
+   **/
 
-
-  public Boolean isUseSecondaryPrice() {
+    public Boolean isUseSecondaryPrice() {
     return useSecondaryPrice;
   }
 
@@ -146,12 +141,10 @@ public class BuyPlanRequest   {
   /**
    * Get currency
    * @return currency
-  **/
-  @ApiModelProperty(required = true, value = "")
-  @NotNull
+   **/
+      @NotNull
 
-@Pattern(regexp="[A-Z][A-Z][A-Z]") 
-  public String getCurrency() {
+  @Pattern(regexp="[A-Z][A-Z][A-Z]")   public String getCurrency() {
     return currency;
   }
 
@@ -175,11 +168,9 @@ public class BuyPlanRequest   {
   /**
    * Get coupons
    * @return coupons
-  **/
-  @ApiModelProperty(value = "")
+   **/
 
-
-  public List<String> getCoupons() {
+    public List<String> getCoupons() {
     return coupons;
   }
 
@@ -189,7 +180,7 @@ public class BuyPlanRequest   {
 
 
   @Override
-  public boolean equals(java.lang.Object o) {
+  public boolean equals(Object o) {
     if (this == o) {
       return true;
     }
@@ -199,6 +190,7 @@ public class BuyPlanRequest   {
     BuyPlanRequest buyPlanRequest = (BuyPlanRequest) o;
     return Objects.equals(this.planId, buyPlanRequest.planId) &&
         Objects.equals(this.ownerId, buyPlanRequest.ownerId) &&
+        Objects.equals(this.userId, buyPlanRequest.userId) &&
         Objects.equals(this.amount, buyPlanRequest.amount) &&
         Objects.equals(this.useSecondaryPrice, buyPlanRequest.useSecondaryPrice) &&
         Objects.equals(this.currency, buyPlanRequest.currency) &&
@@ -207,7 +199,7 @@ public class BuyPlanRequest   {
 
   @Override
   public int hashCode() {
-    return Objects.hash(planId, ownerId, amount, useSecondaryPrice, currency, coupons);
+    return Objects.hash(planId, ownerId, userId, amount, useSecondaryPrice, currency, coupons);
   }
 
   @Override
@@ -230,11 +222,10 @@ public class BuyPlanRequest   {
    * Convert the given object to string with each line indented by 4 spaces
    * (except the first line).
    */
-  private String toIndentedString(java.lang.Object o) {
+  private String toIndentedString(Object o) {
     if (o == null) {
       return "null";
     }
     return o.toString().replace("\n", "\n    ");
   }
 }
-

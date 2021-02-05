@@ -1,11 +1,10 @@
 package ir.cliqmind.am.dto;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.Objects;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import io.swagger.annotations.ApiModelProperty;
 import org.springframework.validation.annotation.Validated;
 import javax.validation.Valid;
 
@@ -13,9 +12,7 @@ import javax.validation.Valid;
  * PlanPriceItemSecondaryPrice
  */
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2020-11-17T18:53:52.082Z")
-
-
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-01-22T08:12:05.647Z[GMT]")
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class PlanPriceItemSecondaryPrice   {
@@ -23,10 +20,10 @@ public class PlanPriceItemSecondaryPrice   {
   private Double price = null;
 
   @JsonProperty("first_date")
-  private Date firstDate = null;
+  private LocalDate firstDate = null;
 
   @JsonProperty("expiration_date")
-  private Date expirationDate = null;
+  private LocalDate expirationDate = null;
 
   public PlanPriceItemSecondaryPrice price(Double price) {
     this.price = price;
@@ -36,11 +33,10 @@ public class PlanPriceItemSecondaryPrice   {
   /**
    * Get price
    * @return price
-  **/
-  @ApiModelProperty(value = "")
-
-
-  public Double getPrice() {
+   **/
+  
+  
+    public Double getPrice() {
     return price;
   }
 
@@ -48,7 +44,7 @@ public class PlanPriceItemSecondaryPrice   {
     this.price = price;
   }
 
-  public PlanPriceItemSecondaryPrice firstDate(Date firstDate) {
+  public PlanPriceItemSecondaryPrice firstDate(LocalDate firstDate) {
     this.firstDate = firstDate;
     return this;
   }
@@ -56,20 +52,19 @@ public class PlanPriceItemSecondaryPrice   {
   /**
    * Get firstDate
    * @return firstDate
-  **/
-  @ApiModelProperty(value = "")
-
-  @Valid
-
-  public Date getFirstDate() {
+   **/
+  
+  
+    @Valid
+    public LocalDate getFirstDate() {
     return firstDate;
   }
 
-  public void setFirstDate(Date firstDate) {
+  public void setFirstDate(LocalDate firstDate) {
     this.firstDate = firstDate;
   }
 
-  public PlanPriceItemSecondaryPrice expirationDate(Date expirationDate) {
+  public PlanPriceItemSecondaryPrice expirationDate(LocalDate expirationDate) {
     this.expirationDate = expirationDate;
     return this;
   }
@@ -77,22 +72,21 @@ public class PlanPriceItemSecondaryPrice   {
   /**
    * Get expirationDate
    * @return expirationDate
-  **/
-  @ApiModelProperty(value = "")
-
-  @Valid
-
-  public Date getExpirationDate() {
+   **/
+  
+  
+    @Valid
+    public LocalDate getExpirationDate() {
     return expirationDate;
   }
 
-  public void setExpirationDate(Date expirationDate) {
+  public void setExpirationDate(LocalDate expirationDate) {
     this.expirationDate = expirationDate;
   }
 
 
   @Override
-  public boolean equals(java.lang.Object o) {
+  public boolean equals(Object o) {
     if (this == o) {
       return true;
     }
@@ -126,11 +120,10 @@ public class PlanPriceItemSecondaryPrice   {
    * Convert the given object to string with each line indented by 4 spaces
    * (except the first line).
    */
-  private String toIndentedString(java.lang.Object o) {
+  private String toIndentedString(Object o) {
     if (o == null) {
       return "null";
     }
     return o.toString().replace("\n", "\n    ");
   }
 }
-

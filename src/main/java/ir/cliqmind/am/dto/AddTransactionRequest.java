@@ -2,19 +2,15 @@ package ir.cliqmind.am.dto;
 
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.UUID;
 import org.springframework.validation.annotation.Validated;
 import javax.validation.Valid;
-import javax.validation.constraints.*;
 
 /**
  * AddTransactionRequest
  */
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2020-11-17T18:53:52.082Z")
-
-
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-01-22T08:12:05.647Z[GMT]")
 
 
 public class AddTransactionRequest   {
@@ -41,13 +37,10 @@ public class AddTransactionRequest   {
   /**
    * Get userId
    * @return userId
-  **/
-  @ApiModelProperty(required = true, value = "")
-  @NotNull
+   **/
 
-  @Valid
-
-  public UUID getUserId() {
+    @Valid
+    public UUID getUserId() {
     return userId;
   }
 
@@ -63,12 +56,9 @@ public class AddTransactionRequest   {
   /**
    * Get amount
    * @return amount
-  **/
-  @ApiModelProperty(required = true, value = "")
-  @NotNull
+   **/
 
-
-  public Double getAmount() {
+    public Double getAmount() {
     return amount;
   }
 
@@ -84,12 +74,9 @@ public class AddTransactionRequest   {
   /**
    * Get currency
    * @return currency
-  **/
-  @ApiModelProperty(required = true, value = "")
-  @NotNull
+   **/
 
-@Pattern(regexp="[A-Z][A-Z][A-Z]") 
-  public String getCurrency() {
+    public String getCurrency() {
     return currency;
   }
 
@@ -105,12 +92,9 @@ public class AddTransactionRequest   {
   /**
    * Get code
    * @return code
-  **/
-  @ApiModelProperty(required = true, value = "")
-  @NotNull
+   **/
 
-
-  public String getCode() {
+    public String getCode() {
     return code;
   }
 
@@ -126,11 +110,9 @@ public class AddTransactionRequest   {
   /**
    * Get type
    * @return type
-  **/
-  @ApiModelProperty(value = "")
+   **/
 
-
-  public String getType() {
+    public String getType() {
     return type;
   }
 
@@ -140,7 +122,7 @@ public class AddTransactionRequest   {
 
 
   @Override
-  public boolean equals(java.lang.Object o) {
+  public boolean equals(Object o) {
     if (this == o) {
       return true;
     }
@@ -178,11 +160,10 @@ public class AddTransactionRequest   {
    * Convert the given object to string with each line indented by 4 spaces
    * (except the first line).
    */
-  private String toIndentedString(java.lang.Object o) {
+  private String toIndentedString(Object o) {
     if (o == null) {
       return "null";
     }
     return o.toString().replace("\n", "\n    ");
   }
 }
-

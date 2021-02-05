@@ -1,28 +1,23 @@
 package ir.cliqmind.am.dto;
 
 import java.util.Objects;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import org.springframework.validation.annotation.Validated;
-import javax.validation.Valid;
-import javax.validation.constraints.*;
 
 /**
- * CalculatePlanUpgradePriceResponse
+ * Price
  */
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2020-12-11T19:07:24.779Z")
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-01-22T08:12:05.647Z[GMT]")
 
-
-
-
-public class CalculatePlanUpgradePriceResponse   {
+@JsonInclude(JsonInclude.Include.NON_NULL)
+public class Price   {
   @JsonProperty("price")
   private Double price = null;
 
-  public CalculatePlanUpgradePriceResponse price(Double price) {
+  public Price price(Double price) {
     this.price = price;
     return this;
   }
@@ -30,11 +25,10 @@ public class CalculatePlanUpgradePriceResponse   {
   /**
    * Get price
    * @return price
-  **/
-  @ApiModelProperty(value = "")
-
-
-  public Double getPrice() {
+   **/
+  
+  
+    public Double getPrice() {
     return price;
   }
 
@@ -51,8 +45,8 @@ public class CalculatePlanUpgradePriceResponse   {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    CalculatePlanUpgradePriceResponse calculatePlanUpgradePriceResponse = (CalculatePlanUpgradePriceResponse) o;
-    return Objects.equals(this.price, calculatePlanUpgradePriceResponse.price);
+    Price price = (Price) o;
+    return Objects.equals(this.price, price.price);
   }
 
   @Override
@@ -63,7 +57,7 @@ public class CalculatePlanUpgradePriceResponse   {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class CalculatePlanUpgradePriceResponse {\n");
+    sb.append("class Price {\n");
     
     sb.append("    price: ").append(toIndentedString(price)).append("\n");
     sb.append("}");
@@ -81,4 +75,3 @@ public class CalculatePlanUpgradePriceResponse   {
     return o.toString().replace("\n", "\n    ");
   }
 }
-

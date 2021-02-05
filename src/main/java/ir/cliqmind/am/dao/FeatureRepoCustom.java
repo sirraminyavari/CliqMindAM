@@ -7,6 +7,6 @@ import java.util.UUID;
 
 public interface FeatureRepoCustom {
 
-    public List<Feature> getActive(UUID ownerId);
+    List<Feature> getActive(UUID ownerId);
 
 }

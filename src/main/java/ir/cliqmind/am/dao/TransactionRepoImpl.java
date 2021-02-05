@@ -14,8 +14,6 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
-import javax.persistence.metamodel.EntityType;
-import javax.persistence.metamodel.Metamodel;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -55,9 +53,6 @@ public class TransactionRepoImpl implements TransactionRepoCustom {
         cq.where(where.toArray(new Predicate[where.size()]));
 
         TypedQuery<Transaction> query = em.createQuery(cq);
-
-        Optional.ofNullable(request.getCountFrom()).ifPresent(p -> query.setFirstResult(p));
-        Optional.ofNullable(request.getCount()).ifPresent(p -> query.setMaxResults(p));
 
         return query.getResultList();
     }

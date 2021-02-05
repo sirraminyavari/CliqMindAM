@@ -1,0 +1,861 @@
+{
+	"info": {
+		"_postman_id": "1b1c56c7-89d5-451a-a1ad-50a1ed3d2849",
+		"name": "ramin",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "feature",
+			"item": [
+				{
+					"name": "add_feature",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"f2_name\",\n  \"description\": \"f2_desc\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8080/api/v1/feature",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"feature"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "edit_feature",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"f1_name2\",\n  \"description\": \"f1_desc2\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8080/api/v1/feature/15",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"feature",
+								"15"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "activate_feature",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8080/api/v1/feature/15/activate",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"feature",
+								"15",
+								"activate"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deactivate_feature",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8080/api/v1/feature/15/deactivate",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"feature",
+								"15",
+								"deactivate"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get_feature",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"ids\": [\n    1,\n    2\n  ],\n  \"active\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8080/api/v1/feature?page=0&size=20",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"feature"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "20"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get_active_fatures",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8080/api/v1/feature/active?owner_id=3fa85f64-5717-4562-b3fc-2c963f66afa6",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"feature",
+								"active"
+							],
+							"query": [
+								{
+									"key": "owner_id",
+									"value": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "transaction",
+			"item": [
+				{
+					"name": "add_transaction",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"user_id\": \"5fa85f64-5717-4562-b3fc-2c963f66afa6\",\n  \"amount\": 10000,\n  \"currency\": \"IRR\",\n  \"code\": \"rrxcode7\",\n  \"type\": \"bonus\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8080/api/v1/transaction",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"transaction"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getTransactions",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"user_id\": \"5fa85f64-5717-4562-b3fc-2c963f66afa6\",\n  \"currency\": \"IRR\",\n  \"count\": 1,\n  \"count_from\": 0\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8080/api/v1/transaction",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"transaction"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "rollback",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"done_by_user_id\": \"3fa85f64-5717-4562-b3fc-2c963f66afa1\",\n  \"description\": \"d1\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8080/api/v1/transaction/6/rollback",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"transaction",
+								"6",
+								"rollback"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "credit",
+			"item": [
+				{
+					"name": "get_credit",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8080/api/v1/credit/balance?user_id=3fa85f64-5717-4562-b3fc-2c963f66afa6",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"credit",
+								"balance"
+							],
+							"query": [
+								{
+									"key": "user_id",
+									"value": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
+								},
+								{
+									"key": "currency",
+									"value": "usd",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "credit_transfer",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"from_user_id\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\",\n  \"to_user_id\": \"6fa85f64-5717-4562-b3fc-2c963f66afa6\",\n  \"currency\": \"irr\",\n  \"amount\": 199,\n  \"code\": \"cytsewq\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8080/api/v1/credit/transfer",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"credit",
+								"transfer"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "plan",
+			"item": [
+				{
+					"name": "add_plan",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"plan223\",\n  \"description\": \"plan2 description\",\n  \"user_based\": true,\n  \"enable_amount\": true,\n  \"maximum_amount\": 1000000,\n  \"duration_in_months\": 12,\n  \"features\": [\n    {\n      \"feature_id\": 1,\n      \"amount\": 0,\n      \"maximum_amount\": 0\n    }\n  ],\n  \"price\": [\n    {\n      \"currency\": \"string\",\n      \"price\": 0,\n      \"secondary_price\": {\n        \"price\": 0,\n        \"first_date\": \"2021-01-03\",\n        \"expiration_date\": \"2021-01-03\"\n      }\n    }\n  ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8080/api/v1/plan",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"plan"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "edit_plan",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"plan1_name_edited\",\n  \"description\": \"plan1_desc_edited\",\n  \"user_based\": true,\n  \"enable_amount\": true,\n  \"maximum_amount\": 2000000,\n  \"duration_in_months\": 16,\n  \"features\": [\n    {\n      \"feature_id\": 1,\n      \"amount\": 1,\n      \"maximum_amount\": 100\n    },\n    {\n      \"feature_id\": 2,\n      \"amount\": 13,\n      \"maximum_amount\": 100\n    }\n  ],\n  \"price\": [\n    {\n      \"currency\": \"IRR2\",\n      \"price\": 400,\n      \"secondary_price\": {\n        \"price\": 100,\n        \"first_date\": \"2020-11-17\",\n        \"expiration_date\": \"2020-11-17\"\n      }\n    }\n  ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8080/api/v1/plan/23",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"plan",
+								"23"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "plan_activate",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8080/api/v1/plan/23/deactivate",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"plan",
+								"23",
+								"deactivate"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "set_plan_feature",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"features\": [\n    {\n      \"feature_id\": 1,\n      \"amount\": 112,\n      \"maximum_amount\": 100\n    },\n    {\n      \"feature_id\": 2,\n      \"amount\": 17,\n      \"maximum_amount\": 100\n    }\n  ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8080/api/v1/plan/23/features",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"plan",
+								"23",
+								"features"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "set_plan_price",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n    {\n      \"currency\": \"IRR2\",\n      \"price\": 100,\n      \"secondary_price\": {\n        \"price\": 100,\n        \"first_date\": \"2020-11-17\",\n        \"expiration_date\": \"2020-11-17\"\n      }\n    },\n    {\n      \"currency\": \"USD\",\n      \"price\": 200,\n      \"secondary_price\": {\n        \"price\": 101,\n        \"first_date\": \"2020-11-18\",\n        \"expiration_date\": \"2020-11-18\"\n      }\n    }\n  ]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8080/api/v1/plan/23/price",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"plan",
+								"23",
+								"price"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get_plan",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"ids\": [\n    \"1\",\n    \"21\"\n  ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8080/api/v1/plan",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"plan"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "calculate_price",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"owner_id\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\",\n  \"plan_id\": 1,\n  \"amount\": 100,\n  \"use_secondary_price\": true,\n  \"currency\": \"IRR\",\n  \"coupons\": [\n    \"11111111\"\n  ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8080/api/v1/plan/23/price",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"plan",
+								"23",
+								"price"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "buy_plan",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"plan_id\": 1,\n  \"owner_id\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\",\n  \"user_id\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\",\n  \"amount\": 10,\n  \"use_secondary_price\": true,\n  \"currency\": \"IRR\",\n  \"coupons\": [\n    \"123456789\"\n  ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8080/api/v1/plan/buy",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"plan",
+								"buy"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "calculate_renewal_price",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"owner_id\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\",\n  \"plans\": {\n    \"1\": {\n      \"amount\": 100,\n      \"use_secondary_price\": true\n    }\n  },\n  \"currency\": \"IRR\",\n  \"coupons\": [\n    \"123456789\"\n  ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8080/api/v1/plan/renewal/price",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"plan",
+								"renewal",
+								"price"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "coupon",
+			"item": [
+				{
+					"name": "generate_coupon",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8080/api/v1/coupon/generate",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"coupon",
+								"generate"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get_coupon",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8080/api/v1/coupon?currency=USD&page=0&size=10&from_amount=1",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"coupon"
+							],
+							"query": [
+								{
+									"key": "currency",
+									"value": "USD"
+								},
+								{
+									"key": "code",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "10"
+								},
+								{
+									"key": "from_amount",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add_coupon",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"code\": \"11111113\",\n  \"percentage_based\": true,\n  \"amount\": 1000,\n  \"maximum_amount\": 90000,\n  \"currency\": \"IRR\",\n  \"expiration_date\": \"2021-11-18\",\n  \"allow_concurrent_coupons\": true,\n  \"allow_secondary_price\": true,\n  \"maximum_usage_limit\": 9999990,\n  \"maximum_usage_limit_per_user\": 9999999,\n  \"limit_to_plans\": [\n    3\n  ],\n  \"except_plans\": [\n    2\n  ],\n  \"target_users\": [\n    \"3fa85f64-5717-4562-b3fc-2c963f66afa6\"\n  ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8080/api/v1/coupon",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"coupon"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "edit_coupon",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"percentage_based\": true,\n  \"amount\": 1009,\n  \"maximum_amount\": 90009,\n  \"currency\": \"IRR\",\n  \"expiration_date\": \"2020-11-18\",\n  \"allow_concurrent_coupons\": true,\n  \"allow_secondary_price\": true,\n  \"maximum_usage_limit\": 9999990,\n  \"maximum_usage_limit_per_user\": 9999999,\n  \"limit_to_plans\": [\n    1\n  ],\n  \"except_plans\": [\n    2\n  ],\n  \"target_users\": [\n    \"3fa85f64-5717-4562-b3fc-2c963f66afa6\"\n  ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8080/api/v1/coupon/123456789",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"coupon",
+								"123456789"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

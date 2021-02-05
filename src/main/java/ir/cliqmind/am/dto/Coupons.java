@@ -7,19 +7,19 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import org.springframework.validation.annotation.Validated;
 
 /**
- * GetPlanActivationHistoryResponse
+ * Coupons
  */
 @Validated
 @javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-01-22T08:12:05.647Z[GMT]")
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class GetPlanActivationHistoryResponse extends ArrayList<PlanActivationItem>  {
+public class Coupons extends ArrayList<Coupon>  {
 
-  public GetPlanActivationHistoryResponse(){
+  public Coupons(){
 
   }
 
-  public GetPlanActivationHistoryResponse(int size){
+  public Coupons(int size){
     super(size);
   }
 
@@ -42,7 +42,7 @@ public class GetPlanActivationHistoryResponse extends ArrayList<PlanActivationIt
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class GetPlanActivationHistoryResponse {\n");
+    sb.append("class Coupons {\n");
     sb.append("    ").append(toIndentedString(super.toString())).append("\n");
     sb.append("}");
     return sb.toString();

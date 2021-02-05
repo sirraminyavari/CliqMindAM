@@ -1,25 +1,25 @@
 package ir.cliqmind.am.dto;
 
-import java.util.*;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
-import io.swagger.annotations.ApiModelProperty;
 import org.springframework.validation.annotation.Validated;
+
 import javax.validation.Valid;
-import javax.validation.constraints.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+import java.util.UUID;
 
 /**
- * UpsertCouponRequest
+ * AddCouponRequest
  */
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2020-11-17T18:53:52.082Z")
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-01-22T08:12:05.647Z[GMT]")
 
 
-
-
-public class UpsertCouponRequest   {
-  @JsonProperty("code")
-  private String code = null;
+public class EditCouponRequest {
 
   @JsonProperty("percentage_based")
   private Boolean percentageBased = null;
@@ -34,7 +34,7 @@ public class UpsertCouponRequest   {
   private String currency = null;
 
   @JsonProperty("expiration_date")
-  private Date expirationDate = null;
+  private LocalDate expirationDate = null;
 
   @JsonProperty("allow_concurrent_coupons")
   private Boolean allowConcurrentCoupons = null;
@@ -60,28 +60,8 @@ public class UpsertCouponRequest   {
   @Valid
   private List<UUID> targetUsers = null;
 
-  public UpsertCouponRequest code(String code) {
-    this.code = code;
-    return this;
-  }
 
-  /**
-   * Get code
-   * @return code
-  **/
-  @ApiModelProperty(required = true, value = "")
-  @NotNull
-
-
-  public String getCode() {
-    return code;
-  }
-
-  public void setCode(String code) {
-    this.code = code;
-  }
-
-  public UpsertCouponRequest percentageBased(Boolean percentageBased) {
+  public EditCouponRequest percentageBased(Boolean percentageBased) {
     this.percentageBased = percentageBased;
     return this;
   }
@@ -89,12 +69,10 @@ public class UpsertCouponRequest   {
   /**
    * Get percentageBased
    * @return percentageBased
-  **/
-  @ApiModelProperty(required = true, value = "")
-  @NotNull
+   **/
+      @NotNull
 
-
-  public Boolean isPercentageBased() {
+    public Boolean isPercentageBased() {
     return percentageBased;
   }
 
@@ -102,7 +80,7 @@ public class UpsertCouponRequest   {
     this.percentageBased = percentageBased;
   }
 
-  public UpsertCouponRequest amount(Double amount) {
+  public EditCouponRequest amount(Double amount) {
     this.amount = amount;
     return this;
   }
@@ -110,12 +88,10 @@ public class UpsertCouponRequest   {
   /**
    * Get amount
    * @return amount
-  **/
-  @ApiModelProperty(required = true, value = "")
-  @NotNull
+   **/
+      @NotNull
 
-
-  public Double getAmount() {
+    public Double getAmount() {
     return amount;
   }
 
@@ -123,7 +99,7 @@ public class UpsertCouponRequest   {
     this.amount = amount;
   }
 
-  public UpsertCouponRequest maximumAmount(Double maximumAmount) {
+  public EditCouponRequest maximumAmount(Double maximumAmount) {
     this.maximumAmount = maximumAmount;
     return this;
   }
@@ -131,11 +107,9 @@ public class UpsertCouponRequest   {
   /**
    * Get maximumAmount
    * @return maximumAmount
-  **/
-  @ApiModelProperty(value = "")
-
-
-  public Double getMaximumAmount() {
+   **/
+  
+    public Double getMaximumAmount() {
     return maximumAmount;
   }
 
@@ -143,7 +117,7 @@ public class UpsertCouponRequest   {
     this.maximumAmount = maximumAmount;
   }
 
-  public UpsertCouponRequest currency(String currency) {
+  public EditCouponRequest currency(String currency) {
     this.currency = currency;
     return this;
   }
@@ -151,12 +125,10 @@ public class UpsertCouponRequest   {
   /**
    * Get currency
    * @return currency
-  **/
-  @ApiModelProperty(required = true, value = "")
-  @NotNull
+   **/
+      @NotNull
 
-@Pattern(regexp="[A-Z][A-Z][A-Z]") 
-  public String getCurrency() {
+  @Pattern(regexp="[A-Z][A-Z][A-Z]")   public String getCurrency() {
     return currency;
   }
 
@@ -164,7 +136,7 @@ public class UpsertCouponRequest   {
     this.currency = currency;
   }
 
-  public UpsertCouponRequest expirationDate(Date expirationDate) {
+  public EditCouponRequest expirationDate(LocalDate expirationDate) {
     this.expirationDate = expirationDate;
     return this;
   }
@@ -172,20 +144,18 @@ public class UpsertCouponRequest   {
   /**
    * Get expirationDate
    * @return expirationDate
-  **/
-  @ApiModelProperty(value = "")
-
-  @Valid
-
-  public Date getExpirationDate() {
+   **/
+  
+    @Valid
+    public LocalDate getExpirationDate() {
     return expirationDate;
   }
 
-  public void setExpirationDate(Date expirationDate) {
+  public void setExpirationDate(LocalDate expirationDate) {
     this.expirationDate = expirationDate;
   }
 
-  public UpsertCouponRequest allowConcurrentCoupons(Boolean allowConcurrentCoupons) {
+  public EditCouponRequest allowConcurrentCoupons(Boolean allowConcurrentCoupons) {
     this.allowConcurrentCoupons = allowConcurrentCoupons;
     return this;
   }
@@ -193,11 +163,10 @@ public class UpsertCouponRequest   {
   /**
    * Get allowConcurrentCoupons
    * @return allowConcurrentCoupons
-  **/
-  @ApiModelProperty(value = "")
-
-
-  public Boolean isAllowConcurrentCoupons() {
+   **/
+  
+  
+    public Boolean isAllowConcurrentCoupons() {
     return allowConcurrentCoupons;
   }
 
@@ -205,7 +174,7 @@ public class UpsertCouponRequest   {
     this.allowConcurrentCoupons = allowConcurrentCoupons;
   }
 
-  public UpsertCouponRequest allowSecondaryPrice(Boolean allowSecondaryPrice) {
+  public EditCouponRequest allowSecondaryPrice(Boolean allowSecondaryPrice) {
     this.allowSecondaryPrice = allowSecondaryPrice;
     return this;
   }
@@ -213,11 +182,10 @@ public class UpsertCouponRequest   {
   /**
    * Get allowSecondaryPrice
    * @return allowSecondaryPrice
-  **/
-  @ApiModelProperty(value = "")
-
-
-  public Boolean isAllowSecondaryPrice() {
+   **/
+  
+  
+    public Boolean isAllowSecondaryPrice() {
     return allowSecondaryPrice;
   }
 
@@ -225,7 +193,7 @@ public class UpsertCouponRequest   {
     this.allowSecondaryPrice = allowSecondaryPrice;
   }
 
-  public UpsertCouponRequest maximumUsageLimit(Integer maximumUsageLimit) {
+  public EditCouponRequest maximumUsageLimit(Integer maximumUsageLimit) {
     this.maximumUsageLimit = maximumUsageLimit;
     return this;
   }
@@ -233,11 +201,10 @@ public class UpsertCouponRequest   {
   /**
    * Get maximumUsageLimit
    * @return maximumUsageLimit
-  **/
-  @ApiModelProperty(value = "")
-
-
-  public Integer getMaximumUsageLimit() {
+   **/
+  
+  
+    public Integer getMaximumUsageLimit() {
     return maximumUsageLimit;
   }
 
@@ -245,7 +212,7 @@ public class UpsertCouponRequest   {
     this.maximumUsageLimit = maximumUsageLimit;
   }
 
-  public UpsertCouponRequest maximumUsageLimitPerUser(Integer maximumUsageLimitPerUser) {
+  public EditCouponRequest maximumUsageLimitPerUser(Integer maximumUsageLimitPerUser) {
     this.maximumUsageLimitPerUser = maximumUsageLimitPerUser;
     return this;
   }
@@ -253,11 +220,10 @@ public class UpsertCouponRequest   {
   /**
    * Get maximumUsageLimitPerUser
    * @return maximumUsageLimitPerUser
-  **/
-  @ApiModelProperty(value = "")
-
-
-  public Integer getMaximumUsageLimitPerUser() {
+   **/
+  
+  
+    public Integer getMaximumUsageLimitPerUser() {
     return maximumUsageLimitPerUser;
   }
 
@@ -265,12 +231,12 @@ public class UpsertCouponRequest   {
     this.maximumUsageLimitPerUser = maximumUsageLimitPerUser;
   }
 
-  public UpsertCouponRequest limitToPlans(List<Integer> limitToPlans) {
+  public EditCouponRequest limitToPlans(List<Integer> limitToPlans) {
     this.limitToPlans = limitToPlans;
     return this;
   }
 
-  public UpsertCouponRequest addLimitToPlansItem(Integer limitToPlansItem) {
+  public EditCouponRequest addLimitToPlansItem(Integer limitToPlansItem) {
     if (this.limitToPlans == null) {
       this.limitToPlans = new ArrayList<Integer>();
     }
@@ -281,11 +247,10 @@ public class UpsertCouponRequest   {
   /**
    * Get limitToPlans
    * @return limitToPlans
-  **/
-  @ApiModelProperty(value = "")
-
-
-  public List<Integer> getLimitToPlans() {
+   **/
+  
+  
+    public List<Integer> getLimitToPlans() {
     return limitToPlans;
   }
 
@@ -293,12 +258,12 @@ public class UpsertCouponRequest   {
     this.limitToPlans = limitToPlans;
   }
 
-  public UpsertCouponRequest exceptPlans(List<Integer> exceptPlans) {
+  public EditCouponRequest exceptPlans(List<Integer> exceptPlans) {
     this.exceptPlans = exceptPlans;
     return this;
   }
 
-  public UpsertCouponRequest addExceptPlansItem(Integer exceptPlansItem) {
+  public EditCouponRequest addExceptPlansItem(Integer exceptPlansItem) {
     if (this.exceptPlans == null) {
       this.exceptPlans = new ArrayList<Integer>();
     }
@@ -309,11 +274,10 @@ public class UpsertCouponRequest   {
   /**
    * Get exceptPlans
    * @return exceptPlans
-  **/
-  @ApiModelProperty(value = "")
-
-
-  public List<Integer> getExceptPlans() {
+   **/
+  
+  
+    public List<Integer> getExceptPlans() {
     return exceptPlans;
   }
 
@@ -321,12 +285,12 @@ public class UpsertCouponRequest   {
     this.exceptPlans = exceptPlans;
   }
 
-  public UpsertCouponRequest targetUsers(List<UUID> targetUsers) {
+  public EditCouponRequest targetUsers(List<UUID> targetUsers) {
     this.targetUsers = targetUsers;
     return this;
   }
 
-  public UpsertCouponRequest addTargetUsersItem(UUID targetUsersItem) {
+  public EditCouponRequest addTargetUsersItem(UUID targetUsersItem) {
     if (this.targetUsers == null) {
       this.targetUsers = new ArrayList<UUID>();
     }
@@ -337,12 +301,10 @@ public class UpsertCouponRequest   {
   /**
    * Get targetUsers
    * @return targetUsers
-  **/
-  @ApiModelProperty(value = "")
-
-  @Valid
-
-  public List<UUID> getTargetUsers() {
+   **/
+  
+      @Valid
+    public List<UUID> getTargetUsers() {
     return targetUsers;
   }
 
@@ -352,40 +314,39 @@ public class UpsertCouponRequest   {
 
 
   @Override
-  public boolean equals(java.lang.Object o) {
+  public boolean equals(Object o) {
     if (this == o) {
       return true;
     }
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    UpsertCouponRequest upsertCouponRequest = (UpsertCouponRequest) o;
-    return Objects.equals(this.code, upsertCouponRequest.code) &&
-        Objects.equals(this.percentageBased, upsertCouponRequest.percentageBased) &&
-        Objects.equals(this.amount, upsertCouponRequest.amount) &&
-        Objects.equals(this.maximumAmount, upsertCouponRequest.maximumAmount) &&
-        Objects.equals(this.currency, upsertCouponRequest.currency) &&
-        Objects.equals(this.expirationDate, upsertCouponRequest.expirationDate) &&
-        Objects.equals(this.allowConcurrentCoupons, upsertCouponRequest.allowConcurrentCoupons) &&
-        Objects.equals(this.allowSecondaryPrice, upsertCouponRequest.allowSecondaryPrice) &&
-        Objects.equals(this.maximumUsageLimit, upsertCouponRequest.maximumUsageLimit) &&
-        Objects.equals(this.maximumUsageLimitPerUser, upsertCouponRequest.maximumUsageLimitPerUser) &&
-        Objects.equals(this.limitToPlans, upsertCouponRequest.limitToPlans) &&
-        Objects.equals(this.exceptPlans, upsertCouponRequest.exceptPlans) &&
-        Objects.equals(this.targetUsers, upsertCouponRequest.targetUsers);
+    EditCouponRequest addCouponRequest = (EditCouponRequest) o;
+    return
+        Objects.equals(this.percentageBased, addCouponRequest.percentageBased) &&
+        Objects.equals(this.amount, addCouponRequest.amount) &&
+        Objects.equals(this.maximumAmount, addCouponRequest.maximumAmount) &&
+        Objects.equals(this.currency, addCouponRequest.currency) &&
+        Objects.equals(this.expirationDate, addCouponRequest.expirationDate) &&
+        Objects.equals(this.allowConcurrentCoupons, addCouponRequest.allowConcurrentCoupons) &&
+        Objects.equals(this.allowSecondaryPrice, addCouponRequest.allowSecondaryPrice) &&
+        Objects.equals(this.maximumUsageLimit, addCouponRequest.maximumUsageLimit) &&
+        Objects.equals(this.maximumUsageLimitPerUser, addCouponRequest.maximumUsageLimitPerUser) &&
+        Objects.equals(this.limitToPlans, addCouponRequest.limitToPlans) &&
+        Objects.equals(this.exceptPlans, addCouponRequest.exceptPlans) &&
+        Objects.equals(this.targetUsers, addCouponRequest.targetUsers);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(code, percentageBased, amount, maximumAmount, currency, expirationDate, allowConcurrentCoupons, allowSecondaryPrice, maximumUsageLimit, maximumUsageLimitPerUser, limitToPlans, exceptPlans, targetUsers);
+    return Objects.hash(percentageBased, amount, maximumAmount, currency, expirationDate, allowConcurrentCoupons, allowSecondaryPrice, maximumUsageLimit, maximumUsageLimitPerUser, limitToPlans, exceptPlans, targetUsers);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class UpsertCouponRequest {\n");
+    sb.append("class AddCouponRequest {\n");
     
-    sb.append("    code: ").append(toIndentedString(code)).append("\n");
     sb.append("    percentageBased: ").append(toIndentedString(percentageBased)).append("\n");
     sb.append("    amount: ").append(toIndentedString(amount)).append("\n");
     sb.append("    maximumAmount: ").append(toIndentedString(maximumAmount)).append("\n");
@@ -406,11 +367,10 @@ public class UpsertCouponRequest   {
    * Convert the given object to string with each line indented by 4 spaces
    * (except the first line).
    */
-  private String toIndentedString(java.lang.Object o) {
+  private String toIndentedString(Object o) {
     if (o == null) {
       return "null";
     }
     return o.toString().replace("\n", "\n    ");
   }
 }
-

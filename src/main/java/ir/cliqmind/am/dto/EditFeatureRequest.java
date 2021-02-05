@@ -2,50 +2,22 @@ package ir.cliqmind.am.dto;
 
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import io.swagger.annotations.ApiModelProperty;
 import org.springframework.validation.annotation.Validated;
-
 import javax.validation.constraints.*;
 
 /**
  * EditFeatureRequest
  */
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2020-11-17T18:53:52.082Z")
-
-
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-01-22T08:12:05.647Z[GMT]")
 
 
 public class EditFeatureRequest   {
-  @JsonProperty("id")
-  private Integer id = null;
-
   @JsonProperty("name")
   private String name = null;
 
   @JsonProperty("description")
   private String description = null;
-
-  public EditFeatureRequest id(Integer id) {
-    this.id = id;
-    return this;
-  }
-
-  /**
-   * Get id
-   * @return id
-  **/
-  @ApiModelProperty(required = true, value = "")
-  @NotNull
-
-
-  public Integer getId() {
-    return id;
-  }
-
-  public void setId(Integer id) {
-    this.id = id;
-  }
 
   public EditFeatureRequest name(String name) {
     this.name = name;
@@ -55,12 +27,10 @@ public class EditFeatureRequest   {
   /**
    * Get name
    * @return name
-  **/
-  @ApiModelProperty(required = true, value = "")
-  @NotNull
+   **/
+      @NotNull
 
-
-  public String getName() {
+    public String getName() {
     return name;
   }
 
@@ -76,11 +46,10 @@ public class EditFeatureRequest   {
   /**
    * Get description
    * @return description
-  **/
-  @ApiModelProperty(value = "")
-
-
-  public String getDescription() {
+   **/
+  
+  
+    public String getDescription() {
     return description;
   }
 
@@ -90,7 +59,7 @@ public class EditFeatureRequest   {
 
 
   @Override
-  public boolean equals(java.lang.Object o) {
+  public boolean equals(Object o) {
     if (this == o) {
       return true;
     }
@@ -98,14 +67,13 @@ public class EditFeatureRequest   {
       return false;
     }
     EditFeatureRequest editFeatureRequest = (EditFeatureRequest) o;
-    return Objects.equals(this.id, editFeatureRequest.id) &&
-        Objects.equals(this.name, editFeatureRequest.name) &&
+    return Objects.equals(this.name, editFeatureRequest.name) &&
         Objects.equals(this.description, editFeatureRequest.description);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, name, description);
+    return Objects.hash(name, description);
   }
 
   @Override
@@ -113,7 +81,6 @@ public class EditFeatureRequest   {
     StringBuilder sb = new StringBuilder();
     sb.append("class EditFeatureRequest {\n");
     
-    sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    description: ").append(toIndentedString(description)).append("\n");
     sb.append("}");
@@ -124,11 +91,10 @@ public class EditFeatureRequest   {
    * Convert the given object to string with each line indented by 4 spaces
    * (except the first line).
    */
-  private String toIndentedString(java.lang.Object o) {
+  private String toIndentedString(Object o) {
     if (o == null) {
       return "null";
     }
     return o.toString().replace("\n", "\n    ");
   }
 }
-

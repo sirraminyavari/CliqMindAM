@@ -1,14 +1,11 @@
 package ir.cliqmind.am.dao;
 
-import ir.cliqmind.am.domain.Coupon;
-import ir.cliqmind.am.domain.Plan;
 import ir.cliqmind.am.domain.PlanCoupon;
 import ir.cliqmind.am.domain.PlanCouponId;
-import org.hibernate.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -25,13 +22,14 @@ public class CouponRepoImpl implements CouponRepoCustom {
     @PersistenceContext
     private EntityManager em;
 
+    private final static String PAGEABLE_GET_COUPON_ID_SQL = "SELECT c.code, p.plan_id, p.deny FROM coupons AS c LEFT OUTER JOIN coupon_target_users AS u ON u.code=c.code LEFT OUTER JOIN coupon_target_plans AS p ON p.code=c.code WHERE %s OFFSET %s LIMIT %s";
     private final static String GET_COUPON_ID_SQL = "SELECT c.code, p.plan_id, p.deny FROM coupons AS c LEFT OUTER JOIN coupon_target_users AS u ON u.code=c.code LEFT OUTER JOIN coupon_target_plans AS p ON p.code=c.code WHERE %s";
 
     @Override
-    public Map<String, List<PlanCoupon>> getIds(ir.cliqmind.am.dto.GetCouponsRequest request){
+    public Map<String, List<PlanCoupon>> getIds(ir.cliqmind.am.dto.GetCouponsRequest request, Pageable pageable){
 
         List<String> where = new ArrayList<>();
-
+        where.add("1=1");
         Optional.ofNullable(request.getCode()).ifPresent(p -> where.add(String.format("c.code='%s'", p)));
         Optional.ofNullable(request.getCurrency()).ifPresent(p -> where.add(String.format("c.currency='%s'", p)));
         Optional.ofNullable(request.isPercentageBased()).ifPresent(p -> where.add(String.format("c.percentage_based=%s", p)));
@@ -48,8 +46,15 @@ public class CouponRepoImpl implements CouponRepoCustom {
             where.add(where2.stream().collect(Collectors.joining(" OR ")));
         }
 
-        String sql = String.format(GET_COUPON_ID_SQL,
-                where.stream().collect(Collectors.joining(" AND ")));
+        String sql;
+        if(pageable.isPaged()) {
+            sql = String.format(PAGEABLE_GET_COUPON_ID_SQL,
+                    where.stream().collect(Collectors.joining(" AND ")), pageable.getOffset(), pageable.getPageSize());
+        }
+        else{
+            sql = String.format(GET_COUPON_ID_SQL,
+                    where.stream().collect(Collectors.joining(" AND ")));
+        }
 
         Query q = em.createNativeQuery(sql);
         Map<String, List<PlanCoupon>> resultList = new HashMap<>();
@@ -108,46 +113,6 @@ public class CouponRepoImpl implements CouponRepoCustom {
         });
         log.debug("getIds , size = {}", resultList.size());
         return resultList;
-    }
-
-    @Transactional
-    @Override
-    public void add(Coupon coupon) {
-        log.debug("addCoupon id = {}", coupon.getCode());
-        upsert(coupon, false);
-    }
-
-    @Transactional
-    @Override
-    public void edit(Coupon coupon) {
-        log.debug("editCoupon id = {}", coupon.getCode());
-        upsert(coupon, true);
-    }
-
-    private void upsert(Coupon coupon, boolean update){
-        Session session = em.unwrap(Session.class);
-
-        Coupon currentCoupon = em.getReference(Coupon.class, coupon.getCode());
-
-        em.createQuery("DELETE FROM PlanCoupon pc WHERE pc.coupon=:coupon")
-                .setParameter("coupon", coupon)
-                .executeUpdate();
-
-        if(update) {
-            session.update(coupon);
-        }
-        else{
-            session.save(coupon);
-        }
-
-        if(coupon.getPlans()!=null){
-            coupon.getPlans().forEach(pc -> {
-                pc.setCoupon(currentCoupon);
-                pc.setPlan(em.getReference(Plan.class, pc.getId().getPlanId()));
-                session.saveOrUpdate(pc);
-            });
-        }
-
     }
 
 }

@@ -3,6 +3,7 @@ package ir.cliqmind.am.domain;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import java.io.Serializable;
+import java.util.Objects;
 
 @Embeddable
 public class PlanCouponId implements Serializable {
@@ -28,6 +29,11 @@ public class PlanCouponId implements Serializable {
         this.planId = planId;
     }
 
+    public PlanCouponId planId(Integer planId) {
+        this.planId = planId;
+        return this;
+    }
+
     public String getCouponCode() {
         return couponCode;
     }
@@ -36,11 +42,30 @@ public class PlanCouponId implements Serializable {
         this.couponCode = couponCode;
     }
 
+    public PlanCouponId couponCode(String couponCode) {
+        this.couponCode = couponCode;
+        return this;
+    }
+
     @Override
     public String toString() {
         return "PlanCouponId{" +
                 "planId=" + planId +
                 ", couponCode='" + couponCode + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        PlanCouponId that = (PlanCouponId) o;
+        return planId.equals(that.planId) &&
+                couponCode.equals(that.couponCode);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(planId, couponCode);
     }
 }

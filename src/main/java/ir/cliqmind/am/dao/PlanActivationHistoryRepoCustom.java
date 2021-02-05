@@ -5,11 +5,12 @@ import ir.cliqmind.am.domain.PlanActivationHistory;
 import ir.cliqmind.am.domain.Transaction;
 import ir.cliqmind.am.dto.UpradePlanRequest;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public interface PlanActivationHistoryRepoCustom {
 
-    Transaction performBuyTransaction(ir.cliqmind.am.dto.BuyPlanRequest buyPlanRequest, Plan plan, java.sql.Date expirationDate);
+    Transaction performBuyTransaction(ir.cliqmind.am.dto.BuyPlanRequest buyPlanRequest, Plan plan, LocalDate expirationDate);
 
     Transaction performRenewTransaction(ir.cliqmind.am.dto.RenewPlansRequest body, List<Plan> plans, List<PlanActivationHistory> activatedPlans);
 

@@ -4,6 +4,8 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.time.Instant;
+import java.time.LocalDate;
 import java.util.UUID;
 
 @Entity(name = "PlanActivationHistory")
@@ -32,13 +34,13 @@ public class PlanActivationHistory implements Serializable {
     private Integer amount;
 
     @Column(name = "time", nullable = false)
-    private Timestamp time;
+    private Instant time;
 
     @Column(name = "start_date", nullable = false)
-    private Date startDate;
+    private LocalDate startDate;
 
     @Column(name = "expiration_date", nullable = false)
-    private Date expirationDate;
+    private LocalDate expirationDate;
 
     @Column(name = "activated_by_user_id", nullable = false)
     private UUID activatedBy;
@@ -94,27 +96,27 @@ public class PlanActivationHistory implements Serializable {
         this.amount = amount;
     }
 
-    public Timestamp getTime() {
+    public Instant getTime() {
         return time;
     }
 
-    public void setTime(Timestamp time) {
+    public void setTime(Instant time) {
         this.time = time;
     }
 
-    public Date getStartDate() {
+    public LocalDate getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(Date startDate) {
+    public void setStartDate(LocalDate startDate) {
         this.startDate = startDate;
     }
 
-    public Date getExpirationDate() {
+    public LocalDate getExpirationDate() {
         return expirationDate;
     }
 
-    public void setExpirationDate(Date expirationDate) {
+    public void setExpirationDate(LocalDate expirationDate) {
         this.expirationDate = expirationDate;
     }
 

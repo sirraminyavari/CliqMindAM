@@ -2,8 +2,7 @@ package ir.cliqmind.am.domain;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.sql.Date;
-import java.util.Objects;
+import java.time.LocalDate;
 
 @Entity(name = "PlanPrice")
 @Table(name = "plan_price")
@@ -19,10 +18,10 @@ public class PlanPrice implements Serializable {
     private Double secondaryPrice;
 
     @Column(name = "secondary_price_first_date")
-    private Date secondaryPriceFirstDate;
+    private LocalDate secondaryPriceFirstDate;
 
     @Column(name = "secondary_price_expiration_date")
-    private Date secondaryPriceExpirationDate;
+    private LocalDate secondaryPriceExpirationDate;
 
     @ManyToOne
     @MapsId("planId")
@@ -54,19 +53,19 @@ public class PlanPrice implements Serializable {
         this.secondaryPrice = secondaryPrice;
     }
 
-    public Date getSecondaryPriceFirstDate() {
+    public LocalDate getSecondaryPriceFirstDate() {
         return secondaryPriceFirstDate;
     }
 
-    public void setSecondaryPriceFirstDate(Date secondaryPriceFirstDate) {
+    public void setSecondaryPriceFirstDate(LocalDate secondaryPriceFirstDate) {
         this.secondaryPriceFirstDate = secondaryPriceFirstDate;
     }
 
-    public Date getSecondaryPriceExpirationDate() {
+    public LocalDate getSecondaryPriceExpirationDate() {
         return secondaryPriceExpirationDate;
     }
 
-    public void setSecondaryPriceExpirationDate(Date secondaryPriceExpirationDate) {
+    public void setSecondaryPriceExpirationDate(LocalDate secondaryPriceExpirationDate) {
         this.secondaryPriceExpirationDate = secondaryPriceExpirationDate;
     }
 

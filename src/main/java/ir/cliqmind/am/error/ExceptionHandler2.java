@@ -2,7 +2,6 @@ package ir.cliqmind.am.error;
 
 import ir.cliqmind.am.dto.ResponseMessage;
 import ir.cliqmind.am.mapper.ResponseMessageBuilder;
-import ir.cliqmind.am.service.TransactionServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

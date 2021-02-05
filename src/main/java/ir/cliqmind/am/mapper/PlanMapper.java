@@ -1,18 +1,13 @@
 package ir.cliqmind.am.mapper;
 
 import ir.cliqmind.am.domain.PlanActivationHistory;
-import ir.cliqmind.am.dto.CalculatePlanUpgradePriceResponse;
-import ir.cliqmind.am.utils.DateUtil;
 
-import java.time.Clock;
-import java.time.OffsetDateTime;
-import java.util.ArrayList;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class PlanBuilder {
+public class PlanMapper {
 
 
     public ir.cliqmind.am.domain.Plan add(ir.cliqmind.am.dto.AddPlanRequest body) {
@@ -99,8 +94,8 @@ public class PlanBuilder {
         ir.cliqmind.am.dto.PlanPriceItemSecondaryPrice planPriceItemSecondaryPrice = entity.getSecondaryPrice();
         if(planPriceItemSecondaryPrice!=null) {
             result.setSecondaryPrice(planPriceItemSecondaryPrice.getPrice());
-            result.setSecondaryPriceExpirationDate(DateUtil.convertDate(planPriceItemSecondaryPrice.getExpirationDate()));
-            result.setSecondaryPriceFirstDate(DateUtil.convertDate(planPriceItemSecondaryPrice.getFirstDate()));
+            result.setSecondaryPriceExpirationDate(planPriceItemSecondaryPrice.getExpirationDate());
+            result.setSecondaryPriceFirstDate(planPriceItemSecondaryPrice.getFirstDate());
         }
         return result;
     }
@@ -119,50 +114,38 @@ public class PlanBuilder {
         return entities.stream().map(pp -> planPrice(pp, planId)).collect(Collectors.toList());
     }
 
-    public ir.cliqmind.am.dto.GetPlansResponse plan(Iterable<ir.cliqmind.am.domain.Plan> input){
-        ir.cliqmind.am.dto.GetPlansResponse result = new ir.cliqmind.am.dto.GetPlansResponse()
-                .plans(new ArrayList<>())
-                .totalCount(0);
+    public ir.cliqmind.am.dto.Plans plan(Iterable<ir.cliqmind.am.domain.Plan> input){
+        ir.cliqmind.am.dto.Plans result = new ir.cliqmind.am.dto.Plans();
         if(input==null){
             return result;
         }
         Iterator<ir.cliqmind.am.domain.Plan> it = input.iterator();
         while (it.hasNext()){
-            result.addPlansItem(plan(it.next()));
+            result.add(plan(it.next()));
         }
-        result.totalCount(result.getPlans()==null ? 0 : result.getPlans().size());
         return result;
     }
 
-    public ir.cliqmind.am.dto.CalculatePlanPriceResponse calculatePrice(Double price) {
-        return new ir.cliqmind.am.dto.CalculatePlanPriceResponse()
-                .price(price);
-    }
-
-    public ir.cliqmind.am.dto.CalculatePlanRenewalPriceResponse calculatePlanRenewalPriceResponse(Double price) {
-        return new ir.cliqmind.am.dto.CalculatePlanRenewalPriceResponse()
+    public ir.cliqmind.am.dto.Price calculatePrice(Double price) {
+        return new ir.cliqmind.am.dto.Price()
                 .price(price);
     }
 
     public ir.cliqmind.am.dto.PlanActivationItem planActivationHistory(PlanActivationHistory pah) {
-        Date now = DateUtil.today();
+        LocalDate now = LocalDate.now();
         return new ir.cliqmind.am.dto.PlanActivationItem()
                 .activatedByUserId(pah.getActivatedBy())
                 .amount(pah.getAmount())
                 .expirationDate(pah.getExpirationDate())
                 .id(pah.getId())
                 .isActive(pah.getActivatedBy()!=null)
-                .isExpired(pah.getExpirationDate().before(now))
+                .isExpired(pah.getExpirationDate().compareTo(now) < 0)
                 .plan(plan(pah.getPlan()))
                 .ownerId(pah.getOwnerId())
                 .startDate(pah.getStartDate())
-                .time(OffsetDateTime.ofInstant(pah.getTime().toInstant(), Clock.systemDefaultZone().getZone()))
+                .time(pah.getTime())
                 .transaction(pah.getTransactionId()==null ? null : new ir.cliqmind.am.dto.Transaction().id(pah.getTransactionId()))
                 .upgradedFromPlan(pah.getUpgradedFromPlanId()==null ? null : new ir.cliqmind.am.dto.Plan().id(pah.getUpgradedFromPlanId()));
     }
 
-    public CalculatePlanUpgradePriceResponse calculatePlanUpgradePriceResponse(Double price) {
-        return new CalculatePlanUpgradePriceResponse()
-                .price(price);
-    }
 }

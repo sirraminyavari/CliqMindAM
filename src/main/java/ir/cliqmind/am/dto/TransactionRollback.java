@@ -1,11 +1,10 @@
 package ir.cliqmind.am.dto;
 
-import java.util.Date;
+import java.time.Instant;
 import java.util.Objects;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.UUID;
 import org.springframework.validation.annotation.Validated;
 import javax.validation.Valid;
@@ -14,14 +13,12 @@ import javax.validation.Valid;
  * TransactionRollback
  */
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2020-11-17T18:53:52.082Z")
-
-
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-01-22T08:12:05.647Z[GMT]")
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class TransactionRollback   {
   @JsonProperty("time")
-  private Date time = null;
+  private Instant time = null;
 
   @JsonProperty("description")
   private String description = null;
@@ -29,7 +26,7 @@ public class TransactionRollback   {
   @JsonProperty("done_by_user_id")
   private UUID doneByUserId = null;
 
-  public TransactionRollback time(Date time) {
+  public TransactionRollback time(Instant time) {
     this.time = time;
     return this;
   }
@@ -37,16 +34,15 @@ public class TransactionRollback   {
   /**
    * Get time
    * @return time
-  **/
-  @ApiModelProperty(value = "")
-
-  @Valid
-
-  public Date getTime() {
+   **/
+  
+  
+    @Valid
+    public Instant getTime() {
     return time;
   }
 
-  public void setTime(Date time) {
+  public void setTime(Instant time) {
     this.time = time;
   }
 
@@ -58,11 +54,10 @@ public class TransactionRollback   {
   /**
    * Get description
    * @return description
-  **/
-  @ApiModelProperty(value = "")
-
-
-  public String getDescription() {
+   **/
+  
+  
+    public String getDescription() {
     return description;
   }
 
@@ -78,12 +73,11 @@ public class TransactionRollback   {
   /**
    * Get doneByUserId
    * @return doneByUserId
-  **/
-  @ApiModelProperty(value = "")
-
-  @Valid
-
-  public UUID getDoneByUserId() {
+   **/
+  
+  
+    @Valid
+    public UUID getDoneByUserId() {
     return doneByUserId;
   }
 
@@ -93,7 +87,7 @@ public class TransactionRollback   {
 
 
   @Override
-  public boolean equals(java.lang.Object o) {
+  public boolean equals(Object o) {
     if (this == o) {
       return true;
     }
@@ -127,11 +121,10 @@ public class TransactionRollback   {
    * Convert the given object to string with each line indented by 4 spaces
    * (except the first line).
    */
-  private String toIndentedString(java.lang.Object o) {
+  private String toIndentedString(Object o) {
     if (o == null) {
       return "null";
     }
     return o.toString().replace("\n", "\n    ");
   }
 }
-

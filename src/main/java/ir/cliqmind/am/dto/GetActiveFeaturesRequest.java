@@ -2,18 +2,17 @@ package ir.cliqmind.am.dto;
 
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.UUID;
 import org.springframework.validation.annotation.Validated;
 import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 /**
  * GetActiveFeaturesRequest
  */
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2020-11-17T18:53:52.082Z")
-
-
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-01-22T08:12:05.647Z[GMT]")
 
 
 public class GetActiveFeaturesRequest   {
@@ -28,12 +27,12 @@ public class GetActiveFeaturesRequest   {
   /**
    * Get ownerId
    * @return ownerId
-  **/
-  @ApiModelProperty(value = "")
-
-  @Valid
-
-  public UUID getOwnerId() {
+   **/
+  
+  
+    @Valid
+    @NotNull(message = "Ownerid should not be blank")
+    public UUID getOwnerId() {
     return ownerId;
   }
 
@@ -43,7 +42,7 @@ public class GetActiveFeaturesRequest   {
 
 
   @Override
-  public boolean equals(java.lang.Object o) {
+  public boolean equals(Object o) {
     if (this == o) {
       return true;
     }
@@ -73,11 +72,10 @@ public class GetActiveFeaturesRequest   {
    * Convert the given object to string with each line indented by 4 spaces
    * (except the first line).
    */
-  private String toIndentedString(java.lang.Object o) {
+  private String toIndentedString(Object o) {
     if (o == null) {
       return "null";
     }
     return o.toString().replace("\n", "\n    ");
   }
 }
-

@@ -2,17 +2,19 @@ package ir.cliqmind.am.service;
 
 import ir.cliqmind.am.dao.*;
 import ir.cliqmind.am.domain.*;
-import ir.cliqmind.am.dto.CalculatePlanPriceRequest;
-import ir.cliqmind.am.dto.CalculatePlanRenewalPriceRequest;
-import ir.cliqmind.am.dto.CalculatePlanUpgradeRequest;
+import ir.cliqmind.am.domain.Coupon;
+import ir.cliqmind.am.domain.Plan;
+import ir.cliqmind.am.dto.*;
 import ir.cliqmind.am.error.NokException;
 import ir.cliqmind.am.utils.DateUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
@@ -45,7 +47,7 @@ public class PlanServiceBusiness {
             Map<String, List<PlanCoupon>> mapped =
                     couponRepo.getIds(new ir.cliqmind.am.dto.GetCouponsRequest()
                             .exceptPlan(body.getPlanId())
-                            .limitedToPlan(body.getPlanId()));
+                            .limitedToPlan(body.getPlanId()), Pageable.unpaged());
             log.debug("calculatePlanPrice mappedCoupons = {}", mapped);
             if(mapped!=null && coupons!=null){
                 coupons.forEach(c -> {
@@ -63,7 +65,7 @@ public class PlanServiceBusiness {
         UUID ownerId = body.getOwnerId();
         int durationInMonths = plan.getDurationInMonths();
         AtomicReference<Integer> diffDay = new AtomicReference<>();
-        Date today = DateUtil.today();
+        LocalDate today = LocalDate.now();
         if(useSecondaryPrice && plan.getPlanPrice()!=null){
             AtomicReference<Boolean> checked = new AtomicReference<>(false);
             plan.getPlanPrice().forEach(pp -> {
@@ -120,7 +122,7 @@ public class PlanServiceBusiness {
                 if(featureIsIn(plan.getPlanFeatures(), ap.getPlan().getPlanFeatures())){
                     throw new NokException(String.format("a feature is already activated in %s", ap.getPlan().getName()));
                 }
-                if(ap.getExpirationDate().after(today)){
+                if(ap.getExpirationDate().compareTo(today) > 0){
                     diffDay.set(Math.min(
                             DateUtil.diffDay(ap.getExpirationDate(), today),
                             Optional.ofNullable(diffDay.get()).orElse(Integer.MAX_VALUE)
@@ -195,7 +197,7 @@ public class PlanServiceBusiness {
             UUID ownerId = body.getOwnerId();
             int durationInMonths = plan.getDurationInMonths();
             AtomicReference<Integer> diffDay = new AtomicReference<>();
-            Date today = DateUtil.today();
+            LocalDate today = LocalDate.now();
             if(useSecondaryPrice && plan.getPlanPrice()!=null){
                 AtomicReference<Boolean> checked = new AtomicReference<>(false);
                 plan.getPlanPrice().forEach(pp -> {
@@ -252,7 +254,7 @@ public class PlanServiceBusiness {
                     if(featureIsIn(plan.getPlanFeatures(), ap.getPlan().getPlanFeatures())){
                         throw new NokException(String.format("a feature is already activated in %s", ap.getPlan().getName()));
                     }
-                    if(ap.getExpirationDate().after(today)){
+                    if(ap.getExpirationDate().compareTo(today) > 0){
                         diffDay.set(Math.min(
                                 DateUtil.diffDay(ap.getExpirationDate(), today),
                                 Optional.ofNullable(diffDay.get()).orElse(Integer.MAX_VALUE)
@@ -306,7 +308,7 @@ public class PlanServiceBusiness {
         if(body.getCoupons()!=null && body.getCoupons().size()>0) {
             coupons = couponRepo.findAllByIdAndCurrency(body.getCoupons(), body.getCurrency());
             Map<String, List<PlanCoupon>> mapped =
-                    couponRepo.getIds(new ir.cliqmind.am.dto.GetCouponsRequest());
+                    couponRepo.getIds(new ir.cliqmind.am.dto.GetCouponsRequest(), Pageable.unpaged());
             log.debug("calculateUpgradePrice mappedCoupons = {}", mapped);
             if(mapped!=null && coupons!=null){
                 coupons.forEach(c -> {
@@ -323,7 +325,7 @@ public class PlanServiceBusiness {
         String currency = body.getCurrency();
         UUID ownerId = body.getOwnerId();
         AtomicReference<Integer> diffDay = new AtomicReference<>();
-        Date today = DateUtil.today();
+        LocalDate today = LocalDate.now();
         if(body.getCoupons()!=null){
             AtomicInteger fetchedCouponsSize = new AtomicInteger();
             if(coupons!=null) {
@@ -394,8 +396,8 @@ public class PlanServiceBusiness {
     }
 
     private void validate(Coupon c, String currency, UUID ownerId) {
-        Date today = DateUtil.today();
-        if(today.after(c.getExpirationDate())) {
+        LocalDate today = LocalDate.now();
+        if(today.compareTo(c.getExpirationDate()) > 0) {
             throw new NokException(String.format("coupon is expired %s - code = %s", c.getExpirationDate(), c.getCode()));
         }
         if(!StringUtils.equals(c.getCurrency(), currency)){
